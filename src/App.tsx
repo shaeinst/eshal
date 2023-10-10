@@ -1,6 +1,11 @@
-import { StatusBar, useColorScheme, View } from 'react-native'
+import { StatusBar } from 'react-native'
+import {
+    NavigationContainer,
+    DefaultTheme,
+    Theme,
+} from '@react-navigation/native'
 
-import { COLORS } from '$exporter'
+import { useColors } from '$exporter'
 import {
     SplashScreen,
     AuthInitialScreen,
@@ -9,18 +14,23 @@ import {
 } from '$exporter/screen'
 import { useAppInit } from '$exporter/hooks'
 
-const { background } = COLORS
-
 function App() {
     //
     const { isAppLaunching, isSignedIn, isFreshApp } = useAppInit()
-    const barStyle =
-        useColorScheme() === 'dark' ? 'light-content' : 'dark-content'
+    const { COLORS, themeMode: theme } = useColors()
+
+    const navTheme: Theme = {
+        ...DefaultTheme,
+        colors: { ...DefaultTheme.colors, background: COLORS.background },
+    }
 
     if (isAppLaunching) return <SplashScreen />
     return (
-        <View style={{ flex: 1 }}>
-            <StatusBar backgroundColor={background} barStyle={barStyle} />
+        <NavigationContainer theme={navTheme}>
+            <StatusBar
+                backgroundColor={COLORS.background}
+                barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
+            />
 
             {isSignedIn ? (
                 <HomeInitialScreen />
@@ -29,7 +39,7 @@ function App() {
             ) : (
                 <AuthInitialScreen />
             )}
-        </View>
+        </NavigationContainer>
     )
 }
 export default App

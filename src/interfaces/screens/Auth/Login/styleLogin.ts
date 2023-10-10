@@ -1,14 +1,20 @@
 import { StyleSheet } from 'react-native'
 
-import { COLORS } from '$exporter'
+import { useColors } from '$exporter'
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // backgroundColor: COLORS.background,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-})
+export function useStyles() {
+    //
+    const { COLORS } = useColors()
 
-export default styles
+    return StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: COLORS.background,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        text: {
+            color: COLORS.text,
+        },
+    })
+}

@@ -1,8 +1,8 @@
-import { COLORS, WHITESPACE } from '$exporter'
+import {  WHITESPACE } from '$exporter'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 
-import styles from './stylePrimaryButton'
+import { styles } from './stylePrimaryButton'
 
 type PropsType = {
     text: string
@@ -17,8 +17,8 @@ function PrimaryButton({ text, onClick, icon, stateless }: PropsType) {
             style={[
                 styles.container,
                 {
-                    backgroundColor: stateless ? undefined : COLORS.background,
-                    borderColor: stateless ? undefined : COLORS.text,
+                    // backgroundColor: stateless ? undefined : useColors.background,
+                    // borderColor: stateless ? undefined : useColors.text,
                     borderWidth: stateless ? undefined : WHITESPACE.borderWidth,
                 },
             ]}

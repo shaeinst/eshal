@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native'
 
-import { COLORS, FONTS, WHITESPACE } from '$exporter'
+import { FONTS, WHITESPACE } from '$exporter'
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -11,9 +11,7 @@ const styles = StyleSheet.create({
     },
     icon: {},
     text: {
-        ...FONTS.Nunito['Bd-18'],
-        color: COLORS.text,
+        ...FONTS.Inter['Bd-18'],
+        // color: useColors.text,
     },
 })
-
-export default styles

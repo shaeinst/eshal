@@ -14,4 +14,4 @@ export { setInitState as setInitStateRedux } from '../utils/persist/redux/initSl
 // THEME
 export { default as WHITESPACE } from '../interfaces/styles/whitespace'
 export { default as FONTS } from '../interfaces/theme/fonts'
-export { default as COLORS } from '../interfaces/theme/colors'
+export { default as useColors } from '../interfaces/theme/colors'
