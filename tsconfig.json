@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+
+    "paths": {
+      "$exporter": ["./src/exporters/index"],
+      "$exporter/*": ["./src/exporters/*"]
+    }
+  }
+}
