@@ -1,33 +1,47 @@
-import {  WHITESPACE } from '$exporter'
+import { WHITESPACE } from '$exporter'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-import { styles } from './stylePrimaryButton'
+import { useStyles } from './stylePrimaryButton'
 
 type PropsType = {
-    text: string
+    title: string
     onClick: () => void
-    stateless?: boolean
+    headless?: boolean
     icon?: React.ReactNode
+    color?: string
+    size?: 'normal' | 'large'
 }
 
-function PrimaryButton({ text, onClick, icon, stateless }: PropsType) {
+function PrimaryButton({
+    title,
+    onClick,
+    icon,
+    headless,
+    color,
+    size,
+}: PropsType) {
+    //
+    const { styles } = useStyles()
+
     return (
-        <Pressable
+        <TouchableOpacity
             style={[
                 styles.container,
-                {
-                    // backgroundColor: stateless ? undefined : useColors.background,
-                    // borderColor: stateless ? undefined : useColors.text,
-                    borderWidth: stateless ? undefined : WHITESPACE.borderWidth,
-                },
+                headless ? styles.headlessContainer : undefined,
             ]}
             onPress={onClick}
             //
         >
             <View style={styles.icon}>{icon}</View>
-            <Text style={styles.text}>{text}</Text>
-        </Pressable>
+            <Text
+                style={[
+                    color ? [styles.text, { color: color }] : styles.text,
+                    size === 'large' ? styles.textLarge : undefined,
+                ]}>
+                {title}
+            </Text>
+        </TouchableOpacity>
     )
 }
 

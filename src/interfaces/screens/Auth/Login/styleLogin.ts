@@ -1,20 +1,31 @@
 import { StyleSheet } from 'react-native'
 
-import { useColors } from '$exporter'
+import { FONTS, useColors, WHITESPACE } from '$exporter'
 
 export function useStyles() {
     //
     const { COLORS } = useColors()
 
-    return StyleSheet.create({
+    const styles = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: COLORS.background,
+            // backgroundColor: COLORS.primary,
             alignItems: 'center',
-            justifyContent: 'center',
+            paddingHorizontal: 36,
         },
-        text: {
+        logo: {
+            ...FONTS.Inter['SB-32'],
             color: COLORS.text,
+            paddingTop: '20%',
+        },
+        login: {
+            paddingTop: '25%',
+            gap: 10,
+        },
+        bottom: {
+            paddingTop: '100%',
         },
     })
+
+    return { styles, COLORS }
 }
