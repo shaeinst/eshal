@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { ROUTERS } from '$exporter/constant'
-import { LoginScreen, OTPScreen } from '$exporter/screen'
+import { LoginScreen, OTPScreen, RegisterScreen } from '$exporter/screen'
 
 const { AUTH } = ROUTERS
 const { Navigator, Screen } = createNativeStackNavigator()
@@ -11,7 +11,7 @@ function RouteAuth() {
 
     return (
         <Navigator
-            initialRouteName={AUTH.LOGIN}
+            initialRouteName={AUTH.LOGIN.path}
             screenOptions={{
                 // When logging out, a pop animation feels intuitive
                 animationTypeForReplace: 'pop', // 'pop', 'push',
@@ -19,8 +19,8 @@ function RouteAuth() {
             }}
             /* -------------------------------- */
         >
-            <Screen name={AUTH.LOGIN} component={LoginScreen} />
-            <Screen name={AUTH.OTP} component={OTPScreen} />
+            <Screen name={AUTH.LOGIN.path} component={LoginScreen} />
+            <Screen name={AUTH.REGISTER.path} component={RegisterScreen} />
         </Navigator>
     )
 }

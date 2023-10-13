@@ -8,7 +8,8 @@ export function useStyles() {
 
     const styles = StyleSheet.create({
         container: {
-            width: '100%',
+            minWidth: '100%',
+            maxWidth: '100%',
         },
         header: {
             ...FONTS.Inter['Md-16'],
@@ -26,6 +27,9 @@ export function useStyles() {
         placeholderHeader: {
             ...FONTS.Inter['Rg-18'],
             color: COLORS.placeholder,
+        },
+        fade: {
+            color: COLORS.background,
         },
         placeholder: {
             ...FONTS.Inter['Rg-18'],

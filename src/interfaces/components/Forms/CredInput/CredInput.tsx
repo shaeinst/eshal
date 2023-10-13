@@ -19,7 +19,9 @@ export default function CredInput(props: PropsType) {
         <View style={styles.container}>
             <Text style={styles.header}>{props.header}</Text>
             <View style={styles.inputContainer}>
-                <Text style={styles.placeholderHeader}>Eg: </Text>
+                {props.state.input.length < 1 && (
+                    <Text style={styles.placeholderHeader}>Eg: </Text>
+                )}
                 <TextInput
                     style={styles.placeholder}
                     defaultValue={props.state.input}

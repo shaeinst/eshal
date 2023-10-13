@@ -3,11 +3,13 @@ import { View, Text } from 'react-native'
 
 import { CredInput, PrimaryButton } from '$exporter/component'
 import { useStyles } from './styleLogin'
+import { useAuthManager } from '$exporter/backend'
 
 export default function Login() {
     //
-    const [server, setServer] = useState('')
+    const [instanceUrl, setInstanceUrl] = useState('mastodon.social')
     const { styles, COLORS } = useStyles()
+    const { login } = useAuthManager()
 
     const handleCreateAccount = () => {
         //
@@ -20,6 +22,7 @@ export default function Login() {
 
     const handleLogin = () => {
         //
+        login(instanceUrl)
     }
 
     return (
@@ -29,15 +32,15 @@ export default function Login() {
                 <CredInput
                     header="Server URL"
                     eg="mastodon.social"
-                    state={{ input: server, setInput: setServer }}
+                    state={{ input: instanceUrl, setInput: setInstanceUrl }}
                 />
 
                 <PrimaryButton
                     title="Login"
                     onClick={handleLogin}
-                    headless
                     color={COLORS.text}
                     size="large"
+                    headless
                 />
             </View>
             <View style={styles.bottom}>

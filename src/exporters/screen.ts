@@ -5,6 +5,7 @@ export { default as Onboarding } from '../interfaces/screens/Intro/Onboarding/On
 // for Authentication
 export { default as AuthInitialScreen } from '../interfaces/screens/Auth'
 export { default as LoginScreen } from '../interfaces/screens/Auth/Login/Login'
+export { default as RegisterScreen } from '../interfaces/screens/Auth/Register/Register'
 export { default as OTPScreen } from '../interfaces/screens/Auth/OTP/OTP'
 
 // for Home

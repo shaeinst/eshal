@@ -16,12 +16,12 @@ const RouteHome = () => {
                 animation: 'slide_from_right',
                 animationDuration: 200,
             }}
-            initialRouteName={rNames.TIMELINE}
+            initialRouteName={rNames.TIMELINE.path}
             /* -------------------------------- */
         >
-            <Screen name={rNames.TIMELINE} component={TimelineScreen} />
-            <Screen name={rNames.ADDPOST} component={PostScreen} />
-            <Screen name={rNames.PROFILE} component={ProfileScreen} />
+            <Screen name={rNames.TIMELINE.path} component={TimelineScreen} />
+            <Screen name={rNames.ADDPOST.path} component={PostScreen} />
+            <Screen name={rNames.PROFILE.path} component={ProfileScreen} />
         </Navigator>
     )
 }

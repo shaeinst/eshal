@@ -13,8 +13,9 @@ import {
     Onboarding,
 } from '$exporter/screen'
 import { useAppInit } from '$exporter/hooks'
+import { LINKING } from '$exporter/constant'
 
-function App() {
+export default function App() {
     //
     const { isAppLaunching, isSignedIn, isFreshApp } = useAppInit()
     const { COLORS, themeMode: theme } = useColors()
@@ -26,7 +27,11 @@ function App() {
 
     if (isAppLaunching) return <SplashScreen />
     return (
-        <NavigationContainer theme={navTheme}>
+        <NavigationContainer
+            theme={navTheme}
+            linking={isSignedIn ? LINKING.home : LINKING.auth}
+            //
+        >
             <StatusBar
                 backgroundColor={COLORS.background}
                 barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
@@ -42,4 +47,3 @@ function App() {
         </NavigationContainer>
     )
 }
-export default App

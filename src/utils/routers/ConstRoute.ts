@@ -1,4 +1,8 @@
-export default {
+const APP = 'eshal://app'
+
+export const ROUTERS = {
+    PREFIX: APP,
+
     // when APP is launched
     STARTUP: {
         LOADING: 'StartupLoading',
@@ -10,17 +14,15 @@ export default {
 
     // for Authentication
     AUTH: {
-        AUTH: 'Authentication',
-        LOGIN: 'Login',
-        OTP: 'OTP',
-        USERNAME: 'Username',
-        LOADING: 'AuthLoading', // authenticating (eg: when click on login button)
+        AUTH: { path: 'authentication', prefix: `${APP}/authentication` },
+        LOGIN: { path: 'login', prefix: `${APP}/login` },
+        REGISTER: { path: 'register', prefix: `${APP}/register` },
     },
 
     // for Home
     HOME: {
-        TIMELINE: 'Stenets',
-        ADDPOST: 'Post',
-        PROFILE: 'Profile',
+        TIMELINE: { path: 'timeline', prefix: `${APP}/timeline` },
+        ADDPOST: { path: 'addpost', prefix: `${APP}/addpost` },
+        PROFILE: { path: 'profile', prefix: `${APP}/profile` },
     },
 }
