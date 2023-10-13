@@ -13,6 +13,12 @@ function useAuthManager() {
 
     const login = async (instanceUrl: string): Promise<void> => {
         await handleLogin(instanceUrl)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         //
         // const data: AuthStateType = {
         //     isSignedIn: true,

@@ -1,68 +1,60 @@
-import { ROUTERS } from '$exporter/constant'
 import { useEffect } from 'react'
-import { Linking, Platform } from 'react-native'
+import { Linking } from 'react-native'
+import axios from 'axios'
+
+import { ROUTERS } from '$exporter/constant'
 
 export default function useLogin() {
     //
-    const redirectUri = ROUTERS.AUTH.REGISTER.prefix
+    const redirectUri = ROUTERS.PREFIX
+    const clientId = 'KgAuLcGbo2zkui5JT7rfjBwRkiThQR05FkErALqSzXo'
+    const clientSecret = '5p0AMzuT0DRqrFMIIUJAb0rdjv8W2d2gu5_jRC3hpf4'
 
     useEffect(() => {
-        const handleDeepLink = (event: { url: string | null }) => {
-            const url = event.url
-            if (url && url.startsWith(redirectUri)) {
-                console.log('=========== URL ==================')
-                console.log(url.toString())
-                console.log('==================================')
-                // const [_, queryString] = url.split('#')
-                // const params = new URLSearchParams(queryString)
-                // const accessToken = params.get('access_token')
-                // if (accessToken) {
-                //     // store access token
-                //     console.log('--------- accessToken ----------------------')
-                //     console.log(accessToken)
-                //     console.log('-------------------------------')
-                // }
-                const params = new URLSearchParams(url.split('?')[1])
-                const authorizationCode = params.get('code')
-
-                // Use the authorization code to request an access token
-
-                // Save the access token to AsyncStorage
-
-                // Redirect to your main app screen
-            }
-        }
-        Linking.addEventListener('url', handleDeepLink)
         return () => Linking.removeAllListeners('url')
-        // return () => {
-        //     Linking.removeEventListener('url', handleDeepLink)
-        // }
-
-        // Linking.getInitialURL().then(url => {
-        //     handleDeepLink({ url })
-        // })
-        // if (Platform.OS === 'ios') {
-        //     Linking.addEventListener('url', handleDeepLink)
-        // }
     }, [])
 
-    const handleLogin = async (instanceUrl: string) => {
-        const clientId = 'tYBplw9qP_OF4zhcWRnTeKcOj8GZvE5xW9BT1W3ZLRU'
-        const scope = 'read+write+follow'
-        const authUrl = `https://${instanceUrl}/oauth/authorize?response_type=token&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
-        console.log(authUrl)
+    const handleLogin = (instanceUrl: string) => {
+        //
+        const scope = 'read write follow'
 
-        Linking.openURL(authUrl)
-            .then(data => {
-                console.log('------------ data -------------')
-                console.log(data)
-                console.log('-------------------------------')
-            })
-            .catch((error: any) => {
-                console.log('----------- error -------------')
-                console.log(error)
-                console.log('-------------------------------')
-            })
+        return new Promise<{ access_token: string }>((resolve, reject) => {
+            const handleDeepLink = (event: { url: string | null }) => {
+                const url = event.url
+                if (url && url.startsWith(redirectUri)) {
+                    const authorizationCode = url.replace(
+                        `${redirectUri}?code=`,
+                        '',
+                    ) // Extract the code from the URL
+
+                    const tokenUrl = `https://${instanceUrl}/oauth/token`
+                    const formData = new FormData()
+                    formData.append('grant_type', 'authorization_code')
+                    formData.append('code', authorizationCode)
+                    formData.append('client_id', clientId)
+                    formData.append('client_secret', clientSecret)
+                    formData.append('redirect_uri', redirectUri)
+                    formData.append('scope', scope)
+
+                    axios
+                        .post(tokenUrl, formData)
+                        .then(response => {
+                            // Resolve the Promise with the access token data
+                            const { access_token } = response.data
+                            resolve({ access_token })
+                        })
+                        .catch(error => {
+                            // Reject the Promise with the error
+                            reject(error)
+                        })
+                }
+            }
+
+            Linking.addEventListener('url', handleDeepLink)
+
+            const authUrl = `https://${instanceUrl}/oauth/authorize?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
+            Linking.openURL(authUrl)
+        })
     }
 
     return { handleLogin }
