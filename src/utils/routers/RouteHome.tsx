@@ -6,9 +6,8 @@ import { PostScreen, ProfileScreen, TimelineScreen } from '$exporter/screen'
 const { Navigator, Screen } = createNativeStackNavigator()
 const rNames = ROUTERS.HOME
 
-const RouteHome = () => {
+export default function RouteHome() {
     //
-
     return (
         <Navigator
             screenOptions={{
@@ -25,5 +24,3 @@ const RouteHome = () => {
         </Navigator>
     )
 }
-
-export default RouteHome

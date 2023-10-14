@@ -15,3 +15,6 @@ export { setInitState as setInitStateRedux } from '../utils/persist/redux/initSl
 export { default as WHITESPACE } from '../interfaces/styles/whitespace'
 export { default as FONTS } from '../interfaces/styles/fonts'
 export { default as useColors } from '../interfaces/styles/colors'
+
+// FUNCTIONS
+export { default as isURLValid } from '../utils/funcs/validateURL'

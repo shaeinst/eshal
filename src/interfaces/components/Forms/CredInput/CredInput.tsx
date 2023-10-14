@@ -13,20 +13,19 @@ type PropsType = {
 
 export default function CredInput(props: PropsType) {
     //
+    const { header, eg, state } = props
     const { styles, COLORS } = useStyles()
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>{props.header}</Text>
+            <Text style={styles.header}>{header}</Text>
             <View style={styles.inputContainer}>
-                {props.state.input.length < 1 && (
-                    <Text style={styles.placeholderHeader}>Eg: </Text>
-                )}
+                {state.input.length < 1 && <Text style={styles.placeholderHeader}>Eg: </Text>}
                 <TextInput
                     style={styles.placeholder}
-                    defaultValue={props.state.input}
-                    onChangeText={text => props.state.setInput(text)}
-                    placeholder={props.eg}
+                    defaultValue={state.input}
+                    onChangeText={text => state.setInput(text)}
+                    placeholder={eg}
                     placeholderTextColor={COLORS.placeholder}
                 />
             </View>

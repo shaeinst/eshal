@@ -1,16 +1,16 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import styles from './stylesTimeline'
+import { useStyles } from './stylesTimeline'
 
-function Timeline() {
+export default function Timeline() {
     //
+    const { styles } = useStyles()
 
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 50}}>Timeline screen</Text>
+            <Text style={{ fontSize: 50 }}>Timeline screen</Text>
         </View>
     )
 }
 
-export default Timeline

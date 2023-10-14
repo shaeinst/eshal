@@ -9,9 +9,7 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            // backgroundColor: COLORS.primary,
             alignItems: 'center',
-            paddingHorizontal: 36,
         },
         logo: {
             ...FONTS.Inter['SB-32'],
@@ -22,8 +20,17 @@ export function useStyles() {
             paddingTop: '25%',
             gap: 10,
         },
+        loginAction: {
+            height: '30%',
+        },
+
+        error: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.error,
+            textAlign: 'center',
+        },
         bottom: {
-            paddingTop: '100%',
+            paddingTop: '60%',
         },
     })
 

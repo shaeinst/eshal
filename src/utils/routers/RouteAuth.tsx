@@ -1,14 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { ROUTERS } from '$exporter/constant'
-import { LoginScreen, OTPScreen, RegisterScreen } from '$exporter/screen'
+import { LoginScreen, RegisterScreen } from '$exporter/screen'
 
 const { AUTH } = ROUTERS
 const { Navigator, Screen } = createNativeStackNavigator()
 
-function RouteAuth() {
+export default function RouteAuth() {
     //
-
     return (
         <Navigator
             initialRouteName={AUTH.LOGIN.path}
@@ -24,5 +23,3 @@ function RouteAuth() {
         </Navigator>
     )
 }
-
-export default RouteAuth

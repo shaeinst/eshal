@@ -1,25 +1,20 @@
 import React, { useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 
 import { CredInput, PrimaryButton } from '$exporter/component'
-import { useStyles } from './styleLogin'
 import { useAuthManager } from '$exporter/backend'
+import { useStyles } from './styleLogin'
 
 export default function Login() {
     //
-    const [instanceUrl, setInstanceUrl] = useState('mastodon.social')
+    const [instanceUrl, setInstanceUrl] = useState('')
     const { styles, COLORS } = useStyles()
-    const { login } = useAuthManager()
+    const { login, loading, error } = useAuthManager()
 
     const handleCreateAccount = () => {
         //
         const url = 'https://joinmastodon.org/servers'
     }
-    const handleLearnMore = () => {
-        //
-        const url = 'https://joinmastodon.org/'
-    }
-
     const handleLogin = () => {
         //
         login(instanceUrl)
@@ -35,25 +30,24 @@ export default function Login() {
                     state={{ input: instanceUrl, setInput: setInstanceUrl }}
                 />
 
-                <PrimaryButton
-                    title="Login"
-                    onClick={handleLogin}
-                    color={COLORS.text}
-                    size="large"
-                    headless
-                />
+                <View style={styles.loginAction}>
+                    {loading ? (
+                        <ActivityIndicator size="large" />
+                    ) : (
+                        <PrimaryButton
+                            title="Login"
+                            onClick={handleLogin}
+                            color={COLORS.text}
+                            size="large"
+                            headless
+                            keyboardDismiss
+                        />
+                    )}
+                    <Text style={[styles.error]}>{error.msg}</Text>
+                </View>
             </View>
             <View style={styles.bottom}>
-                <PrimaryButton
-                    title="Create Account"
-                    onClick={handleCreateAccount}
-                    headless
-                />
-                <PrimaryButton
-                    title="Learn More"
-                    onClick={handleLearnMore}
-                    headless
-                />
+                <PrimaryButton title="Create Account" onClick={handleCreateAccount} headless />
             </View>
         </View>
     )

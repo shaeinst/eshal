@@ -14,7 +14,7 @@ export function useStyles() {
             borderWidth: WHITESPACE.borderWidthButton,
             borderColor: COLORS.primary,
             paddingVertical: 5,
-            paddingHorizontal: 5,
+            paddingHorizontal: 15,
         },
         headlessContainer: {
             borderWidth: 0,
@@ -27,6 +27,9 @@ export function useStyles() {
         textLarge: {
             ...FONTS.Inter['Bd-20'],
         },
+        disabled: {
+            opacity: 0.4
+        }
     })
     return { styles }
 }

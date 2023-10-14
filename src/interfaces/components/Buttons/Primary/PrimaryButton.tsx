@@ -1,6 +1,5 @@
-import { WHITESPACE } from '$exporter'
 import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
 
 import { useStyles } from './stylePrimaryButton'
 
@@ -11,26 +10,23 @@ type PropsType = {
     icon?: React.ReactNode
     color?: string
     size?: 'normal' | 'large'
+    disabled?: boolean
+    keyboardDismiss?: boolean
 }
 
-function PrimaryButton({
-    title,
-    onClick,
-    icon,
-    headless,
-    color,
-    size,
-}: PropsType) {
+export default function PrimaryButton(props: PropsType) {
     //
+    const { title, onClick, icon, headless, color, size, disabled, keyboardDismiss } = props
     const { styles } = useStyles()
 
     return (
         <TouchableOpacity
-            style={[
-                styles.container,
-                headless ? styles.headlessContainer : undefined,
-            ]}
-            onPress={onClick}
+            style={[styles.container, headless ? styles.headlessContainer : undefined]}
+            onPress={() => {
+                if (keyboardDismiss) Keyboard.dismiss()
+                onClick()
+            }}
+            disabled={disabled}
             //
         >
             <View style={styles.icon}>{icon}</View>
@@ -38,11 +34,10 @@ function PrimaryButton({
                 style={[
                     color ? [styles.text, { color: color }] : styles.text,
                     size === 'large' ? styles.textLarge : undefined,
+                    disabled ? styles.disabled : undefined,
                 ]}>
                 {title}
             </Text>
         </TouchableOpacity>
     )
 }
-
-export default PrimaryButton

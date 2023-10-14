@@ -1,9 +1,18 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-})
+import { FONTS, useColors, WHITESPACE } from '$exporter'
 
-export default styles
+export function useStyles() {
+    //
+    const { COLORS } = useColors()
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    })
+
+    return { styles, COLORS }
+}

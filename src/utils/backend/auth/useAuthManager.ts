@@ -1,24 +1,21 @@
 import { useDispatch } from 'react-redux'
 
 import { resetAuthStateRedux, setAuthStateRedux } from '$exporter'
-import { AuthStateType } from '$exporter/type'
 import { storageToken } from '$exporter/persist'
 import useLogin from './useLogin'
 
-function useAuthManager() {
+export default function useAuthManager() {
     //
     const dispatch = useDispatch()
     const { set, remove } = storageToken()
-    const { handleLogin } = useLogin()
+    const { handleLogin, error: loginError, loading: loginLoading } = useLogin()
 
-    const login = async (instanceUrl: string): Promise<void> => {
-        await handleLogin(instanceUrl)
-            .then(res => {
-                console.log(res)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+    const login = async (instanceUrl: string) => {
+        //
+        await handleLogin(instanceUrl).then(res => {
+            // console.log(res)
+        })
+
         //
         // const data: AuthStateType = {
         //     isSignedIn: true,
@@ -38,6 +35,7 @@ function useAuthManager() {
 
     const logout = async (): Promise<void> => {
         //
+
         remove().then(() => {
             dispatch(resetAuthStateRedux())
         })
@@ -46,7 +44,7 @@ function useAuthManager() {
     return {
         login,
         logout,
+        loading: loginLoading,
+        error: loginError,
     }
 }
-
-export default useAuthManager

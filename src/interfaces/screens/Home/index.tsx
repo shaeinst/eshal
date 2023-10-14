@@ -1,9 +1,10 @@
 import { StyleSheet, View } from 'react-native'
 
-import { RouteHome, WHITESPACE } from '$exporter'
+import { RouteHome, useColors } from '$exporter'
 
-function Home() {
+export default function HomeInitial() {
     //
+    const { styles } = useStyles()
 
     return (
         <View style={styles.container}>
@@ -12,11 +13,14 @@ function Home() {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // paddingTop: WHITESPACE.topMP,
-    },
-})
-
-export default Home
+const useStyles = () => {
+    //
+    const { COLORS } = useColors()
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: COLORS.background,
+        },
+    })
+    return { styles }
+}

@@ -6,6 +6,7 @@ const colors = {
     text: { light: '#10100F', dark: '#F9F2F2' },
     placeholder: { light: '#657786', dark: '#657786' },
     border: { light: '#10100F', dark: '#657786' },
+    error: { light: '#ff6666', dark: '#ff6666' },
 
     // theme mode independent colors
     common: {
@@ -18,7 +19,8 @@ interface ColorsInterface {
     background: string
     text: string
     placeholder: string
-    border: string,
+    border: string
+    error: string
 }
 
 function useColors() {
@@ -35,6 +37,7 @@ function useColors() {
                   text: colors.text.dark,
                   placeholder: colors.placeholder.dark,
                   border: colors.border.dark,
+                  error: colors.error.dark,
               }
             : {
                   ...colors.common,
@@ -43,6 +46,7 @@ function useColors() {
                   text: colors.text.light,
                   placeholder: colors.placeholder.light,
                   border: colors.border.light,
+                  error: colors.error.light,
               }
 
     return { COLORS, themeMode }

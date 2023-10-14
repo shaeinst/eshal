@@ -1,14 +1,15 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import styles from './stylesProfile'
+import { useStyles } from './stylesProfile'
 
-const Profile = () => {
+export default function Profile() {
+    //
+    const { styles } = useStyles()
+
     return (
         <View style={styles.container}>
             <Text> profile screen</Text>
         </View>
     )
 }
-
-export default Profile

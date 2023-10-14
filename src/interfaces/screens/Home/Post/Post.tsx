@@ -1,13 +1,14 @@
 import { View, Text } from 'react-native'
 
-function Post() {
+import { useStyles } from './stylesPost'
+
+export default function Post() {
     //
+    const { styles } = useStyles()
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text> post screen</Text>
         </View>
     )
 }
-
-export default Post

@@ -9,7 +9,6 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            // backgroundColor: COLORS.primary,
             alignItems: 'center',
             justifyContent: 'center',
         },
