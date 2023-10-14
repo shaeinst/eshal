@@ -9,16 +9,7 @@ export default function Login() {
     //
     const [instanceUrl, setInstanceUrl] = useState('')
     const { styles, COLORS } = useStyles()
-    const { login, loading, error } = useAuthManager()
-
-    const handleCreateAccount = () => {
-        //
-        const url = 'https://joinmastodon.org/servers'
-    }
-    const handleLogin = () => {
-        //
-        login(instanceUrl)
-    }
+    const { login, loading, error, create } = useAuthManager()
 
     return (
         <View style={styles.container}>
@@ -36,7 +27,7 @@ export default function Login() {
                     ) : (
                         <PrimaryButton
                             title="Login"
-                            onClick={handleLogin}
+                            onClick={() => login(instanceUrl)}
                             color={COLORS.text}
                             size="large"
                             headless
@@ -47,7 +38,7 @@ export default function Login() {
                 </View>
             </View>
             <View style={styles.bottom}>
-                <PrimaryButton title="Create Account" onClick={handleCreateAccount} headless />
+                <PrimaryButton title="Create Account" onClick={create} headless />
             </View>
         </View>
     )

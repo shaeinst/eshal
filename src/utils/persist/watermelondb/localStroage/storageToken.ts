@@ -3,7 +3,7 @@ import { KEYS, localStorage } from '..'
 
 const KEY = KEYS.TOKEN
 
-function Token() {
+export default function Token() {
     //
 
     const get = async (): Promise<TokenType> => {
@@ -26,5 +26,3 @@ function Token() {
 
     return { get, set, remove }
 }
-
-export default Token

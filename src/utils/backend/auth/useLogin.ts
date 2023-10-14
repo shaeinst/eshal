@@ -4,21 +4,26 @@ import axios from 'axios'
 
 import { ROUTERS } from '$exporter/constant'
 import { isURLValid } from '$exporter'
+import { TokenType } from '$exporter/type'
 
 export default function useLogin() {
     //
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState({ status: false, msg: '' })
+    const [error, setError] = useState<{ status: boolean; msg: string } | boolean>({
+        status: false,
+        msg: '',
+    })
 
     const redirectUri = ROUTERS.PREFIX
-    const clientId = 'KgAuLcGbo2zkui5JT7rfjBwRkiThQR05FkErALqSzXo'
-    const clientSecret = '5p0AMzuT0DRqrFMIIUJAb0rdjv8W2d2gu5_jRC3hpf4'
+
+    const clientId = '864ELq9VqDLHb9lcm_H0uDg-Z4IHzcQKMH4YajJ7YVs'
+    const clientSecret = '2woqdzke-OhL8gqHqT9KV6vHCuvgGpkD3XvhTrT09Ik'
 
     useEffect(() => {
         return () => Linking.removeAllListeners('url')
     }, [])
 
-    const handleLogin = async (instanceUrl: string): Promise<boolean | any> => {
+    const handleLogin = async (instanceUrl: string): Promise<TokenType> => {
         //
         setLoading(true)
         setError({ status: false, msg: '' })
@@ -31,11 +36,12 @@ export default function useLogin() {
                 status: true,
                 msg: 'The URL is not valid or there was an issue with the network request.',
             })
-            return false
+            return null
         }
 
-        return new Promise<{ access_token: string }>((resolve, reject) => {
-            const scope = 'read write follow'
+        return new Promise<TokenType>((resolve, reject) => {
+            //
+            const scope = 'read write follow push'
             const handleDeepLink = (event: { url: string | null }) => {
                 const url = event.url
                 if (url && url.startsWith(redirectUri)) {
@@ -53,14 +59,13 @@ export default function useLogin() {
                     axios
                         .post(tokenUrl, formData)
                         .then(response => {
-                            // Resolve the Promise with the access token data
-                            const { access_token } = response.data
-                            resolve({ access_token })
+                            const accessToken: TokenType = response.data
+                            resolve(accessToken)
                         })
-                        .catch(_error => {
+                        .catch(error => {
                             // Reject the Promise with the error
-                            // reject(error)
-                            setError({ status: true, msg: 'failed to get access token' })
+                            setError({ status: true, msg: 'Failed to get access token' })
+                            reject(error)
                         })
                 }
             }

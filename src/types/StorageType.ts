@@ -1,9 +1,8 @@
 export type TokenType = {
     accessToken: string
-    refreshToken: {
-        token: string
-        expiresIn: number | string
-    }
+    created_at: number
+    scope: string
+    token_type: string
 } | null
 
 export type FreshAppType = boolean
