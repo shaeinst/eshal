@@ -20,13 +20,16 @@ export default function useLogin() {
         return () => Linking.removeAllListeners('url')
     }, [])
 
-    const handleLogin = async (instanceUrl: string): Promise<TokenType> => {
+    const handleLogin = async (instanceURL: string): Promise<TokenType> => {
         //
         setLoading(true)
         setError({ status: false, msg: '' })
 
         // return false if instance url is invalid
-        const isValid = await isURLValid(instanceUrl)
+        if (!instanceURL.startsWith('http://') && !instanceURL.startsWith('https://')) {
+            instanceURL = 'https://' + instanceURL
+        }
+        const isValid = await isURLValid(instanceURL)
         if (!isValid) {
             setLoading(false)
             setError({
@@ -43,7 +46,6 @@ export default function useLogin() {
                 const url = event.url
                 if (url && url.startsWith(redirectUri)) {
                     const authorizationCode = url.replace(`${redirectUri}?code=`, '')
-                    const tokenUrl = `https://${instanceUrl}/oauth/token`
 
                     const formData = new FormData()
                     formData.append('grant_type', 'authorization_code')
@@ -54,9 +56,12 @@ export default function useLogin() {
                     formData.append('scope', scope)
 
                     axios
-                        .post(tokenUrl, formData)
+                        .post(`${instanceURL}/oauth/token`, formData)
                         .then(response => {
-                            const accessToken: TokenType = response.data
+                            const accessToken: TokenType = {
+                                ...response.data,
+                                server_url: instanceURL,
+                            }
                             resolve(accessToken)
                         })
                         .catch(_error => {
@@ -69,7 +74,7 @@ export default function useLogin() {
 
             Linking.addEventListener('url', handleDeepLink)
 
-            const authUrl = `https://${instanceUrl}/oauth/authorize?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
+            const authUrl = `${instanceURL}/oauth/authorize?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
             Linking.openURL(authUrl).finally(() => {
                 setLoading(false)
             })
