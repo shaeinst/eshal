@@ -16,12 +16,20 @@ export default function Token() {
             .catch(() => null)
     }
 
-    const set = async (value: TokenType): Promise<void> => {
-        await localStorage.set(KEY, JSON.stringify(value))
+    const set = async (value: TokenType): Promise<boolean> => {
+        // return true on sucessfully saving token on storage else return false
+        return localStorage
+            .set(KEY, JSON.stringify(value))
+            .then(() => true)
+            .catch(() => false)
     }
 
-    const remove = async (): Promise<void> => {
-        await localStorage.remove(KEY)
+    const remove = async (): Promise<boolean> => {
+        // return true on sucessfully removing token from storage else return false
+        return localStorage
+            .remove(KEY)
+            .then(() => true)
+            .catch(() => false)
     }
 
     return { get, set, remove }

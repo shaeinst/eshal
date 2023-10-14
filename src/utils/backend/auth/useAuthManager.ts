@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { resetAuthStateRedux, setAuthStateRedux } from '$exporter'
@@ -8,10 +7,7 @@ import useCreateAccount from './useCreateAccount'
 
 export default function useAuthManager() {
     //
-    const [error, setError] = useState<{ status: boolean; msg: string } | boolean>({
-        status: false,
-        msg: '',
-    })
+
     const dispatch = useDispatch()
     const { set, remove } = storageToken()
     const { handleLogin, error: loginError, loading: loginLoading } = useLogin()
@@ -19,27 +15,23 @@ export default function useAuthManager() {
 
     const login = (instanceUrl: string) => {
         //
-        handleLogin(instanceUrl)
-            .then(token => {
-                set(token).then(() => {
-                    dispatch(setAuthStateRedux({ token, isSignedIn: true }))
-                })
+        handleLogin(instanceUrl).then(token => {
+            if (!token) return
+            set(token).then(tokenSaved => {
+                if (tokenSaved) dispatch(setAuthStateRedux({ token, isSignedIn: true }))
             })
-            .catch(error => {
-                //
-                setError({ status: true, msg: 'failed to resolve token' })
-            })
+        })
     }
 
     const logout = async (): Promise<void> => {
         //
-        remove().then(() => {
-            dispatch(resetAuthStateRedux())
+        remove().then(tokenRemoved => {
+            if (tokenRemoved) dispatch(resetAuthStateRedux())
         })
     }
 
     const create = async () => {
-        await handleCreate().then(res => {
+        await handleCreate().then(_response => {
             //TODO:
         })
     }
@@ -49,6 +41,6 @@ export default function useAuthManager() {
         logout,
         create,
         loading: loginLoading || createLoading,
-        error: error || loginError || createError,
+        error: loginError ? loginError : createError,
     }
 }

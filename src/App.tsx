@@ -15,7 +15,7 @@ export default function App() {
 
             {isSignedIn ? (
                 <HomeInitialScreen />
-            ) : !isFreshApp ? (
+            ) : isFreshApp ? (
                 <Onboarding />
             ) : (
                 <AuthInitialScreen />

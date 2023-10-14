@@ -34,7 +34,7 @@ export default function Login() {
                             keyboardDismiss
                         />
                     )}
-                    <Text style={[styles.error]}>{error.msg}</Text>
+                    {typeof error === 'object' && <Text style={styles.error}>{error.msg}</Text>}
                 </View>
             </View>
             <View style={styles.bottom}>

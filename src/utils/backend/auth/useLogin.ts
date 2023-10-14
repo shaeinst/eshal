@@ -9,10 +9,7 @@ import { TokenType } from '$exporter/type'
 export default function useLogin() {
     //
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<{ status: boolean; msg: string } | boolean>({
-        status: false,
-        msg: '',
-    })
+    const [error, setError] = useState({ status: false, msg: '' })
 
     const redirectUri = ROUTERS.PREFIX
 
@@ -62,10 +59,10 @@ export default function useLogin() {
                             const accessToken: TokenType = response.data
                             resolve(accessToken)
                         })
-                        .catch(error => {
-                            // Reject the Promise with the error
+                        .catch(_error => {
                             setError({ status: true, msg: 'Failed to get access token' })
-                            reject(error)
+                            // i don't want to handle reject in which handleLogin is used
+                            // reject(_error)
                         })
                 }
             }
