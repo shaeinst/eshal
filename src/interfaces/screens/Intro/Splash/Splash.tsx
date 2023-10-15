@@ -1,22 +1,35 @@
+import { FONTS, useColors } from '$exporter'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-function Splash() {
+export default function Splash() {
     //
-
-    console.log('\n\n\n1: splash screen')
+    const { styles } = useStyles()
 
     return (
-        <View
-            style={{
-                backgroundColor: 'green',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}>
-            <Text style={{ fontSize: 50 }}>Splash ScreenText </Text>
+        <View style={styles.container}>
+            <Text style={styles.logo}>ESHAL</Text>
         </View>
     )
 }
 
-export default Splash
+const useStyles = () => {
+    //
+    const { COLORS } = useColors()
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: COLORS.background,
+            justifyContent: 'center',
+        },
+        logo: {
+            ...FONTS.Inter['SB-32'],
+            color: COLORS.text,
+            textAlign: 'center',
+            letterSpacing: 20,
+        },
+    })
+
+    return { styles }
+}
