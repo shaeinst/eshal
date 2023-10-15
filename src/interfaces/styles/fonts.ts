@@ -25,6 +25,7 @@ export default {
         // Bold
         'Bd-18': { fontFamily: 'Inter-Bold', fontSize: 18 },
         'Bd-20': { fontFamily: 'Inter-Bold', fontSize: 20 },
+        'Bd-32': { fontFamily: 'Inter-Bold', fontSize: 32 },
     },
     Kodchasan: {
         fontFamily: 'Kodchasan',

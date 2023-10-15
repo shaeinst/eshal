@@ -16,7 +16,9 @@ export default function App() {
             {isSignedIn ? (
                 <HomeInitialScreen />
             ) : isFreshApp ? (
-                <Onboarding />
+                // TODO: implement Onboarding screen(s); for now just goto initial Authentication process
+                //<Onboarding />
+                <AuthInitialScreen />
             ) : (
                 <AuthInitialScreen />
             )}
