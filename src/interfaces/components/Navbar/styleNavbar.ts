@@ -8,15 +8,17 @@ export function useStyles() {
 
     const styles = StyleSheet.create({
         container: {
-            padding: 10,
-            backgroundColor: '#ff6666',
-            gap: 10,
+            //
+            width: '70%',
+            gap: 14,
+        },
+        navRows: {
+            flexDirection: 'row',
+            justifyContent: 'center',
         },
         navItem: {
-            gap: 10,
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            backgroundColor: 'green'
+            flex: 1,
+            alignItems: 'center',
         },
     })
 

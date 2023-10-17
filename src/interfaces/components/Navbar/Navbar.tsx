@@ -3,11 +3,7 @@ import { View } from 'react-native'
 
 import { useStyles } from './styleNavbar'
 import NavbarItem from './NavbarItem'
-
-const navbarItems = [
-    ['Home', 'Search', 'Alert', 'More'],
-    ['Add Post', 'Logout', 'Setting', 'Profile'],
-]
+import { navbarItems } from './NavbarItems'
 
 export default function Navbar() {
     //
@@ -15,10 +11,15 @@ export default function Navbar() {
 
     return (
         <View style={styles.container}>
-            {navbarItems.map((row, index) => (
-                <View key={`${row}+${index}`} style={styles.navItem}>
-                    {row.map((nav, index) => (
-                        <NavbarItem key={`${nav}+${index}`} title={nav} />
+            {Object.keys(navbarItems).map(rowKey => (
+                <View key={rowKey} style={styles.navRows}>
+                    {Object.keys(navbarItems[rowKey]).map(navKey => (
+                        <View key={navKey} style={styles.navItem}>
+                            <NavbarItem
+                                title={navbarItems[rowKey][navKey].title}
+                                icon={navbarItems[rowKey][navKey].icon}
+                            />
+                        </View>
                     ))}
                 </View>
             ))}
