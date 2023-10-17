@@ -10,7 +10,7 @@ export function useStyles() {
         container: {
             //
             backgroundColor: COLORS.navbar,
-            gap: 14,
+            gap: 20,
             paddingHorizontal: 10,
             paddingVertical: 20,
             borderRadius: 20,
@@ -26,7 +26,7 @@ export function useStyles() {
 
         navContainer: {
             alignItems: 'center',
-            gap: 2,
+            gap: 4,
         },
         navTitle: {
             ...FONTS.Inter['Md-10'],

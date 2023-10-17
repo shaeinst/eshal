@@ -42,7 +42,7 @@ const useStyles = () => {
             color: COLORS.logo,
         },
         nav: {
-            width: 220,
+            width: 250,
             // backgroundColor: 'yellow',
             position: 'absolute',
             top: 10,
