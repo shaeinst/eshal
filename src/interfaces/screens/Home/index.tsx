@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { FONTS, RouteHome, useColors } from '$exporter'
+import { FONTS, RouteHome, useColors, WHITESPACE } from '$exporter'
 import { Navbar } from '$exporter/component'
 
 export default function HomeInitial() {
@@ -29,7 +29,9 @@ const useStyles = () => {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
+            position: 'relative',
             backgroundColor: COLORS.background,
+            paddingHorizontal: 10,
         },
         top: {
             backgroundColor: COLORS.primary,
@@ -39,7 +41,14 @@ const useStyles = () => {
             ...FONTS.Inter['SB-20'],
             color: COLORS.logo,
         },
-        nav: {},
+        nav: {
+            width: 220,
+            // backgroundColor: 'yellow',
+            position: 'absolute',
+            top: 10,
+            right: 0,
+            zIndex: 1000,
+        },
     })
     return { styles }
 }

@@ -8,12 +8,14 @@ export default {
         'Lt-16': { fontFamily: 'Inter-Light', fontSize: 16 },
 
         // Regular
+        'Rg-10': { fontFamily: 'Inter-Regular', fontSize: 10 },
         'Rg-14': { fontFamily: 'Inter-Regular', fontSize: 14 },
         'Rg-16': { fontFamily: 'Inter-Regular', fontSize: 16 },
         'Rg-18': { fontFamily: 'Inter-Regular', fontSize: 18 },
         'Rg-20': { fontFamily: 'Inter-Regular', fontSize: 20 },
 
         // Medium
+        'Md-10': { fontFamily: 'Inter-Medium', fontSize: 10 },
         'Md-16': { fontFamily: 'Inter-Medium', fontSize: 16 },
         'Md-18': { fontFamily: 'Inter-Medium', fontSize: 18 },
 
