@@ -8,19 +8,24 @@ export default function App() {
     //
     const { isAppLaunching, isFreshApp, isSignedIn, linking, theme } = useAppInit()
 
-    if (isAppLaunching) return <SplashScreen />
     return (
         <NavigationContainer theme={theme.navTheme} linking={linking}>
-            <StatusBar backgroundColor={theme.background} barStyle={theme.barStyle} />
-
-            {isSignedIn ? (
-                <HomeInitialScreen />
-            ) : isFreshApp ? (
-                // TODO: implement Onboarding screen(s); for now just goto initial Authentication process
-                //<Onboarding />
-                <AuthInitialScreen />
+            {isAppLaunching ? (
+                <SplashScreen />
             ) : (
-                <AuthInitialScreen />
+                <>
+                    <StatusBar backgroundColor={theme.background} barStyle={theme.barStyle} />
+
+                    {isSignedIn ? (
+                        <HomeInitialScreen />
+                    ) : isFreshApp ? (
+                        // TODO: implement Onboarding screen(s); for now just goto initial Authentication process
+                        //<Onboarding />
+                        <AuthInitialScreen />
+                    ) : (
+                        <AuthInitialScreen />
+                    )}
+                </>
             )}
         </NavigationContainer>
     )

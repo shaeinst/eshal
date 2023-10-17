@@ -1,4 +1,4 @@
-export { default as ENDPOINTS } from '../utils/backend/endPoints'
+export { ENDPOINTS } from '../utils/backend/endPoints'
 
 // AUTH
 export {

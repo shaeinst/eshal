@@ -1,8 +1,11 @@
-const url = 'http://192.168.1.85:8000';
+const AUTH = {
+    authorize: '/oauth/authorize',
+    token: '/oauth/token',
+    revoke: '/oauth/revoke',
+}
+const HOME = {}
 
-export default {
-    URL: url,
-    TOKEN: url + '/token',
-    REFRESH_TOKEN: url + '/token/refresh',
-    LOGIN: url + '/login/',
-};
+export const ENDPOINTS = {
+    AUTH,
+    HOME,
+}

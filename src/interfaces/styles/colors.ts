@@ -7,6 +7,7 @@ const colors = {
     placeholder: { light: '#657786', dark: '#657786' },
     border: { light: '#10100F', dark: '#657786' },
     error: { light: '#ff6666', dark: '#ff6666' },
+    logo: { light: '#10100F', dark: '#F9F2F2' },
 
     // theme mode independent colors
     common: {
@@ -21,6 +22,7 @@ interface ColorsInterface {
     placeholder: string
     border: string
     error: string
+    logo: string
 }
 
 function useColors() {
@@ -38,6 +40,7 @@ function useColors() {
                   placeholder: colors.placeholder.dark,
                   border: colors.border.dark,
                   error: colors.error.dark,
+                  logo: colors.logo.dark,
               }
             : {
                   ...colors.common,
@@ -47,6 +50,7 @@ function useColors() {
                   placeholder: colors.placeholder.light,
                   border: colors.border.light,
                   error: colors.error.light,
+                  logo: colors.logo.light,
               }
 
     return { COLORS, themeMode }

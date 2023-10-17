@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { Linking } from 'react-native'
 import axios from 'axios'
 
-import { ROUTERS } from '$exporter/constant'
 import { isURLValid } from '$exporter'
+import { ROUTERS } from '$exporter/constant'
 import { TokenType } from '$exporter/type'
+import { ENDPOINTS } from '$exporter/backend'
+import secrete from './secrete'
 
 export default function useLogin() {
     //
@@ -12,9 +14,8 @@ export default function useLogin() {
     const [error, setError] = useState({ status: false, msg: '' })
 
     const redirectUri = ROUTERS.PREFIX
-
-    const clientId = '864ELq9VqDLHb9lcm_H0uDg-Z4IHzcQKMH4YajJ7YVs'
-    const clientSecret = '2woqdzke-OhL8gqHqT9KV6vHCuvgGpkD3XvhTrT09Ik'
+    const { AUTH } = ENDPOINTS
+    const { clientId, clientSecret } = secrete()
 
     useEffect(() => {
         return () => Linking.removeAllListeners('url')
@@ -56,7 +57,7 @@ export default function useLogin() {
                     formData.append('scope', scope)
 
                     axios
-                        .post(`${instanceURL}/oauth/token`, formData)
+                        .post(`${instanceURL}${AUTH.token}`, formData)
                         .then(response => {
                             const accessToken: TokenType = {
                                 ...response.data,
@@ -74,7 +75,7 @@ export default function useLogin() {
 
             Linking.addEventListener('url', handleDeepLink)
 
-            const authUrl = `${instanceURL}/oauth/authorize?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
+            const authUrl = `${instanceURL}${AUTH.authorize}?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
             Linking.openURL(authUrl).finally(() => {
                 setLoading(false)
             })

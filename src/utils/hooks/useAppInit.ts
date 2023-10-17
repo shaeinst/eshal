@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { StatusBarStyle } from 'react-native/types'
+import { StatusBarStyle } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { DefaultTheme, Theme } from '@react-navigation/native'
 
@@ -7,21 +7,19 @@ import { RootState, setAuthStateRedux, setInitStateRedux, useColors } from '$exp
 import { storageFreshApp, storageToken } from '$exporter/persist'
 import { LINKING } from '$exporter/constant'
 
-function useInit() {
+export default function useInit() {
     //
     const [isAppLaunching, setIsAppLaunching] = useState(true)
     const { isFreshApp } = useSelector((state: RootState) => state.init)
     const { isSignedIn } = useSelector((state: RootState) => state.auth)
-
+    const dispatch = useDispatch()
+    const { get: getToken } = storageToken()
     const {
         themeMode,
         COLORS: { background },
     } = useColors()
     const barStyle: StatusBarStyle = themeMode === 'dark' ? 'light-content' : 'dark-content'
     const navTheme: Theme = { ...DefaultTheme, colors: { ...DefaultTheme.colors, background } }
-
-    const dispatch = useDispatch()
-    const { get: getToken } = storageToken()
 
     useEffect(() => {
         // storageFreshApp.set(true)
@@ -34,7 +32,9 @@ function useInit() {
                 else dispatch(setInitStateRedux({ isFreshApp: true }))
             })
             .finally(() => {
-                setIsAppLaunching(false)
+                setTimeout(() => {
+                    setIsAppLaunching(false)
+                }, 100)
             })
     }, [])
 
@@ -46,5 +46,3 @@ function useInit() {
         linking: isSignedIn ? LINKING.home : LINKING.auth,
     }
 }
-
-export default useInit
