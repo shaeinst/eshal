@@ -1,25 +1,21 @@
 import { Text, View } from 'react-native'
-import { useDispatch } from 'react-redux'
 
-import { setInitStateRedux } from '$exporter'
+import { useZustandStore } from '$exporter'
 import { PrimaryButton } from '$exporter/component'
 import styles from './styleOnboarding'
 
-function Onboarding() {
+export default function Onboarding() {
     //
-    const dispatch = useDispatch()
 
     const handleSkip = () => {
         //
-        dispatch(setInitStateRedux({ isFreshApp: false }))
+        useZustandStore(state => state.setIsFreshApp(false))
     }
 
     return (
         <View style={styles.container}>
-            <Text style={{textAlign: 'center'}}> this is on bording screen</Text>
+            <Text style={{ textAlign: 'center' }}> this is on bording screen</Text>
             <PrimaryButton title="skip" size="large" onClick={handleSkip} />
         </View>
     )
 }
-
-export default Onboarding
