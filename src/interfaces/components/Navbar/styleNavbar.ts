@@ -9,7 +9,9 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             //
-            backgroundColor: COLORS.navbar,
+            backgroundColor: COLORS.background,
+            // borderColor: COLORS.text,
+            // borderWidth: 0.5,
             gap: 20,
             paddingHorizontal: 10,
             paddingVertical: 20,
@@ -30,7 +32,7 @@ export function useStyles() {
         },
         navTitle: {
             ...FONTS.Inter['Md-10'],
-            color: COLORS.text,
+            color: COLORS.navbar,
         },
     })
 

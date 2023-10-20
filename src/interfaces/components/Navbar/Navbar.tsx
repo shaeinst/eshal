@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import useHandleNavbar from './handleNavbar'
 
-import { navbarItems } from './NavbarItems'
+import { useNavbarItems } from './NavbarItems'
 import { useStyles } from './styleNavbar'
 
 export default function Navbar() {
     //
+    const [openMore, setOpenMore] = useState(false)
     const { styles } = useStyles()
     const { handleClick } = useHandleNavbar()
+    const { navbarItems } = useNavbarItems()
 
     return (
         <View style={styles.container}>

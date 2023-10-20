@@ -8,7 +8,7 @@ const colors = {
     border: { light: '#10100F', dark: '#657786' },
     error: { light: '#ff6666', dark: '#ff6666' },
     logo: { light: '#10100F', dark: '#F9F2F2' },
-    navbar: { light: '#FAFAFA', dark: '#1D1D1D' },
+    navbar: { light: '#657786', dark: '#657786' },
 
     // theme mode independent colors
     common: {
