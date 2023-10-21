@@ -6,10 +6,11 @@ import styles from './styleOnboarding'
 
 export default function Onboarding() {
     //
+    const { setIsFreshApp } = useZustandStore()
 
     const handleSkip = () => {
         //
-        useZustandStore(state => state.setIsFreshApp(false))
+        setIsFreshApp(false)
     }
 
     return (

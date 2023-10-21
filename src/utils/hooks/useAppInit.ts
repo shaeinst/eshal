@@ -9,12 +9,13 @@ import { useColors, useZustandStore } from '$exporter'
 export default function useInit() {
     //
     const [isAppLaunching, setIsAppLaunching] = useState(true)
-    const { init, auth } = useZustandStore()
-    const { get: getToken } = storageToken()
+
     const {
         themeMode,
         COLORS: { background },
     } = useColors()
+    const { init, auth, setAuth, setIsFreshApp } = useZustandStore()
+    const { get: getToken } = storageToken()
     const barStyle: StatusBarStyle = themeMode === 'dark' ? 'light-content' : 'dark-content'
     const navTheme: Theme = { ...DefaultTheme, colors: { ...DefaultTheme.colors, background } }
 
@@ -22,9 +23,9 @@ export default function useInit() {
         // storageFreshApp.set(true)
         getToken()
             .then(token => {
-                const isSignedIn = token ? true : false
-                useZustandStore(state => state.setAuth({ token, isSignedIn }))
-                useZustandStore(state => state.setIsFreshApp(!isSignedIn))
+                const hasToken = token ? true : false
+                setAuth({ token, isSignedIn: hasToken })
+                setIsFreshApp(!hasToken)
             })
             .finally(() => {
                 setTimeout(() => {

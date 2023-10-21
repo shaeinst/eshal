@@ -12,7 +12,7 @@ export default function useAuthManager() {
     const { set, remove } = storageToken()
     const { handleLogin, error: loginError, loading: loginLoading } = useLogin()
     const { handleCreate, error: createError, loading: createLoading } = useCreateAccount()
-    const { auth } = useZustandStore()
+    const { auth, setAuth, resetAuth } = useZustandStore()
 
     const login = (instanceURL: string) => {
         //
@@ -20,7 +20,7 @@ export default function useAuthManager() {
             if (!token) return
 
             set(token).then(tokenSaved => {
-                if (tokenSaved) useZustandStore(state => state.setAuth({ token, isSignedIn: true }))
+                if (tokenSaved) setAuth({ token, isSignedIn: true })
             })
         })
     }
@@ -41,7 +41,7 @@ export default function useAuthManager() {
                 if (response.status === 200) {
                     remove().then(() => {
                         // since access token is revoked, we don't care if removing token fails from local storage
-                        useZustandStore(state => state.resetAuth())
+                        resetAuth()
                     })
                 } else {
                     // removing token failed
