@@ -26,10 +26,10 @@ export default function useLogin() {
         setLoading(true)
         setError({ status: false, msg: '' })
 
-        // return false if instance url is invalid
         if (!instanceURL.startsWith('http://') && !instanceURL.startsWith('https://')) {
             instanceURL = 'https://' + instanceURL
         }
+        // return null if instance url is invalid
         const isValid = await isURLValid(instanceURL)
         if (!isValid) {
             setLoading(false)
@@ -43,6 +43,7 @@ export default function useLogin() {
         return new Promise<TokenType>((resolve, reject) => {
             //
             const scope = 'read write follow push'
+
             const handleDeepLink = (event: { url: string | null }) => {
                 const url = event.url
                 if (url && url.startsWith(redirectUri)) {

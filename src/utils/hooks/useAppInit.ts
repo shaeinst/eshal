@@ -5,6 +5,9 @@ import { DefaultTheme, Theme } from '@react-navigation/native'
 import { storageToken } from '$exporter/persist'
 import { LINKING } from '$exporter/constant'
 import { useColors, useZustandStore } from '$exporter'
+import { QueryClient } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 export default function useInit() {
     //
@@ -40,5 +43,6 @@ export default function useInit() {
         isFreshApp: init.isFreshApp,
         theme: { background, navTheme, barStyle },
         linking: auth.isSignedIn ? LINKING.home : LINKING.auth,
+        queryClient,
     }
 }
