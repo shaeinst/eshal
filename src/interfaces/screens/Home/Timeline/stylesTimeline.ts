@@ -12,6 +12,9 @@ export function useStyles() {
             alignItems: 'center',
             justifyContent: 'center',
         },
+        error: {
+            color: 'red'
+        }
     })
 
     return { styles, COLORS }

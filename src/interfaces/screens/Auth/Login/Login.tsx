@@ -7,9 +7,9 @@ import { useStyles } from './styleLogin'
 
 export default function Login() {
     //
-    const [instanceUrl, setInstanceUrl] = useState('')
+    const [instanceUrl, setInstanceUrl] = useState('mastodon.social')
     const { styles, COLORS } = useStyles()
-    const { login, loading, error, create } = useAuthManager()
+    const { login, loading, error, isError, create } = useAuthManager()
 
     return (
         <View style={styles.container}>
@@ -34,7 +34,7 @@ export default function Login() {
                             keyboardDismiss
                         />
                     )}
-                    {typeof error === 'object' && <Text style={styles.error}>{error.msg}</Text>}
+                    {isError && <Text style={styles.error}>{error}</Text>}
                 </View>
             </View>
             <View style={styles.bottom}>

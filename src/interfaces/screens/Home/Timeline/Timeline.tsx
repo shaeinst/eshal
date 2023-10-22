@@ -8,12 +8,14 @@ import { useStyles } from './stylesTimeline'
 export default function Timeline() {
     //
     const { styles } = useStyles()
-    const { logout } = useAuthManager()
+    const { logout, loading, isError, error } = useAuthManager()
 
     return (
         <View style={styles.container}>
             <Text style={{ fontSize: 50, color: 'red' }}>Timeline screen</Text>
-            <PrimaryButton title="Logout" size="large" onClick={logout} />
+            <PrimaryButton title="Logout" size="large" onClick={logout} disabled={loading} />
+
+            {isError && <Text style={styles.error}>{error}</Text>}
         </View>
     )
 }
