@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { CredInput, PrimaryButton } from '$exporter/component'
 import { useAuthManager } from '$exporter/backend'
@@ -22,18 +22,15 @@ export default function Login() {
                 />
 
                 <View style={styles.loginAction}>
-                    {loading ? (
-                        <ActivityIndicator size="large" />
-                    ) : (
-                        <PrimaryButton
-                            title="Login"
-                            onClick={() => login(instanceUrl)}
-                            color={COLORS.text}
-                            size="large"
-                            headless
-                            keyboardDismiss
-                        />
-                    )}
+                    <PrimaryButton
+                        title="Login"
+                        onClick={() => login(instanceUrl)}
+                        color={COLORS.text}
+                        loading={loading}
+                        size="large"
+                        headless
+                        keyboardDismiss
+                    />
                     {isError && <Text style={styles.error}>{error}</Text>}
                 </View>
             </View>

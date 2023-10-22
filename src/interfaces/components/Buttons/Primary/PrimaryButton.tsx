@@ -1,5 +1,5 @@
 import React from 'react'
-import { Keyboard, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Keyboard, Text, TouchableOpacity, View } from 'react-native'
 
 import { useStyles } from './stylePrimaryButton'
 
@@ -12,13 +12,16 @@ type PropsType = {
     size?: 'normal' | 'large'
     disabled?: boolean
     keyboardDismiss?: boolean
+    loading?: boolean
 }
 
 export default function PrimaryButton(props: PropsType) {
     //
-    const { title, onClick, icon, headless, color, size, disabled, keyboardDismiss } = props
+    const { title, onClick, icon, headless, color, size, disabled, keyboardDismiss, loading } =
+        props
     const { styles } = useStyles()
 
+    if (loading) return <ActivityIndicator size="large" />
     return (
         <TouchableOpacity
             style={[styles.container, headless ? styles.headlessContainer : undefined]}
