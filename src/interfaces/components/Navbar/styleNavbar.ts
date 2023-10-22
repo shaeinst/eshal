@@ -21,19 +21,19 @@ export function useStyles() {
             flexDirection: 'row',
             justifyContent: 'center',
         },
-        navItem: {
+        navContainer: {
             flex: 1,
             alignItems: 'center',
-        },
-
-        navContainer: {
-            alignItems: 'center',
+            justifyContent: 'center',
             gap: 4,
         },
         navTitle: {
             ...FONTS.Inter['Md-10'],
             color: COLORS.navbar,
         },
+        active: {
+            color: COLORS.active
+        }
     })
 
     return { styles }

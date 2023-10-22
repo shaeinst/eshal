@@ -6,32 +6,38 @@ import { useNavbarItems } from './NavbarItems'
 import { useStyles } from './styleNavbar'
 
 export default function Navbar() {
-    //
+    const [active, setActive] = useState('Home')
     const [openMore, setOpenMore] = useState(false)
     const { styles } = useStyles()
     const { handleClick } = useHandleNavbar()
-    const { navbarItems } = useNavbarItems()
+    const { navbarItems, icons } = useNavbarItems()
 
     return (
         <View style={styles.container}>
-            {Object.keys(navbarItems).map(rowKey => (
-                <View key={rowKey} style={styles.navRows}>
-                    {Object.keys(navbarItems[rowKey]).map(navKey => (
-                        <View key={navKey} style={styles.navItem}>
-                            <TouchableOpacity
-                                style={styles.navContainer}
-                                onPress={() => handleClick(navbarItems[rowKey][navKey].title)}
-                                //
-                            >
-                                {navbarItems[rowKey][navKey].icon}
-                                <Text style={styles.navTitle}>
-                                    {navbarItems[rowKey][navKey].title}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
-                </View>
-            ))}
+            {Object.keys(navbarItems).map(rowKey => {
+                if (rowKey !== 'row1' && !openMore) return
+                return (
+                    <View key={rowKey} style={styles.navRows}>
+                        {Object.keys(navbarItems[rowKey]).map(navKey => {
+                            const title = navbarItems[rowKey][navKey].title
+                            const icon = icons[navKey]
+                            return (
+                                <TouchableOpacity
+                                    style={styles.navContainer}
+                                    onPress={() => handleClick(title, setOpenMore, setActive)}
+                                    key={title}
+                                    //
+                                >
+                                    {icon({ openMore: openMore && title === 'More', active })}
+                                    {openMore && title !== 'More' ? (
+                                        <Text style={styles.navTitle}>{title}</Text>
+                                    ) : undefined}
+                                </TouchableOpacity>
+                            )
+                        })}
+                    </View>
+                )
+            })}
         </View>
     )
 }
