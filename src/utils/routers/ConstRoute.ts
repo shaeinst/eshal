@@ -24,5 +24,8 @@ export const ROUTERS = {
         TIMELINE: { path: 'timeline', prefix: `${APP}/timeline` },
         ADDPOST: { path: 'addpost', prefix: `${APP}/addpost` },
         PROFILE: { path: 'profile', prefix: `${APP}/profile` },
+        SEARCH: { path: 'search', prefix: `${APP}/search` },
+        ALERT: { path: 'alert', prefix: `${APP}/alert` },
+        SETTING: { path: 'setting', prefix: `${APP}/setting` },
     },
 }

@@ -20,11 +20,12 @@ export default function Navbar() {
                     <View key={rowKey} style={styles.navRows}>
                         {Object.keys(navbarItems[rowKey]).map(navKey => {
                             const title = navbarItems[rowKey][navKey].title
+                            const path = navbarItems[rowKey][navKey].path
                             const icon = icons[navKey]
                             return (
                                 <TouchableOpacity
                                     style={styles.navContainer}
-                                    onPress={() => handleClick(title, setOpenMore, setActive)}
+                                    onPress={() => handleClick(title, setOpenMore, setActive, path)}
                                     key={title}
                                     //
                                 >

@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 
-import { useStyles } from './stylesPost'
+import { useStyles } from './stylePost'
 
 export default function Post() {
     //

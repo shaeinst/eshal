@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 
 import { PrimaryButton } from '$exporter/component'
 import { useAuthManager } from '$exporter/backend'
-import { useStyles } from './stylesTimeline'
+import { useStyles } from './styleTimeline'
 
 export default function Timeline() {
     //
