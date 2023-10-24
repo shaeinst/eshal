@@ -11,6 +11,7 @@ export function useStyles() {
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
+            // backgroundColor: 'red'
         },
         error: {
             color: 'red'

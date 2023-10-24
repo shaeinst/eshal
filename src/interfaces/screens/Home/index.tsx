@@ -45,7 +45,6 @@ const useStyles = () => {
         },
         nav: {
             width: 230,
-            // backgroundColor: 'yellow',
             position: 'absolute',
             top: 0,
             right: 0,
