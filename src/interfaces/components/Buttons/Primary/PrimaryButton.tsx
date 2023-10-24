@@ -29,7 +29,7 @@ export default function PrimaryButton(props: PropsType) {
                 if (keyboardDismiss) Keyboard.dismiss()
                 onClick()
             }}
-            disabled={disabled}
+            disabled={disabled || loading}
             //
         >
             <View style={styles.icon}>{icon}</View>

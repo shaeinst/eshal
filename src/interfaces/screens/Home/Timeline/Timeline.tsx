@@ -13,7 +13,7 @@ export default function Timeline() {
     return (
         <View style={styles.container}>
             <Text style={{ fontSize: 50, color: 'red' }}>Timeline screen</Text>
-            <PrimaryButton title="Logout" size="large" onClick={logout} disabled={loading} />
+            <PrimaryButton title="Logout" size="large" onClick={logout} loading={loading} />
 
             {isError && <Text style={styles.error}>{error}</Text>}
         </View>
