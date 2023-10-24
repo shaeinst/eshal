@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import useHandleNavbar from './handleNavbar'
 
@@ -6,11 +5,11 @@ import { useNavbarItems } from './NavbarItems'
 import { useStyles } from './styleNavbar'
 
 export default function Navbar() {
-    const [active, setActive] = useState('Home')
-    const [openMore, setOpenMore] = useState(false)
+    //
+
     const { styles } = useStyles()
-    const { handleClick } = useHandleNavbar()
     const { navbarItems, icons } = useNavbarItems()
+    const { handleClick, active, openMore } = useHandleNavbar()
 
     return (
         <View style={styles.container}>
@@ -25,7 +24,7 @@ export default function Navbar() {
                             return (
                                 <TouchableOpacity
                                     style={styles.navContainer}
-                                    onPress={() => handleClick(title, setOpenMore, setActive, path)}
+                                    onPress={() => handleClick({ title, path })}
                                     key={title}
                                     //
                                 >
