@@ -65,7 +65,7 @@ export default function useAuthManager() {
         await Linking.openURL(authUrl)
     }
 
-    const logout = () => {
+    const logout = async () => {
         //
         mutateAsyncLogout({ auth, clientId, clientSecret }).then(() => {
             remove().then(() => {
