@@ -6,9 +6,12 @@ interface StoreInterface {
         isFreshApp: boolean
     }
     auth: AuthStateType
+    nav: string
+    //
     setIsFreshApp: (prop: boolean) => void
     setAuth: (prop: AuthStateType) => void
     resetAuth: () => void
+    setNav: (prop: string)=> void
 }
 
 export const useStore = create<StoreInterface>(set => ({
@@ -22,6 +25,7 @@ export const useStore = create<StoreInterface>(set => ({
         token: null,
         isSignedIn: false,
     },
+    nav: 'Eshal',
     /**
      * Actions
      */
@@ -33,5 +37,8 @@ export const useStore = create<StoreInterface>(set => ({
     },
     resetAuth: () => {
         set(state => ({ auth: { token: null, isSignedIn: false } }))
+    },
+    setNav: (prop: string) => {
+        set(state => ({nav: prop}))
     },
 }))

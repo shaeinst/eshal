@@ -1,6 +1,8 @@
-import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useCallback, useRef, useState } from 'react'
 import { BackHandler } from 'react-native'
+import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native'
+
+import { useZustandStore } from '$exporter'
 
 type HandleClickType = {
     title: string
@@ -13,6 +15,7 @@ export default function useHandleNavbar() {
     const [openMore, setOpenMore] = useState(false)
     const lastBackPressed = useRef(0)
     const { navigate, getState } = useNavigation<NavigationProp<any>>()
+    const { setNav: setNavTitle } = useZustandStore()
 
     useFocusEffect(
         useCallback(() => {
@@ -23,6 +26,7 @@ export default function useHandleNavbar() {
                 if (currentRouteName !== 'timeline') {
                     navigate('timeline')
                     setActive('Home')
+                    setNavTitle('Eshal')
                 } else {
                     // Handle back button presses on the home page
                     if (lastBackPressed.current && lastBackPressed.current + 1000 >= Date.now()) {
@@ -49,6 +53,8 @@ export default function useHandleNavbar() {
             if (path) navigate(path) // navigate to to screen
             setOpenMore(false)
             setActive(title)
+            if (title === 'Home') setNavTitle('Eshal')
+            else setNavTitle(title)
         }
     }
 
