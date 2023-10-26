@@ -16,6 +16,7 @@ export default {
 
         // Medium
         'Md-10': { fontFamily: 'Inter-Medium', fontSize: 10 },
+        'Md-14': { fontFamily: 'Inter-Medium', fontSize: 14 },
         'Md-16': { fontFamily: 'Inter-Medium', fontSize: 16 },
         'Md-18': { fontFamily: 'Inter-Medium', fontSize: 18 },
 

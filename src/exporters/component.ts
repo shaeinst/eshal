@@ -6,3 +6,6 @@ export { default as CredInput } from '../interfaces/components/Forms/CredInput/C
 
 // NAVBAR
 export { default as Navbar } from '../interfaces/components/Navbar/Navbar'
+
+// CARDS
+export { default as PostCard } from '../interfaces/components/Cards/PostCard/PostCard'

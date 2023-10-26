@@ -9,13 +9,7 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            // backgroundColor: 'red'
         },
-        error: {
-            color: 'red'
-        }
     })
 
     return { styles, COLORS }

@@ -11,6 +11,10 @@ export { default as AddPostIcon } from '../assets/icons/SvgIcons/AddPost'
 export { default as LogoutIcon } from '../assets/icons/SvgIcons/Logout'
 export { default as ProfileIcon } from '../assets/icons/SvgIcons/Profile'
 export { default as SettingIcon } from '../assets/icons/SvgIcons/Setting'
+export { default as BoostIcon } from '../assets/icons/SvgIcons/Boost'
+export { default as MoreArrowDownIcon } from '../assets/icons/SvgIcons/MoreArrowDown'
+export { default as ExpandIcon } from '../assets/icons/SvgIcons/Expand'
+export { default as SwitchIcon } from '../assets/icons/SvgIcons/Switch'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';

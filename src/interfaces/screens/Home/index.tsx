@@ -32,16 +32,16 @@ const useStyles = () => {
             flex: 1,
             position: 'relative',
             backgroundColor: COLORS.background,
-            // paddingHorizontal: 10,
+            paddingHorizontal: 10,
         },
         top: {
             // backgroundColor: COLORS.primary,
         },
         logoContainer: {},
         logo: {
-            ...FONTS.Inter['SB-20'],
+            ...FONTS.Inter['Bd-20'],
             color: COLORS.logo,
-            padding: 8,
+            paddingVertical: 8,
         },
         nav: {
             width: 230,

@@ -1,21 +1,29 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { PrimaryButton } from '$exporter/component'
-import { useAuthManager } from '$exporter/backend'
+import { PostCard, PrimaryButton } from '$exporter/component'
 import { useStyles } from './styleTimeline'
+import { FlashList } from '@shopify/flash-list'
+
+// https://loremflickr.com/640/480/person
+const DATA = [
+    {
+        title: 'First Item',
+    },
+]
 
 export default function Timeline() {
     //
     const { styles } = useStyles()
-    const { logout, loading, isError, error } = useAuthManager()
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 50, color: 'red' }}>Timeline screen</Text>
-            <PrimaryButton title="Logout" size="large" onClick={logout} loading={loading} />
+            <FlashList
+                data={DATA}
+                renderItem={({ item }) => <PostCard />}
+                estimatedItemSize={200}
 
-            {isError && <Text style={styles.error}>{error}</Text>}
+            />
         </View>
     )
 }
