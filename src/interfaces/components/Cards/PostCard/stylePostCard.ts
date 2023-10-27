@@ -15,7 +15,7 @@ export function useStyles() {
         boostContainer: {
             flexDirection: 'row',
             gap: 6,
-            marginBottom: 20,
+            marginBottom: 16,
         },
         boostUserPic: {
             width: 20,
@@ -127,16 +127,16 @@ export function useStyles() {
         },
         textIndicator: {
             ...FONTS.Inter['Bd-12'],
+            color: COLORS.placeholder,
             textAlign: 'center',
         },
         dotIndicatorContainer: {
             position: 'absolute',
-            right: -20,
-            backgroundColor: 'yellow',
+            right: 0,
+            gap: 4,
         },
         dotIndicator: {
-            color: COLORS.text,
-            fontSize: 20,
+            //
         },
         /** *************************** **/
         actionContainer: {

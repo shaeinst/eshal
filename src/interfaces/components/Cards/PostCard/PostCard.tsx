@@ -1,6 +1,14 @@
-import { BoostIcon, CommentIcon, ExpandIcon, MoreArrowDownIcon, StarIcon, SwitchIcon } from '$exporter/asset'
+import {
+    BoostIcon,
+    CommentIcon,
+    ExpandIcon,
+    MoreArrowDownIcon,
+    SingleDotIcon,
+    StarIcon,
+    SwitchIcon,
+} from '$exporter/asset'
 import { FlashList } from '@shopify/flash-list'
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Text, View } from 'react-native'
 
 import { useStyles } from './stylePostCard'
@@ -14,11 +22,17 @@ const MEDIA_URL = [
     'https://loremflickr.com/640/480/animal',
     'https://loremflickr.com/640/480/bird',
     'https://loremflickr.com/640/480/fish',
+    'https://loremflickr.com/640/480/fish',
+    'https://loremflickr.com/640/480/fish',
+    'https://loremflickr.com/640/480/fish',
 ]
 
 export default function PostCard(props: PropsType) {
     //
     const {} = props
+
+    const [isAlt, setIsAlt] = useState(false)
+
     const { styles, COLORS } = useStyles()
 
     return (
@@ -70,7 +84,7 @@ export default function PostCard(props: PropsType) {
                             <Text style={styles.accessibilityText}>Expand Text</Text>
                         </View>
                         <View style={styles.accessibilityClick}>
-                            <SwitchIcon />
+                            <SwitchIcon isOn={isAlt} />
                             <Text style={styles.accessibilityText}>ALT</Text>
                         </View>
                     </View>
@@ -97,7 +111,13 @@ export default function PostCard(props: PropsType) {
                     </View>
                     <Text style={styles.textIndicator}>1 / 2</Text>
                     <View style={styles.dotIndicatorContainer}>
-                        <Text style={styles.dotIndicator}>. . .</Text>
+                        {Array(MEDIA_URL.length)
+                            .fill(null)
+                            .map((_, index) => (
+                                <View key={index} style={styles.dotIndicator}>
+                                    <SingleDotIcon />
+                                </View>
+                            ))}
                     </View>
                 </View>
             </View>
