@@ -1,4 +1,5 @@
-import { BoostIcon, ExpandIcon, MoreArrowDownIcon, SwitchIcon } from '$exporter/asset'
+import { BoostIcon, CommentIcon, ExpandIcon, MoreArrowDownIcon, StarIcon, SwitchIcon } from '$exporter/asset'
+import { FlashList } from '@shopify/flash-list'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 
@@ -8,17 +9,24 @@ type PropsType = {
     //
 }
 
+const MEDIA_URL = [
+    'https://loremflickr.com/640/480/person',
+    'https://loremflickr.com/640/480/animal',
+    'https://loremflickr.com/640/480/bird',
+    'https://loremflickr.com/640/480/fish',
+]
+
 export default function PostCard(props: PropsType) {
     //
     const {} = props
-    const { styles } = useStyles()
+    const { styles, COLORS } = useStyles()
 
     return (
         <View style={styles.container}>
             {/********** BOOST ***********/}
             <View style={styles.boostContainer}>
                 <Image
-                    source={{ uri: 'https://loremflickr.com/640/480/person' }}
+                    source={{ uri: 'https://loremflickr.com/640/480/human' }}
                     style={styles.boostUserPic}
                 />
                 <Text style={styles.boostUserName}>Dan Gillmor</Text>
@@ -30,7 +38,7 @@ export default function PostCard(props: PropsType) {
             {/********** AUTHOR INFO ***********/}
             <View style={styles.authorContainer}>
                 <Image
-                    source={{ uri: 'https://loremflickr.com/640/480/person' }}
+                    source={{ uri: 'https://loremflickr.com/640/480/boy' }}
                     style={styles.authorProfilePic}
                 />
                 <View style={styles.authorInfo}>
@@ -53,24 +61,61 @@ export default function PostCard(props: PropsType) {
                 </Text>
             </View>
             {/********** POST MEDIA ***********/}
+
             <View style={styles.mediaContainer}>
-                <View style={styles.accessibility}>
-                    <View style={styles.accessibilityClick}>
-                        <ExpandIcon />
-                        <Text style={styles.accessibilityText}>Expand Text</Text>
+                <View style={styles.accNprev}>
+                    <View style={styles.accessibility}>
+                        <View style={styles.accessibilityClick}>
+                            <ExpandIcon />
+                            <Text style={styles.accessibilityText}>Expand Text</Text>
+                        </View>
+                        <View style={styles.accessibilityClick}>
+                            <SwitchIcon />
+                            <Text style={styles.accessibilityText}>ALT</Text>
+                        </View>
                     </View>
-                    <View style={styles.accessibilityClick}>
-                        <SwitchIcon />
-                        <Text style={styles.accessibilityText}>ALT</Text>
+                    <Image
+                        source={{ uri: 'https://loremflickr.com/640/480/person' }}
+                        style={styles.postPreview}
+                    />
+                </View>
+                <View style={styles.mediaListContainer}>
+                    <View style={styles.mediaList}>
+                        <FlashList
+                            data={MEDIA_URL}
+                            estimatedItemSize={20}
+                            showsVerticalScrollIndicator={false}
+                            ItemSeparatorComponent={() => <View style={styles.whiteSpace}></View>}
+                            ListFooterComponentStyle={{
+                                height: 50,
+                                backgroundColor: COLORS.background,
+                            }}
+                            renderItem={({ item }) => (
+                                <Image source={{ uri: item }} style={styles.media} />
+                            )}
+                        />
+                    </View>
+                    <Text style={styles.textIndicator}>1 / 2</Text>
+                    <View style={styles.dotIndicatorContainer}>
+                        <Text style={styles.dotIndicator}>. . .</Text>
                     </View>
                 </View>
-                <Image
-                    source={{ uri: 'https://loremflickr.com/640/480/person' }}
-                    style={styles.postPreview}
-                />
             </View>
             {/********** POST ACTIONS ***********/}
-            <View style={styles.actionContainer}></View>
+            <View style={styles.actionContainer}>
+                <View style={styles.action}>
+                    <Text style={styles.actionText}>262</Text>
+                    <StarIcon />
+                </View>
+                <View style={styles.action}>
+                    <Text style={styles.actionText}>34</Text>
+                    <BoostIcon />
+                </View>
+                <View style={styles.action}>
+                    <Text style={styles.actionText}>55</Text>
+                    <CommentIcon />
+                </View>
+            </View>
         </View>
     )
 }

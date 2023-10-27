@@ -10,6 +10,16 @@ export function useStyles() {
         container: {
             flex: 1,
         },
+
+        whiteSpace: {
+            paddingVertical: 32,
+            backgroundColor: COLORS.background,
+        },
+        seperator: {
+            height: 1,
+            width: '100%',
+            backgroundColor: COLORS.seperator,
+        },
     })
 
     return { styles, COLORS }

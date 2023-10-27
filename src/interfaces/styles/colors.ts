@@ -11,6 +11,7 @@ const colors = {
     error: { light: '#ff6666', dark: '#ff6666' },
     logo: { light: '#10100F', dark: '#F9F2F2' },
     navbar: { light: '#657786', dark: '#657786' },
+    seperator: { light: '#657786', dark: '#657786' },
     active: { light: '#000000', dark: '#ffffff' },
     success: { light: '#038B8B', dark: '#038B8B' },
 
@@ -33,6 +34,7 @@ interface ColorsInterface {
     active: string
     success: string
     weakText: string
+    seperator: string
 }
 
 function useColors() {
@@ -56,6 +58,7 @@ function useColors() {
                   navbar: colors.navbar.dark,
                   active: colors.active.dark,
                   success: colors.success.dark,
+                  seperator: colors.seperator.dark,
               }
             : {
                   ...colors.common,
@@ -71,6 +74,7 @@ function useColors() {
                   navbar: colors.navbar.light,
                   active: colors.active.light,
                   success: colors.success.light,
+                  seperator: colors.seperator.light,
               }
 
     return { COLORS, themeMode }

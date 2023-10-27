@@ -26,6 +26,7 @@ export default {
         'SB-32': { fontFamily: 'Inter-SemiBold', fontSize: 32 },
 
         // Bold
+        'Bd-12': { fontFamily: 'Inter-Bold', fontSize: 12 },
         'Bd-18': { fontFamily: 'Inter-Bold', fontSize: 18 },
         'Bd-20': { fontFamily: 'Inter-Bold', fontSize: 20 },
         'Bd-32': { fontFamily: 'Inter-Bold', fontSize: 32 },

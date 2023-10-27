@@ -10,19 +10,29 @@ const DATA = [
     {
         title: 'First Item',
     },
+    {
+        title: 'First Item',
+    },
 ]
 
 export default function Timeline() {
     //
-    const { styles } = useStyles()
+    const { styles, COLORS } = useStyles()
 
     return (
         <View style={styles.container}>
             <FlashList
                 data={DATA}
-                renderItem={({ item }) => <PostCard />}
                 estimatedItemSize={200}
-
+                showsVerticalScrollIndicator={false}
+                ItemSeparatorComponent={() => <View style={styles.whiteSpace}>
+                    <View style={styles.seperator}></View>
+                </View>}
+                ListFooterComponentStyle={{
+                    height: 200,
+                    backgroundColor: COLORS.background,
+                }}
+                renderItem={({ item }) => <PostCard />}
             />
         </View>
     )

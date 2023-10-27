@@ -9,13 +9,13 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             width: '100%',
-            gap: 16,
             backgroundColor: COLORS.background,
         },
         /** *************************** **/
         boostContainer: {
             flexDirection: 'row',
             gap: 6,
+            marginBottom: 20,
         },
         boostUserPic: {
             width: 20,
@@ -37,6 +37,7 @@ export function useStyles() {
         authorContainer: {
             flexDirection: 'row',
             gap: 16,
+            marginBottom: 5,
         },
         authorProfilePic: {
             borderRadius: 50,
@@ -44,7 +45,9 @@ export function useStyles() {
             width: 50,
             height: 50,
         },
-        authorInfo: {},
+        authorInfo: {
+            gap: 1,
+        },
         NameNPost: {
             flexDirection: 'row',
             alignItems: 'center',
@@ -69,7 +72,7 @@ export function useStyles() {
         postConatiner: {},
         /** *************************** **/
         textContainer: {
-            //
+            marginBottom: 6,
         },
         description: {
             ...FONTS.Inter['Md-16'],
@@ -77,14 +80,10 @@ export function useStyles() {
             textAlign: 'justify',
         },
         /** *************************** **/
-        mediaContainer: {
-            //
-        },
+
         accessibility: {
             flexDirection: 'row',
-            // justifyContent: 'space-between',
-            // backgroundColor: 'red',
-            width: '90%',
+            justifyContent: 'space-between',
         },
         accessibilityClick: {
             flexDirection: 'row',
@@ -94,16 +93,72 @@ export function useStyles() {
         accessibilityText: {
             color: COLORS.weakText,
         },
+        /** *************************** **/
+
+        mediaContainer: {
+            flexDirection: 'row',
+            gap: 10,
+            height: 240,
+        },
+        accNprev: {
+            flex: 1,
+            gap: 10,
+        },
         postPreview: {
-            width: '100%',
-            height: 200,
             borderRadius: 12,
+            flex: 1,
+        },
+        mediaListContainer: {
+            width: 100,
+            height: '80%',
+            gap: 4,
+            justifyContent: 'center',
+            paddingRight: 10,
+            marginTop: 30,
+        },
+        mediaList: {
+            flex: 1,
+            borderRadius: 8,
+        },
+        media: {
+            //
+            height: 75,
+            borderRadius: 8,
+        },
+        textIndicator: {
+            ...FONTS.Inter['Bd-12'],
+            textAlign: 'center',
+        },
+        dotIndicatorContainer: {
+            position: 'absolute',
+            right: -20,
+            backgroundColor: 'yellow',
+        },
+        dotIndicator: {
+            color: COLORS.text,
+            fontSize: 20,
         },
         /** *************************** **/
         actionContainer: {
-            //
+            flexDirection: 'row',
+            gap: 22,
+            marginTop: 18,
+        },
+        action: {
+            flexDirection: 'row',
+            gap: 8,
+            // alignItems: 'center',
+
+        },
+        actionText: {
+            ...FONTS.Inter['Md-14'],
+            color: COLORS.text,
         },
         /** *************************** **/
+        whiteSpace: {
+            paddingVertical: 5,
+            backgroundColor: COLORS.background,
+        },
     })
 
     return { styles, COLORS }

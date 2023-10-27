@@ -31,11 +31,9 @@ const useStyles = () => {
         container: {
             flex: 1,
             position: 'relative',
-            backgroundColor: COLORS.background,
             paddingHorizontal: 10,
         },
         top: {
-            // backgroundColor: COLORS.primary,
         },
         logoContainer: {},
         logo: {

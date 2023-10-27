@@ -15,6 +15,8 @@ export { default as BoostIcon } from '../assets/icons/SvgIcons/Boost'
 export { default as MoreArrowDownIcon } from '../assets/icons/SvgIcons/MoreArrowDown'
 export { default as ExpandIcon } from '../assets/icons/SvgIcons/Expand'
 export { default as SwitchIcon } from '../assets/icons/SvgIcons/Switch'
+export { default as StarIcon } from '../assets/icons/SvgIcons/Star'
+export { default as CommentIcon } from '../assets/icons/SvgIcons/Comment'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';
