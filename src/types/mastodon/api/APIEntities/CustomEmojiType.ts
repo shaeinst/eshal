@@ -7,5 +7,5 @@ export type CustomEmoji = {
     url: string
     static_url: string
     visible_in_picker: boolean
-    category: string | null
+    category?: string | null
 }

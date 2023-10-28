@@ -3,6 +3,7 @@
  */
 
 import { CustomEmoji } from './CustomEmojiType'
+import { RoleType } from './RoleType'
 
 export type AccountType = {
     id: string
@@ -18,28 +19,38 @@ export type AccountType = {
     locked: boolean
     bot: boolean
     group: boolean
-    discoverable: boolean | null
+    discoverable?: boolean | null
     created_at: string
-    last_status_at: string | null
+    last_status_at?: string | null
     statuses_count: number
     followers_count: number
     following_count: number
-    fields: Array<{ name: string; value: string; verified_at: string | null }>
+    fields: Array<FieldType>
     emojis: Array<CustomEmoji>
     noindex?: boolean | null
     moved?: AccountType | null
-    suspended?: boolean
-    limited?: boolean
+    suspended?: boolean | null
+    limited?: boolean | null
 
-    // CredentialAccount entity attributes
-    // source
-    // role
+    // i still consfused of below. Mastodon DOC is confusion here
+    source?: SourceType
+    role?: RoleType
+    muted_account?: {
+        mute_expires_at?: string | null
+    }
+}
 
-    // MutedAccount entity attributes
-    // mute_expires_at
+type SourceType = {
+    note: string
+    fields: Array<FieldType>
+    privacy: 'public' | 'unlisted' | 'private' | 'direct'
+    sensitive: boolean
+    language: string
+    follow_requests_count: number
+}
 
-    // Field entity attributes
-    // name
-    // value
-    // verified_at
+type FieldType = {
+    name: string
+    value: string
+    verified_at?: string | null
 }
