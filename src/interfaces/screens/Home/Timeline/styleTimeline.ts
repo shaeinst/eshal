@@ -11,14 +11,13 @@ export function useStyles() {
             flex: 1,
         },
 
-        whiteSpace: {
-            paddingVertical: 32,
+        separatorContainer: {
             backgroundColor: COLORS.background,
+            paddingVertical: 32,
         },
         seperator: {
-            height: 1,
-            width: '100%',
             backgroundColor: COLORS.seperator,
+            height: 1,
         },
     })
 

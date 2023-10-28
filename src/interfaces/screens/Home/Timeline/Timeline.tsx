@@ -25,9 +25,11 @@ export default function Timeline() {
                 data={DATA}
                 estimatedItemSize={200}
                 showsVerticalScrollIndicator={false}
-                ItemSeparatorComponent={() => <View style={styles.whiteSpace}>
-                    <View style={styles.seperator}></View>
-                </View>}
+                ItemSeparatorComponent={() => (
+                    <View style={styles.separatorContainer}>
+                        <View style={styles.seperator}></View>
+                    </View>
+                )}
                 ListFooterComponentStyle={{
                     height: 200,
                     backgroundColor: COLORS.background,
