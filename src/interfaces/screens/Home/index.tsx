@@ -32,6 +32,7 @@ const useStyles = () => {
             flex: 1,
             position: 'relative',
             paddingHorizontal: 10,
+            backgroundColor: COLORS.background,
         },
         top: {
         },
