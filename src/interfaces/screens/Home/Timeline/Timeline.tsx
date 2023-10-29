@@ -25,6 +25,7 @@ export default function Timeline() {
                 data={DATA}
                 estimatedItemSize={200}
                 showsVerticalScrollIndicator={false}
+                nestedScrollEnabled
                 ItemSeparatorComponent={() => (
                     <View style={styles.separatorContainer}>
                         <View style={styles.seperator}></View>
