@@ -120,6 +120,10 @@ export function useStyles() {
             flex: 1,
             borderRadius: 8,
         },
+        seperator: {
+            backgroundColor: COLORS.background,
+            height: 10,
+        },
         media: {
             //
             height: 75,
@@ -148,16 +152,10 @@ export function useStyles() {
             flexDirection: 'row',
             gap: 8,
             // alignItems: 'center',
-
         },
         actionText: {
             ...FONTS.Inter['Md-14'],
             color: COLORS.text,
-        },
-        /** *************************** **/
-        whiteSpace: {
-            paddingVertical: 5,
-            backgroundColor: COLORS.background,
         },
     })
 

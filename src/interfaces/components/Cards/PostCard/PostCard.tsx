@@ -100,11 +100,7 @@ export default function PostCard(props: PropsType) {
                             estimatedItemSize={20}
                             nestedScrollEnabled
                             showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={() => <View style={styles.whiteSpace}></View>}
-                            ListFooterComponentStyle={{
-                                height: 50,
-                                backgroundColor: COLORS.background,
-                            }}
+                            ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
                             renderItem={({ item }) => (
                                 <Image source={{ uri: item }} style={styles.media} />
                             )}
