@@ -98,6 +98,7 @@ export default function PostCard(props: PropsType) {
                         <FlashList
                             data={MEDIA_URL}
                             estimatedItemSize={20}
+                            nestedScrollEnabled
                             showsVerticalScrollIndicator={false}
                             ItemSeparatorComponent={() => <View style={styles.whiteSpace}></View>}
                             ListFooterComponentStyle={{
