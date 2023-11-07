@@ -3,6 +3,7 @@ import { BackHandler } from 'react-native'
 import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native'
 
 import { useZustandStore } from '$exporter'
+import { useAuthManager } from '$exporter/backend'
 
 type HandleClickType = {
     title: string
@@ -16,6 +17,7 @@ export default function useHandleNavbar() {
     const lastBackPressed = useRef(0)
     const { navigate, getState } = useNavigation<NavigationProp<any>>()
     const { setNav: setNavTitle } = useZustandStore()
+    const { logout } = useAuthManager()
 
     useFocusEffect(
         useCallback(() => {
@@ -44,7 +46,7 @@ export default function useHandleNavbar() {
         }, [navigate]),
     )
 
-    const handleClick = ({ title, path }: HandleClickType) => {
+    const handleClick = async ({ title, path }: HandleClickType) => {
         //
         console.log('clicked: ', title)
         if (title === 'More') {
@@ -55,6 +57,10 @@ export default function useHandleNavbar() {
             setActive(title)
             if (title === 'Home') setNavTitle('Eshal')
             else setNavTitle(title)
+            // remoble below later
+            if (title === 'Logout') {
+                await logout()
+            }
         }
     }
 

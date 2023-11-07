@@ -5,4 +5,5 @@ export const VERSIONS = {
 
 export const NAMES = {
     todos: 'todos',
+    homeTimeline: 'homeTimeline',
 }

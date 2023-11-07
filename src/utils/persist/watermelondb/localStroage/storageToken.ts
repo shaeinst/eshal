@@ -6,7 +6,7 @@ const KEY = KEYS.TOKEN
 export default function Token() {
     //
 
-    const get = async (): Promise<TokenType> => {
+    const get = async (): Promise<TokenType | null> => {
         return localStorage
             .get(KEY)
             .then((value: any) => {
@@ -16,7 +16,7 @@ export default function Token() {
             .catch(() => null)
     }
 
-    const set = async (value: TokenType): Promise<boolean> => {
+    const set = async (value: TokenType | null): Promise<boolean> => {
         // return true on sucessfully saving token on storage else return false
         return localStorage
             .set(KEY, JSON.stringify(value))

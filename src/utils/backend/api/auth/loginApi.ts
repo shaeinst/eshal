@@ -12,7 +12,7 @@ type PropsType = {
     clientSecret: string
 }
 
-export default async function loginApi(props: PropsType): Promise<TokenType> {
+export default async function loginApi(props: PropsType): Promise<TokenType | null> {
     //
     const { url, instanceURL, clientId, clientSecret } = props
 

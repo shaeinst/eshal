@@ -32,7 +32,7 @@ export type AccountType = {
     suspended?: boolean | null
     limited?: boolean | null
 
-    // i still consfused of below. Mastodon DOC is confusion here
+    // I'm still consfused of below. Mastodon DOC is confusion here
     source?: SourceType
     role?: RoleType
     muted_account?: {

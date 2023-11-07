@@ -4,6 +4,6 @@ export type TokenType = {
     scope: string
     token_type: string
     server_url: string
-} | null
+}
 
 export type FreshAppType = boolean
