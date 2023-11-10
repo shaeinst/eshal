@@ -2,7 +2,7 @@ import { useColorScheme } from 'react-native'
 
 const colors = {
     primary: { light: '#1DA1F2', dark: '#1DA1F2' },
-    background: { light: '#F5F8FA', dark: '#000000' },
+    background: { light: '#FFFFFF', dark: '#000000' },
     text: { light: '#10100F', dark: '#F9F2F2' },
     strongText: { light: '#000000', dark: '#FFFFFF' },
     weakText: { light: '#657786', dark: '#657786' },
@@ -11,7 +11,7 @@ const colors = {
     error: { light: '#ff6666', dark: '#ff6666' },
     logo: { light: '#10100F', dark: '#F9F2F2' },
     navbar: { light: '#657786', dark: '#657786' },
-    seperator: { light: '#657786', dark: '#657786' },
+    seperator: { light: '#dddddd', dark: '#222222' },
     active: { light: '#000000', dark: '#ffffff' },
     success: { light: '#038B8B', dark: '#038B8B' },
 

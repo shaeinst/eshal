@@ -1,40 +1,36 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, Text, View } from 'react-native'
 
-import { PostCard, PrimaryButton } from '$exporter/component'
+import { PostCard } from '$exporter/component'
+import { queryHomeTimeline } from '$exporter/backend'
 import { useStyles } from './styleTimeline'
 import { FlashList } from '@shopify/flash-list'
-
-// https://loremflickr.com/640/480/person
-const DATA = [
-    {
-        title: 'First Item',
-    },
-    {
-        title: 'First Item',
-    },
-]
 
 export default function Timeline() {
     //
     const { styles, COLORS } = useStyles()
 
+    const { data, error, isLoading, isFetching, refetch } = queryHomeTimeline()
+
     return (
         <View style={styles.container}>
             <FlashList
-                data={DATA}
-                estimatedItemSize={200}
+                estimatedItemSize={600}
+                onRefresh={() => {
+                    refetch()
+                }}
+                refreshing={isLoading || isFetching}
                 showsVerticalScrollIndicator={false}
+                overScrollMode="never"
                 ItemSeparatorComponent={() => (
                     <View style={styles.separatorContainer}>
                         <View style={styles.seperator}></View>
                     </View>
                 )}
-                ListFooterComponentStyle={{
-                    height: 200,
-                    backgroundColor: COLORS.background,
-                }}
-                renderItem={({ item }) => <PostCard />}
+                ListFooterComponent={<View style={{ height: 200 }}> </View>}
+                data={data}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <PostCard key={item.id} data={item} />}
             />
         </View>
     )

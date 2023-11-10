@@ -43,7 +43,7 @@ export function useNavbarItems() {
         setting: ({ active }) => <SettingIcon fill={active === 'Setting' ? activeC : undefined} />,
         profile: ({ active }) => <ProfileIcon fill={active === 'Profile' ? activeC : undefined} />,
         more: ({ openMore, active }) => {
-            if (openMore) return <CloseIcon stroke={activeC} />
+            if (openMore) return <CloseIcon fill={activeC} />
             return (
                 <MoreDotIcon
                     fill={

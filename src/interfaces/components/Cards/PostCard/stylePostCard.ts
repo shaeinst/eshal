@@ -9,6 +9,7 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             width: '100%',
+            height: 'auto',
             backgroundColor: COLORS.background,
         },
         /** *************************** **/
@@ -16,10 +17,11 @@ export function useStyles() {
             flexDirection: 'row',
             gap: 6,
             marginBottom: 16,
+            alignItems: 'center',
         },
         boostUserPic: {
-            width: 20,
-            height: 20,
+            width: 26,
+            height: 26,
             borderRadius: 20,
             borderWidth: 0.5,
         },
@@ -27,7 +29,6 @@ export function useStyles() {
             ...FONTS.Inter['Md-14'],
             color: COLORS.strongText,
         },
-        boostLogo: {},
         boostText: {
             ...FONTS.Inter['Md-14'],
             color: COLORS.success,
@@ -36,14 +37,14 @@ export function useStyles() {
 
         authorContainer: {
             flexDirection: 'row',
-            gap: 16,
+            gap: 8,
             marginBottom: 5,
         },
         authorProfilePic: {
             borderRadius: 50,
             borderWidth: 0.5,
-            width: 50,
-            height: 50,
+            width: 40,
+            height: 40,
         },
         authorInfo: {
             gap: 1,
@@ -54,7 +55,7 @@ export function useStyles() {
             gap: 8,
         },
         authorName: {
-            ...FONTS.Inter['Md-18'],
+            ...FONTS.Inter['Md-16'],
             color: COLORS.text,
         },
         postDate: {
@@ -96,9 +97,9 @@ export function useStyles() {
         /** *************************** **/
 
         mediaContainer: {
-            flexDirection: 'row',
-            gap: 10,
-            height: 240,
+            // flexDirection: 'row',
+            gap: 8,
+            height: 280,
         },
         accNprev: {
             flex: 1,
@@ -109,24 +110,19 @@ export function useStyles() {
             flex: 1,
         },
         mediaListContainer: {
-            width: 100,
-            height: '80%',
-            gap: 4,
+            width: '100%',
+            height: 65,
             justifyContent: 'center',
-            paddingRight: 10,
-            marginTop: 30,
-        },
-        mediaList: {
-            flex: 1,
             borderRadius: 8,
         },
         seperator: {
             backgroundColor: COLORS.background,
-            height: 10,
+            width: 6,
         },
         media: {
             //
-            height: 75,
+            height: '100%',
+            width: 75,
             borderRadius: 8,
         },
         textIndicator: {
@@ -156,6 +152,10 @@ export function useStyles() {
         actionText: {
             ...FONTS.Inter['Md-14'],
             color: COLORS.text,
+        },
+        activeActionText: {
+            ...FONTS.Inter['Md-14'],
+            color: COLORS.success,
         },
     })
 

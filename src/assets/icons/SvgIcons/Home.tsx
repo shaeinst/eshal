@@ -1,10 +1,6 @@
 import * as React from 'react'
 import Svg, { SvgProps, Path } from 'react-native-svg'
 
-interface PropsInterface extends SvgProps {
-    stroke: string
-}
-
 const SVGComponent = (props: SvgProps) => (
     <Svg width={24} height={24} viewBox="0 0 28 28" fill="none" {...props}>
         <Path

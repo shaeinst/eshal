@@ -11,15 +11,11 @@ export default function HomeInitial() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.top}>
-                <View style={styles.logoContainer}>
-                    <Text style={styles.logo}>{navTitle}</Text>
-                </View>
-                <View style={styles.nav}>
-                    <Navbar />
-                </View>
-            </View>
+            <Text style={styles.logo}>{navTitle}</Text>
             <RouteHome />
+            <View style={styles.nav}>
+                <Navbar />
+            </View>
         </View>
     )
 }
@@ -30,24 +26,16 @@ const useStyles = () => {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            position: 'relative',
             paddingHorizontal: 10,
             backgroundColor: COLORS.background,
         },
-        top: {
+        nav: {
+        paddingBottom: 10,
         },
-        logoContainer: {},
         logo: {
             ...FONTS.Inter['Bd-20'],
             color: COLORS.logo,
             paddingVertical: 8,
-        },
-        nav: {
-            width: 230,
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            zIndex: 1000,
         },
     })
     return { styles }
