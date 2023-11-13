@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, { SvgProps, G, Path, Defs, ClipPath } from 'react-native-svg'
 const SvgComponent = (props: SvgProps) => (
-    <Svg width={20} height={20} fill="none" {...props}>
+    <Svg width={18} height={18} viewBox="0 0 20 20" fill="none" {...props}>
         <G strokeLinecap="round" strokeLinejoin="round" clipPath="url(#a)">
             <Path
                 stroke={props.stroke ? props.stroke : '#292D32'}

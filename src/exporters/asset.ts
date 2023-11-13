@@ -18,7 +18,8 @@ export { default as SwitchIcon } from '../assets/icons/SvgIcons/Switch'
 export { default as StarIcon } from '../assets/icons/SvgIcons/Star'
 export { default as CommentIcon } from '../assets/icons/SvgIcons/Comment'
 export { default as SingleDotIcon } from '../assets/icons/SvgIcons/SingleDot'
-export { default as ReplyIcon } from '../assets/icons/SvgIcons/reply'
+export { default as ReplyIcon } from '../assets/icons/SvgIcons/Reply'
+export { default as EyeIcon } from '../assets/icons/SvgIcons/Eye'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';

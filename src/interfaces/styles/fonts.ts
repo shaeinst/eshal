@@ -3,6 +3,7 @@ export default {
         fontFamily: 'Inter',
 
         // Light
+        'Lt-10': { fontFamily: 'Inter-Light', fontSize: 10 },
         'Lt-12': { fontFamily: 'Inter-Light', fontSize: 12 },
         'Lt-14': { fontFamily: 'Inter-Light', fontSize: 14 },
         'Lt-16': { fontFamily: 'Inter-Light', fontSize: 16 },
@@ -22,6 +23,7 @@ export default {
         'Md-18': { fontFamily: 'Inter-Medium', fontSize: 18 },
 
         // Semi-Bold
+        'SB-14': { fontFamily: 'Inter-SemiBold', fontSize: 14 },
         'SB-16': { fontFamily: 'Inter-SemiBold', fontSize: 16 },
         'SB-20': { fontFamily: 'Inter-SemiBold', fontSize: 20 },
         'SB-32': { fontFamily: 'Inter-SemiBold', fontSize: 32 },

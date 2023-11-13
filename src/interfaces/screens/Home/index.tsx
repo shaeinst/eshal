@@ -2,20 +2,15 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { FONTS, RouteHome, useColors, useZustandStore, WHITESPACE } from '$exporter'
-import { Navbar } from '$exporter/component'
 
 export default function HomeInitial() {
     //
-    const { styles } = useStyles()
+    const { styles, COLORS } = useStyles()
     const { nav: navTitle } = useZustandStore()
 
     return (
         <View style={styles.container}>
-            <Text style={styles.logo}>{navTitle}</Text>
-            <RouteHome />
-            <View style={styles.nav}>
-                <Navbar />
-            </View>
+            <RouteHome bg={COLORS.background} fg={COLORS.logo} />
         </View>
     )
 }
@@ -30,7 +25,7 @@ const useStyles = () => {
             backgroundColor: COLORS.background,
         },
         nav: {
-        paddingBottom: 10,
+            paddingBottom: 10,
         },
         logo: {
             ...FONTS.Inter['Bd-20'],
@@ -38,5 +33,5 @@ const useStyles = () => {
             paddingVertical: 8,
         },
     })
-    return { styles }
+    return { styles, COLORS }
 }

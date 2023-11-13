@@ -10,16 +10,16 @@ const convertTime = (milliseconds: number): string => {
     // Check the range of the milliseconds and return the appropriate unit
     if (absMilliseconds < hour) {
         // Return the minutes
-        return Math.floor(absMilliseconds / minute) + ' m'
+        return Math.floor(absMilliseconds / minute) + 'm'
     } else if (absMilliseconds < day) {
         // Return the hours
-        return Math.floor(absMilliseconds / hour) + ' h'
+        return Math.floor(absMilliseconds / hour) + 'h'
     } else if (absMilliseconds < year) {
         // Return the days
-        return Math.floor(absMilliseconds / day) + ' d'
+        return Math.floor(absMilliseconds / day) + 'd'
     } else {
         // Return the years
-        return Math.floor(absMilliseconds / year) + ' y'
+        return Math.floor(absMilliseconds / year) + 'y'
     }
 }
 

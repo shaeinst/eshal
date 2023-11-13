@@ -32,7 +32,7 @@ export type StatusType = {
     edited_at: string | null
     mentions: Array<{ id: string; username: string; url: string; acct: string }>
     tags: Array<{ name: string; url: string }>
-    media_attachments: Array<MediaAttachmentType>
+    media_attachments?: Array<MediaAttachmentType> // NOTE: in official doc, this is not optional but i think it must be
     emojis: Array<CustomEmoji>
     filtered?: Array<FilterResultType>
     favourited?: boolean

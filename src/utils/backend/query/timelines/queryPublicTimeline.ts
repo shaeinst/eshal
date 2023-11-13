@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { useZustandStore } from '$exporter'
-import homeTimelineApi from '../../api/home/timelines/homeTimelineApi'
+import publicTimelineApi from '../../api/home/timelines/publicTimelineApi'
 
 export default function queryHomeTimeline() {
     //
@@ -9,7 +9,7 @@ export default function queryHomeTimeline() {
     const { auth } = useZustandStore()
 
     return useQuery({
-        queryKey: ['HomeTimelineApi'],
-        queryFn: () => homeTimelineApi(auth.token),
+        queryKey: ['PublicTimelineApi'],
+        queryFn: () => publicTimelineApi(),
     })
 }

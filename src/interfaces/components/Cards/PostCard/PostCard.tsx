@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 import {
     BoostIcon,
     CommentIcon,
     ExpandIcon,
     MoreArrowDownIcon,
+    MoreDotIcon,
     ReplyIcon,
     SingleDotIcon,
     StarIcon,
@@ -16,37 +17,33 @@ import RenderHtml from 'react-native-render-html'
 
 import { useStyles } from './stylePostCard'
 import { FlatList } from 'react-native-gesture-handler'
-import { postDate } from '$exporter/func'
-
-const PostContent = ({ content }: { content: string }) => {
-    return (
-        <RenderHtml
-            contentWidth={100}
-            enableExperimentalMarginCollapsing={true}
-            source={{ html: content }}
-        />
-    )
-}
+import { parseDisplayName, postDate } from '$exporter/func'
+import { BlurImage } from '$exporter/component'
 
 export default function PostCard(props: { data: MStatusType }) {
     //
     const { data } = props
 
     const [isAlt, setIsAlt] = useState(false)
-    const [activePreview, setActivePreview] = useState<string | undefined>(
-        data.media_attachments[0]?.url,
-    )
-    // console.log('\n\n')
-    // console.log('====================================')
-    // console.log('content ', data.content)
-    // console.log('CONTENT:\n', data.content)
-    // console.log('TAGS:\n', data.tags)
-    // console.log('remote url ', data.media_attachments[0].remote_url)
-    // console.log('preview url ', data.media_attachments[0].preview_url)
-    // console.log('url ', data.media_attachments[0].url)
-    // console.log('====================================')
+    const [isNSFW, setIsNSFW] = useState(data.sensitive)
+
+    const initialMedia = data.media_attachments
+        ? data.media_attachments[0]
+        : {
+              url: undefined,
+              description: undefined,
+          }
+    const [activePreview, setActivePreview] = useState<{
+        url: string | undefined
+        description: string | undefined
+    }>(initialMedia)
 
     const { styles, COLORS } = useStyles()
+    const parsedDisplayName = parseDisplayName(data.account.display_name, data.account.emojis)
+
+    // console.log('=========================')
+    // console.log(activePreview?.desc)
+    // console.log('=========================')
 
     return (
         <View style={styles.container}>
@@ -68,82 +65,122 @@ export default function PostCard(props: { data: MStatusType }) {
                     <Text style={styles.boostText}>in reply</Text>
                 </View>
             ) : null}
-            {/********** AUTHOR INFO ***********/}
-            <View style={styles.authorContainer}>
+            <View style={styles.secondryContainer}>
                 <Image source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
-                <View style={styles.authorInfo}>
-                    <View style={styles.NameNPost}>
-                        <Text style={styles.authorName}>{data.account.display_name}</Text>
-                        <Text style={styles.postDate}>{postDate(data.created_at)}</Text>
+                <View style={styles.thirdContainer}>
+                    {/********** AUTHOR INFO ***********/}
+                    <View>
+                        <View style={styles.NameNPost}>
+                            {parsedDisplayName.map(type => {
+                                return type.name ? (
+                                    <Text
+                                        key={`${type.name} + ${Math.random()}`}
+                                        style={styles.authorName}>
+                                        {type.name}
+                                    </Text>
+                                ) : (
+                                    <Image
+                                        key={`${type.url} + ${Math.random()}`}
+                                        source={{ uri: type.url }}
+                                        style={styles.emoji}
+                                    />
+                                )
+                            })}
+                        </View>
+                        <Text style={styles.authorId}>@{data.account.acct}</Text>
                     </View>
-                    <Text style={styles.authorId}>@{data.account.acct}</Text>
-                </View>
-                <View style={styles.options}>
-                    <MoreArrowDownIcon />
-                </View>
-            </View>
-            {/********** POST TEXT ***********/}
-            <PostContent content={data.content} />
-            {/********** POST TEXT ***********/}
+                    {/********** POST Description ***********/}
+                    <RenderHtml
+                        contentWidth={100}
+                        enableExperimentalMarginCollapsing={true}
+                        source={{ html: data.content }}
+                    />
 
-            {/********** TAGS ***********/}
-            <Text>{data.tags.map(tag => '#' + tag.name + ' ')}</Text>
-
-            {activePreview ? (
-                <View style={styles.mediaContainer}>
-                    <View style={styles.accNprev}>
+                    {activePreview?.description ? (
                         <View style={styles.accessibility}>
-                            <View style={styles.accessibilityClick}>
-                                <ExpandIcon />
-                                <Text style={styles.accessibilityText}>Expand Text</Text>
-                            </View>
-                            <View style={styles.accessibilityClick}>
+                            <TouchableOpacity
+                                onPress={() => setIsAlt(prev => !prev)}
+                                style={styles.accessibilityClick}>
                                 <SwitchIcon isOn={isAlt} />
                                 <Text style={styles.accessibilityText}>ALT</Text>
-                            </View>
-                        </View>
-                        <Image source={{ uri: activePreview }} style={styles.postPreview} />
-                    </View>
-                    {data.media_attachments.length > 1 ? (
-                        <View style={styles.mediaListContainer}>
-                            <FlatList
-                                data={data.media_attachments}
-                                overScrollMode="never"
-                                horizontal
-                                // estimatedItemSize={20} //FlashList specific option
-                                nestedScrollEnabled
-                                showsVerticalScrollIndicator={true}
-                                ItemSeparatorComponent={() => (
-                                    <View style={styles.seperator}></View>
-                                )}
-                                renderItem={({ item }) => (
-                                    <Image
-                                        source={{ uri: item.preview_url }}
-                                        style={styles.media}
-                                    />
-                                )}
-                            />
+                            </TouchableOpacity>
                         </View>
                     ) : null}
-                </View>
-            ) : null}
-            {/********** POST ACTIONS ***********/}
-            <View style={styles.actionContainer}>
-                <View style={styles.action}>
-                    <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
-                        {data.favourites_count}
-                    </Text>
-                    <StarIcon fill={data.favourited ? COLORS.success : undefined} />
-                </View>
-                <View style={styles.action}>
-                    <Text style={data.reblogged ? styles.activeActionText : styles.actionText}>
-                        {data.reblogs_count}
-                    </Text>
-                    <BoostIcon fill={data.reblogged ? COLORS.success : undefined} />
-                </View>
-                <View style={styles.action}>
-                    <Text style={styles.actionText}>{data.replies_count}</Text>
-                    <CommentIcon />
+
+                    {/********** POST Media ***********/}
+                    {activePreview?.url ? (
+                        <View style={styles.mediaContainer}>
+                            <View style={styles.accNprev}>
+                                <View style={styles.postPreviewContainer}>
+                                    {isNSFW ? (
+                                        <BlurImage imageUrl={activePreview.url} />
+                                    ) : (
+                                        <Image
+                                            resizeMode="cover"
+                                            source={{ uri: activePreview.url }}
+                                            style={styles.postPreview}
+                                            blurRadius={isAlt ? 20 : undefined}
+                                        />
+                                    )}
+                                    {isAlt ? (
+                                        <Text style={styles.altText}>
+                                            {activePreview.description}
+                                        </Text>
+                                    ) : null}
+                                </View>
+                            </View>
+                            {data.media_attachments ? (
+                                <View style={styles.mediaListContainer}>
+                                    <FlatList
+                                        data={data.media_attachments}
+                                        overScrollMode="never"
+                                        horizontal
+                                        // estimatedItemSize={20} //FlashList specific option
+                                        nestedScrollEnabled
+                                        showsVerticalScrollIndicator={true}
+                                        ItemSeparatorComponent={() => (
+                                            <View style={styles.seperator}></View>
+                                        )}
+                                        renderItem={({ item }) => (
+                                            <Image
+                                                source={{ uri: item.preview_url }}
+                                                style={styles.media}
+                                            />
+                                        )}
+                                    />
+                                </View>
+                            ) : null}
+                        </View>
+                    ) : null}
+                    {/********** POST ACTIONS ***********/}
+                    <View style={styles.actionContainer}>
+                        <View style={styles.action}>
+                            <Text
+                                style={
+                                    data.favourited ? styles.activeActionText : styles.actionText
+                                }>
+                                {data.favourites_count}
+                            </Text>
+                            <StarIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
+                        </View>
+                        <View style={styles.action}>
+                            <Text
+                                style={
+                                    data.reblogged ? styles.activeActionText : styles.actionText
+                                }>
+                                {data.reblogs_count}
+                            </Text>
+                            <BoostIcon fill={data.reblogged ? COLORS.success : COLORS.actionIcon} />
+                        </View>
+                        <View style={styles.action}>
+                            <Text style={styles.actionText}>{data.replies_count}</Text>
+                            <CommentIcon stroke={COLORS.actionIcon} />
+                        </View>
+                        <View style={styles.options}>
+                            <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
+                            <MoreDotIcon />
+                        </View>
+                    </View>
                 </View>
             </View>
         </View>

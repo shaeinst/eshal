@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native'
 const colors = {
     primary: { light: '#1DA1F2', dark: '#1DA1F2' },
     background: { light: '#FFFFFF', dark: '#000000' },
-    text: { light: '#10100F', dark: '#F9F2F2' },
+    text: { light: '#10100F', dark: '#E9E2E2' },
     strongText: { light: '#000000', dark: '#FFFFFF' },
     weakText: { light: '#657786', dark: '#657786' },
     placeholder: { light: '#657786', dark: '#657786' },
@@ -14,6 +14,7 @@ const colors = {
     seperator: { light: '#dddddd', dark: '#222222' },
     active: { light: '#000000', dark: '#ffffff' },
     success: { light: '#038B8B', dark: '#038B8B' },
+    actionIcon: { light: '#10100F', dark: '#AAAAAA' },
 
     // theme mode independent colors
     common: {
@@ -35,6 +36,7 @@ interface ColorsInterface {
     success: string
     weakText: string
     seperator: string
+    actionIcon: string
 }
 
 function useColors() {
@@ -59,6 +61,7 @@ function useColors() {
                   active: colors.active.dark,
                   success: colors.success.dark,
                   seperator: colors.seperator.dark,
+                  actionIcon: colors.actionIcon.dark,
               }
             : {
                   ...colors.common,
@@ -75,6 +78,7 @@ function useColors() {
                   active: colors.active.light,
                   success: colors.success.light,
                   seperator: colors.seperator.light,
+                  actionIcon: colors.actionIcon.light,
               }
 
     return { COLORS, themeMode }

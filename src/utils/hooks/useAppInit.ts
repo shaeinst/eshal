@@ -3,7 +3,6 @@ import { StatusBarStyle } from 'react-native'
 import { DefaultTheme, Theme } from '@react-navigation/native'
 
 import { storageToken } from '$exporter/persist'
-import { LINKING } from '$exporter/constant'
 import { useColors, useZustandStore } from '$exporter'
 import { QueryClient } from '@tanstack/react-query'
 
@@ -42,7 +41,6 @@ export default function useInit() {
         isSignedIn: auth.isSignedIn,
         isFreshApp: init.isFreshApp,
         theme: { background, navTheme, barStyle },
-        linking: auth.isSignedIn ? LINKING.home : LINKING.auth,
         queryClient,
     }
 }

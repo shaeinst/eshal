@@ -1,24 +1,19 @@
 import { LinkingOptions } from '@react-navigation/native'
 import { ROUTERS } from './ConstRoute'
 
-const auth: LinkingOptions<ReactNavigation.RootParamList> = {
+export const links: LinkingOptions<ReactNavigation.RootParamList> = {
     prefixes: [ROUTERS.PREFIX],
     config: {
         screens: {
+            // Auth
             [ROUTERS.AUTH.LOGIN.path]: {
                 path: ROUTERS.AUTH.LOGIN.path,
             },
             [ROUTERS.AUTH.REGISTER.path]: {
                 path: ROUTERS.AUTH.REGISTER.path,
             },
-        },
-    },
-}
 
-const home: LinkingOptions<ReactNavigation.RootParamList> = {
-    prefixes: [ROUTERS.PREFIX],
-    config: {
-        screens: {
+            // HOME
             [ROUTERS.HOME.TIMELINE.path]: {
                 path: ROUTERS.HOME.TIMELINE.path,
             },
@@ -31,5 +26,3 @@ const home: LinkingOptions<ReactNavigation.RootParamList> = {
         },
     },
 }
-
-export default { auth, home }

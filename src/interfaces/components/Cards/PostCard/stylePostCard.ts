@@ -8,9 +8,14 @@ export function useStyles() {
 
     const styles = StyleSheet.create({
         container: {
-            width: '100%',
-            height: 'auto',
             backgroundColor: COLORS.background,
+        },
+        secondryContainer: {
+            flexDirection: 'row',
+            gap: 6,
+        },
+        thirdContainer: {
+            width: '85%',
         },
         /** *************************** **/
         boostContainer: {
@@ -35,27 +40,22 @@ export function useStyles() {
         },
         /** *************************** **/
 
-        authorContainer: {
-            flexDirection: 'row',
-            gap: 8,
-            marginBottom: 5,
-        },
         authorProfilePic: {
             borderRadius: 50,
             borderWidth: 0.5,
             width: 40,
             height: 40,
         },
-        authorInfo: {
-            gap: 1,
+        emoji: {
+            width: 12,
+            height: 12,
         },
         NameNPost: {
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 8,
         },
         authorName: {
-            ...FONTS.Inter['Md-16'],
+            ...FONTS.Inter['SB-14'],
             color: COLORS.text,
         },
         postDate: {
@@ -68,13 +68,13 @@ export function useStyles() {
         },
         options: {
             marginLeft: 'auto',
+            flexDirection: 'row',
+            gap: 10,
+            alignItems: 'center',
         },
         /** *************************** **/
         postConatiner: {},
         /** *************************** **/
-        textContainer: {
-            marginBottom: 6,
-        },
         description: {
             ...FONTS.Inter['Md-16'],
             color: COLORS.text,
@@ -92,6 +92,7 @@ export function useStyles() {
             gap: 6,
         },
         accessibilityText: {
+            ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,
         },
         /** *************************** **/
@@ -99,19 +100,28 @@ export function useStyles() {
         mediaContainer: {
             // flexDirection: 'row',
             gap: 8,
-            height: 280,
+            height: 210,
+            marginTop:6,
         },
         accNprev: {
             flex: 1,
             gap: 10,
         },
+        postPreviewContainer: {
+            flex: 1,
+        },
         postPreview: {
             borderRadius: 12,
             flex: 1,
         },
+        altText: {
+            position: 'absolute',
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.background,
+            top: 0,
+            padding: 4,
+        },
         mediaListContainer: {
-            width: '100%',
-            height: 65,
             justifyContent: 'center',
             borderRadius: 8,
         },
@@ -130,28 +140,21 @@ export function useStyles() {
             color: COLORS.placeholder,
             textAlign: 'center',
         },
-        dotIndicatorContainer: {
-            position: 'absolute',
-            right: 0,
-            gap: 4,
-        },
-        dotIndicator: {
-            //
-        },
         /** *************************** **/
         actionContainer: {
             flexDirection: 'row',
-            gap: 22,
-            marginTop: 18,
+            gap: 16,
+            marginTop: 6,
+            alignItems: 'center',
         },
         action: {
             flexDirection: 'row',
-            gap: 8,
-            // alignItems: 'center',
+            gap: 4,
+            alignItems: 'center',
         },
         actionText: {
             ...FONTS.Inter['Md-14'],
-            color: COLORS.text,
+            color: COLORS.actionIcon,
         },
         activeActionText: {
             ...FONTS.Inter['Md-14'],

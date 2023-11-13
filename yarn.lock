@@ -1922,9 +1922,9 @@
     tslib "2.4.0"
 
 "@shopify/react-native-skia@^0.1.212":
-  version "0.1.216"
-  resolved "https://registry.yarnpkg.com/@shopify/react-native-skia/-/react-native-skia-0.1.216.tgz#842e40de9264eb7c4a70f6e121dfa091ebf43f2b"
-  integrity sha512-jaBoNZ9ylfdI1ZJFD42GZ35E5aufuXqX4RziR0VddlS4TJkFDUMbFxpxQS2I4rIdxgqihPNuB80/D7Wv6+gV1Q==
+  version "0.1.218"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-skia/-/react-native-skia-0.1.218.tgz#c057ba5420d2cb831c7ca292e9383f1776cf749f"
+  integrity sha512-WYFrCZ6wINry0s7lEoHm/apueGihqTbSNJJjAVh82JZAZUvVkNHdQ1qiY1qlwoaYc8Q2EURHl+SGq9GvOTVTEQ==
   dependencies:
     canvaskit-wasm "0.38.2"
     react-reconciler "^0.27.0"
@@ -3225,9 +3225,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.535:
-  version "1.4.580"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.580.tgz#2f8f70f70733a6be1fb6f31de1224e6dc4bb196d"
-  integrity sha512-T5q3pjQon853xxxHUq3ZP68ZpvJHuSMY2+BZaW3QzjS4HvNuvsMmZ/+lU+nCrftre1jFZ+OSlExynXWBihnXzw==
+  version "1.4.581"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.581.tgz#23b684c67bf56d4284e95598c05a5d266653b6d8"
+  integrity sha512-6uhqWBIapTJUxgPTCHH9sqdbxIMPt7oXl0VcAL1kOtlU6aECdcMncCrX5Z7sHQ/invtrC9jUQUef7+HhO8vVFw==
 
 emittery@^0.13.1:
   version "0.13.1"
