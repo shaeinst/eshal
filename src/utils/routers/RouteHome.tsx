@@ -5,18 +5,46 @@ import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$expo
 import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$exporter/screen'
 import { RoutePost } from './RoutePost'
 
-const { Navigator, Screen } = createBottomTabNavigator()
-
 type PropsType = {
     bg: string
     fg: string
 }
 
+const { HOME } = ROUTERS
+
+type RootStackParamList = {
+    [HOME.path]: undefined
+    [HOME.ADDPOST.path]: undefined
+    [HOME.SEARCH.path]: undefined
+    [HOME.ALERT.path]: undefined
+    [HOME.PROFILE.path]: undefined
+}
+
+const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>()
+
+const tabBarIcon = (routeName: string, color: string) => {
+    switch (routeName) {
+        case HOME.path:
+            return <HomeIcon stroke={color} />
+        case HOME.ADDPOST.path:
+            return <AddPostIcon stroke={color} />
+        case HOME.SEARCH.path:
+            return <SearchIcon stroke={color} />
+        case HOME.ALERT.path:
+            return <AlertIcon stroke={color} />
+        case HOME.PROFILE.path:
+            return <ProfileIcon fill={color} />
+        default:
+            return null
+    }
+}
+
 export default function RouteHome(props: PropsType) {
     //
+
     return (
         <Navigator
-            screenOptions={{
+            screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: props.fg,
@@ -26,37 +54,17 @@ export default function RouteHome(props: PropsType) {
                     borderTopWidth: 0,
                     backgroundColor: props.bg,
                     paddingBottom: 10,
-                    // paddingTop: 40,
                 },
-            }}
-            initialRouteName={ROUTERS.HOME.path}
+                tabBarIcon: ({ color }) => tabBarIcon(route.name, color),
+            })}
+            initialRouteName={HOME.path}
             /* -------------------------------- */
         >
-            <Screen
-                options={{ tabBarIcon: ({ color }) => <HomeIcon stroke={color} /> }}
-                name={ROUTERS.HOME.path}
-                component={RoutePost}
-            />
-            <Screen
-                options={{ tabBarIcon: ({ color }) => <AddPostIcon stroke={color} /> }}
-                name={ROUTERS.HOME.ADDPOST.path}
-                component={AddPostScreen}
-            />
-            <Screen
-                options={{ tabBarIcon: ({ color }) => <SearchIcon stroke={color} /> }}
-                name={ROUTERS.HOME.SEARCH.path}
-                component={SearchScreen}
-            />
-            <Screen
-                options={{ tabBarIcon: ({ color }) => <AlertIcon stroke={color} /> }}
-                name={ROUTERS.HOME.ALERT.path}
-                component={AlertScreen}
-            />
-            <Screen
-                options={{ tabBarIcon: ({ color }) => <ProfileIcon fill={color} /> }}
-                name={ROUTERS.HOME.PROFILE.path}
-                component={ProfileScreen}
-            />
+            <Screen name={HOME.path} component={RoutePost} />
+            <Screen name={HOME.ADDPOST.path} component={AddPostScreen} />
+            <Screen name={HOME.SEARCH.path} component={SearchScreen} />
+            <Screen name={HOME.ALERT.path} component={AlertScreen} />
+            <Screen name={HOME.PROFILE.path} component={ProfileScreen} />
         </Navigator>
     )
 }

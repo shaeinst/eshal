@@ -65,7 +65,9 @@ function PostCard(props: { data: MStatusType }) {
         switch (type) {
             // go to detail post view page
             case 'navigate':
-                navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
+                // navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
+                navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
+
                 break
 
             case 'content':

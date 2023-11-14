@@ -4,7 +4,13 @@ import { ROUTERS } from '$exporter/constant'
 import { LoginScreen, RegisterScreen } from '$exporter/screen'
 
 const { AUTH } = ROUTERS
-const { Navigator, Screen } = createNativeStackNavigator()
+
+type RootStackParamList = {
+    [AUTH.LOGIN.path]: undefined
+    [AUTH.REGISTER.path]: undefined
+}
+
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>()
 
 export default function RouteAuth() {
     //

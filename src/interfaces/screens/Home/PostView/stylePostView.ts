@@ -11,6 +11,16 @@ export function useStyles() {
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: 'red',
+        },
+        mediaContainer: {
+            width: '100%',
+            height: 200,
+        },
+        postPreview: {
+            //
+            width: '100%',
+            height: 'auto',
         },
     })
 
