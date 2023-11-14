@@ -2,13 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { ROUTERS } from '$exporter/constant'
 import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$exporter/asset'
-import {
-    AlertScreen,
-    AddPostScreen,
-    ProfileScreen,
-    SearchScreen,
-    TimelineScreen,
-} from '$exporter/screen'
+import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$exporter/screen'
+import { RoutePost } from './RoutePost'
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -34,13 +29,13 @@ export default function RouteHome(props: PropsType) {
                     // paddingTop: 40,
                 },
             }}
-            initialRouteName={ROUTERS.HOME.TIMELINE.path}
+            initialRouteName={ROUTERS.HOME.path}
             /* -------------------------------- */
         >
             <Screen
                 options={{ tabBarIcon: ({ color }) => <HomeIcon stroke={color} /> }}
-                name={ROUTERS.HOME.TIMELINE.path}
-                component={TimelineScreen}
+                name={ROUTERS.HOME.path}
+                component={RoutePost}
             />
             <Screen
                 options={{ tabBarIcon: ({ color }) => <AddPostIcon stroke={color} /> }}

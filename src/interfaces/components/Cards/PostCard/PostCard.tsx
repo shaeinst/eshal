@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Image, Text, TouchableOpacity, View, FlatList, StyleSheet } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 import FastImage from 'react-native-fast-image'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 import HTMLView from 'react-native-htmlview'
 
@@ -18,6 +19,13 @@ import { MStatusType } from '$exporter/type'
 import { parseDisplayName, postDate } from '$exporter/func'
 import { BlurImage } from '$exporter/component'
 import { useStyles } from './stylePostCard'
+import { useNavigation } from '@react-navigation/native'
+import { ROUTERS } from '$exporter/constant'
+
+type ActivePreviewType = {
+    url: string | undefined
+    description: string | undefined
+}
 
 function PostCard(props: { data: MStatusType }) {
     //
@@ -28,20 +36,22 @@ function PostCard(props: { data: MStatusType }) {
         isLong: data.content.length > 1000 || false,
         toggle: data.content.length > 1000 || false,
     })
+    const [activePreview, setActivePreview] = useState<ActivePreviewType>(
+        data.media_attachments
+            ? data.media_attachments[0]
+            : {
+                  url: undefined,
+                  description: undefined,
+              },
+    )
 
-    const initialMedia = data.media_attachments
-        ? data.media_attachments[0]
-        : {
-              url: undefined,
-              description: undefined,
-          }
-    const [activePreview, setActivePreview] = useState<{
-        url: string | undefined
-        description: string | undefined
-    }>(initialMedia)
+    const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
 
     const { styles, COLORS } = useStyles()
-    const parsedDisplayName = parseDisplayName(data.account.display_name, data.account.emojis)
+    const parsedDisplayName = useMemo(
+        () => parseDisplayName(data.account.display_name, data.account.emojis),
+        [],
+    )
 
     // console.log('=========================')
     // console.log(data.account.avatar)
@@ -51,12 +61,24 @@ function PostCard(props: { data: MStatusType }) {
     // console.log(data.account.url)
     // console.log('=========================')
 
-    const handleContentView = useCallback(() => {
-        setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
-    }, [])
+    const handle = useCallback((type: 'navigate' | 'content' | 'alt') => {
+        switch (type) {
+            // go to detail post view page
+            case 'navigate':
+                navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
+                break
 
-    const handleSetAlt = useCallback(() => {
-        setIsAlt(prev => !prev)
+            case 'content':
+                setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
+                break
+
+            case 'alt':
+                setIsAlt(prev => !prev)
+                break
+
+            default:
+                break
+        }
     }, [])
 
     return (
@@ -105,14 +127,16 @@ function PostCard(props: { data: MStatusType }) {
                     </View>
 
                     {/********** POST Description ***********/}
-                    <View style={[isLongContent.toggle ? styles.contentContainer : null]}>
+                    <TouchableOpacity
+                        onPress={() => handle('navigate')}
+                        style={[isLongContent.toggle ? styles.contentContainer : null]}>
                         <HTMLView value={data.content} stylesheet={styles} />
-                    </View>
+                    </TouchableOpacity>
 
                     <View style={styles.accessibility}>
                         {isLongContent.isLong ? (
                             <TouchableOpacity
-                                onPress={handleContentView}
+                                onPress={() => handle('content')}
                                 style={styles.expandButton}>
                                 <ExpandIcon collapse={!isLongContent.toggle} />
                                 <Text style={styles.accessibilityText}>
@@ -123,7 +147,7 @@ function PostCard(props: { data: MStatusType }) {
 
                         {activePreview?.description ? (
                             <TouchableOpacity
-                                onPress={handleSetAlt}
+                                onPress={() => handle('alt')}
                                 style={styles.accessibilityClick}>
                                 <SwitchIcon isOn={isAlt} />
                                 <Text style={styles.accessibilityText}>ALT</Text>

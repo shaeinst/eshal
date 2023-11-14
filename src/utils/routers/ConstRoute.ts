@@ -21,7 +21,15 @@ export const ROUTERS = {
 
     // for Home
     HOME: {
-        TIMELINE: { path: 'timeline', prefix: `${APP}/timeline` },
+        path: 'home',
+        prefix: `${APP}/home`,
+
+        TIMELINE: {
+            path: 'timeline',
+            prefix: `${APP}/timeline`,
+
+            POSTVIEW: { path: 'postview', prefix: `${APP}/postview` },
+        },
         ADDPOST: { path: 'addpost', prefix: `${APP}/addpost` },
         PROFILE: { path: 'profile', prefix: `${APP}/profile` },
         SEARCH: { path: 'search', prefix: `${APP}/search` },
