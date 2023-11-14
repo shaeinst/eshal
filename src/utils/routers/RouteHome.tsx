@@ -4,7 +4,7 @@ import { ROUTERS } from '$exporter/constant'
 import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$exporter/asset'
 import {
     AlertScreen,
-    PostScreen,
+    AddPostScreen,
     ProfileScreen,
     SearchScreen,
     TimelineScreen,
@@ -45,7 +45,7 @@ export default function RouteHome(props: PropsType) {
             <Screen
                 options={{ tabBarIcon: ({ color }) => <AddPostIcon stroke={color} /> }}
                 name={ROUTERS.HOME.ADDPOST.path}
-                component={PostScreen}
+                component={AddPostScreen}
             />
             <Screen
                 options={{ tabBarIcon: ({ color }) => <SearchIcon stroke={color} /> }}
