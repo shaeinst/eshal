@@ -1,13 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { ROUTERS } from '$exporter/constant'
 import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$exporter/asset'
 import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$exporter/screen'
+import { ROUTERS } from '$exporter/constant'
 import { RoutePost } from './RoutePost'
 
 type PropsType = {
     bg: string
     fg: string
+    hide?: boolean
 }
 
 const { HOME } = ROUTERS
@@ -49,7 +50,8 @@ export default function RouteHome(props: PropsType) {
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: props.fg,
                 tabBarStyle: {
-                    height: 60,
+                    top: props.hide ? 101 : null,
+                    height: props.hide ? 0 : 60,
                     shadowColor: 'transparent',
                     borderTopWidth: 0,
                     backgroundColor: props.bg,

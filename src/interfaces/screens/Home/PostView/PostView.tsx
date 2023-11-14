@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Text, View } from 'react-native'
 
 import { MStatusType } from '$exporter/type'
 import { useStyles } from './stylePostView'
 import { RouteProp } from '@react-navigation/native'
 import { ROUTERS } from '$exporter/constant'
+import { useZustandStore } from '$exporter'
 
 type PropsType = {
     route: RouteProp<
@@ -24,6 +25,8 @@ export default function PostView({ route }: PropsType) {
     //
     const { data } = route.params
 
+    const { setHideBottomTab } = useZustandStore()
+
     const [activePreview, setActivePreview] = useState<ActivePreviewType>(
         data.media_attachments
             ? data.media_attachments[0]
@@ -35,6 +38,11 @@ export default function PostView({ route }: PropsType) {
 
     const { styles } = useStyles()
 
+    useEffect(() => {
+        setHideBottomTab(true)
+        return () => setHideBottomTab(false)
+    }, [])
+
     return (
         <View style={styles.container}>
             <Text>POST VIEW SCREEN</Text>
@@ -42,7 +50,7 @@ export default function PostView({ route }: PropsType) {
             <View style={styles.mediaContainer}>
                 <Image
                     resizeMode="cover"
-                    source={{ uri: activePreview.url }}
+                    source={{ uri: activePreview?.url }}
                     style={styles.postPreview}
                 />
             </View>

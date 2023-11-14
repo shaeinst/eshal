@@ -7,11 +7,13 @@ interface StoreInterface {
     }
     auth: AuthStateType
     nav: string
+    hideBottomTab: boolean
     //
     setIsFreshApp: (prop: boolean) => void
     setAuth: (prop: AuthStateType) => void
     resetAuth: () => void
-    setNav: (prop: string)=> void
+    setNav: (prop: string) => void
+    setHideBottomTab: (prop: boolean) => void
 }
 
 export const useStore = create<StoreInterface>(set => ({
@@ -26,6 +28,7 @@ export const useStore = create<StoreInterface>(set => ({
         isSignedIn: false,
     },
     nav: 'Eshal',
+    hideBottomTab: false,
     /**
      * Actions
      */
@@ -39,6 +42,9 @@ export const useStore = create<StoreInterface>(set => ({
         set(state => ({ auth: { token: null, isSignedIn: false } }))
     },
     setNav: (prop: string) => {
-        set(state => ({nav: prop}))
+        set(state => ({ nav: prop }))
+    },
+    setHideBottomTab: (prop: boolean) => {
+        set(state => ({ hideBottomTab: prop }))
     },
 }))

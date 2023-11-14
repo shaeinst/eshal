@@ -15,11 +15,12 @@ export function RoutePost() {
     return (
         <Stack.Navigator
             screenOptions={{
-                // When logging out, a pop animation feels intuitive
-                animationTypeForReplace: 'pop', // 'pop', 'push',
+                animationTypeForReplace: 'pop',
                 headerShown: false,
             }}
-            initialRouteName={ROUTERS.HOME.TIMELINE.path}>
+            initialRouteName={ROUTERS.HOME.TIMELINE.path}
+            /* -------------------------------- */
+        >
             <Stack.Screen name={ROUTERS.HOME.TIMELINE.path} component={TimelineScreen} />
             <Stack.Screen name={ROUTERS.HOME.TIMELINE.POSTVIEW.path} component={PostViewScreen} />
         </Stack.Navigator>

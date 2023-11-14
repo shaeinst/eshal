@@ -6,11 +6,11 @@ import { FONTS, RouteHome, useColors, useZustandStore, WHITESPACE } from '$expor
 export default function HomeInitial() {
     //
     const { styles, COLORS } = useStyles()
-    const { nav: navTitle } = useZustandStore()
+    const { nav: navTitle, hideBottomTab } = useZustandStore()
 
     return (
         <View style={styles.container}>
-            <RouteHome bg={COLORS.background} fg={COLORS.logo} />
+            <RouteHome bg={COLORS.background} fg={COLORS.logo} hide={hideBottomTab} />
         </View>
     )
 }
