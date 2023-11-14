@@ -26,11 +26,11 @@ export default function RouteHome(props: PropsType) {
                 tabBarShowLabel: false,
                 tabBarActiveTintColor: props.fg,
                 tabBarStyle: {
-                    height: 50,
+                    height: 60,
                     shadowColor: 'transparent',
                     borderTopWidth: 0,
                     backgroundColor: props.bg,
-                    // paddingBottom: 20,
+                    paddingBottom: 10,
                     // paddingTop: 40,
                 },
             }}

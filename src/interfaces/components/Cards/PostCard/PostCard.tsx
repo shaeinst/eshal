@@ -1,31 +1,33 @@
-import React, { useState } from 'react'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Image, Text, TouchableOpacity, View, FlatList, StyleSheet } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
+import FastImage from 'react-native-fast-image'
+
+import HTMLView from 'react-native-htmlview'
+
 import {
     BoostIcon,
     CommentIcon,
     ExpandIcon,
-    MoreArrowDownIcon,
     MoreDotIcon,
     ReplyIcon,
-    SingleDotIcon,
     StarIcon,
     SwitchIcon,
 } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
-import RenderHtml from 'react-native-render-html'
-
-import { useStyles } from './stylePostCard'
-import { FlatList } from 'react-native-gesture-handler'
 import { parseDisplayName, postDate } from '$exporter/func'
 import { BlurImage } from '$exporter/component'
+import { useStyles } from './stylePostCard'
 
-export default function PostCard(props: { data: MStatusType }) {
+function PostCard(props: { data: MStatusType }) {
     //
     const { data } = props
 
     const [isAlt, setIsAlt] = useState(false)
-    const [isNSFW, setIsNSFW] = useState(data.sensitive)
+    const [isLongContent, setIsLongContent] = useState({
+        isLong: data.content.length > 1000 || false,
+        toggle: data.content.length > 1000 || false,
+    })
 
     const initialMedia = data.media_attachments
         ? data.media_attachments[0]
@@ -42,8 +44,20 @@ export default function PostCard(props: { data: MStatusType }) {
     const parsedDisplayName = parseDisplayName(data.account.display_name, data.account.emojis)
 
     // console.log('=========================')
-    // console.log(activePreview?.desc)
+    // console.log(data.account.avatar)
+    // if (data.content.length > 200) {
+    //     console.log(data.content)
+    // }
+    // console.log(data.account.url)
     // console.log('=========================')
+
+    const handleContentView = useCallback(() => {
+        setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
+    }, [])
+
+    const handleSetAlt = useCallback(() => {
+        setIsAlt(prev => !prev)
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -89,37 +103,53 @@ export default function PostCard(props: { data: MStatusType }) {
                         </View>
                         <Text style={styles.authorId}>@{data.account.acct}</Text>
                     </View>
-                    {/********** POST Description ***********/}
-                    <RenderHtml
-                        contentWidth={100}
-                        enableExperimentalMarginCollapsing={true}
-                        source={{ html: data.content }}
-                    />
 
-                    {activePreview?.description ? (
-                        <View style={styles.accessibility}>
+                    {/********** POST Description ***********/}
+                    <View style={[isLongContent.toggle ? styles.contentContainer : null]}>
+                        <HTMLView value={data.content} stylesheet={styles} />
+                    </View>
+
+                    <View style={styles.accessibility}>
+                        {isLongContent.isLong ? (
                             <TouchableOpacity
-                                onPress={() => setIsAlt(prev => !prev)}
+                                onPress={handleContentView}
+                                style={styles.expandButton}>
+                                <ExpandIcon collapse={!isLongContent.toggle} />
+                                <Text style={styles.accessibilityText}>
+                                    {isLongContent.toggle ? 'Expand Text' : 'Collapse Text'}
+                                </Text>
+                            </TouchableOpacity>
+                        ) : null}
+
+                        {activePreview?.description ? (
+                            <TouchableOpacity
+                                onPress={handleSetAlt}
                                 style={styles.accessibilityClick}>
                                 <SwitchIcon isOn={isAlt} />
                                 <Text style={styles.accessibilityText}>ALT</Text>
                             </TouchableOpacity>
-                        </View>
-                    ) : null}
+                        ) : null}
+                    </View>
 
                     {/********** POST Media ***********/}
                     {activePreview?.url ? (
                         <View style={styles.mediaContainer}>
                             <View style={styles.accNprev}>
                                 <View style={styles.postPreviewContainer}>
-                                    {isNSFW ? (
+                                    {data.sensitive ? (
                                         <BlurImage imageUrl={activePreview.url} />
                                     ) : (
-                                        <Image
-                                            resizeMode="cover"
-                                            source={{ uri: activePreview.url }}
+                                        // <Image
+                                        //     resizeMode="cover"
+                                        //     source={{ uri: activePreview.url }}
+                                        //     style={styles.postPreview}
+                                        // />
+                                        <FastImage
                                             style={styles.postPreview}
-                                            blurRadius={isAlt ? 20 : undefined}
+                                            source={{
+                                                uri: activePreview.url,
+                                                priority: FastImage.priority.normal,
+                                            }}
                                         />
                                     )}
                                     {isAlt ? (
@@ -142,9 +172,17 @@ export default function PostCard(props: { data: MStatusType }) {
                                             <View style={styles.seperator}></View>
                                         )}
                                         renderItem={({ item }) => (
-                                            <Image
-                                                source={{ uri: item.preview_url }}
+                                            // <Image
+                                            //     source={{ uri: item.preview_url }}
+                                            //     style={styles.media}
+                                            // />
+                                            //
+                                            <FastImage
                                                 style={styles.media}
+                                                source={{
+                                                    uri: item.preview_url,
+                                                    priority: FastImage.priority.normal,
+                                                }}
                                             />
                                         )}
                                     />
@@ -186,3 +224,5 @@ export default function PostCard(props: { data: MStatusType }) {
         </View>
     )
 }
+
+export default React.memo(PostCard)

@@ -15,9 +15,12 @@ export function useStyles() {
             backgroundColor: COLORS.background,
             paddingVertical: 32,
         },
-        seperator: {
+        separator: {
             backgroundColor: COLORS.seperator,
             height: 1,
+        },
+        footer: {
+            height: 200,
         },
     })
 

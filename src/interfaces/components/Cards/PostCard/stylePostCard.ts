@@ -5,8 +5,33 @@ import { FONTS, useColors, WHITESPACE } from '$exporter'
 export function useStyles() {
     //
     const { COLORS } = useColors()
+    const tagSyles = {
+        fontFamily: FONTS.Inter.fontFamily,
+        color: COLORS.text,
+    }
 
     const styles = StyleSheet.create({
+        /* ------------------------------------ */
+        // HTMLView
+        /* ------------------------------------ */
+        strong: tagSyles,
+        span: tagSyles,
+        p: tagSyles,
+        b: tagSyles,
+        em: tagSyles,
+        i: tagSyles,
+        h1: tagSyles,
+        h2: tagSyles,
+        h3: tagSyles,
+        h4: tagSyles,
+        h5: tagSyles,
+        a: {
+            fontFamily: FONTS.Inter.fontFamily,
+            color: COLORS.primary,
+            fontStyle: 'italic',
+        },
+        /* ------------------------------------ */
+
         container: {
             backgroundColor: COLORS.background,
         },
@@ -65,6 +90,7 @@ export function useStyles() {
         authorId: {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,
+            marginBottom: 6,
         },
         options: {
             marginLeft: 'auto',
@@ -73,7 +99,10 @@ export function useStyles() {
             alignItems: 'center',
         },
         /** *************************** **/
-        postConatiner: {},
+        contentContainer: {
+            maxHeight: 220,
+            overflow: 'hidden',
+        },
         /** *************************** **/
         description: {
             ...FONTS.Inter['Md-16'],
@@ -84,12 +113,20 @@ export function useStyles() {
 
         accessibility: {
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 4,
+        },
+        expandButton: {
+            flexDirection: 'row',
+            padding: 2,
+            gap: 4,
+            // backgroundColor: 'red',
         },
         accessibilityClick: {
             flexDirection: 'row',
             alignItems: 'center',
             gap: 6,
+            marginLeft: 'auto',
         },
         accessibilityText: {
             ...FONTS.Inter['Lt-12'],
@@ -100,8 +137,8 @@ export function useStyles() {
         mediaContainer: {
             // flexDirection: 'row',
             gap: 8,
-            height: 210,
-            marginTop:6,
+            height: 200,
+            marginTop: 6,
         },
         accNprev: {
             flex: 1,
@@ -109,6 +146,7 @@ export function useStyles() {
         },
         postPreviewContainer: {
             flex: 1,
+            overflow: 'hidden',
         },
         postPreview: {
             borderRadius: 12,
@@ -117,9 +155,15 @@ export function useStyles() {
         altText: {
             position: 'absolute',
             ...FONTS.Inter['Lt-12'],
-            color: COLORS.background,
-            top: 0,
+            maxWidth: '96%',
+            maxHeight: 185,
+            top: 4,
+            left: 6,
             padding: 4,
+            borderRadius: 12,
+
+            color: COLORS.text,
+            backgroundColor: COLORS.background,
         },
         mediaListContainer: {
             justifyContent: 'center',
