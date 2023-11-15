@@ -1,3 +1,11 @@
+/**
+ *  BUG
+ *  Temperorly setting falsea to "detachInactiveScreens".
+ *  there is an bug with react navigation with new Architecture
+ *  https://github.com/react-navigation/react-navigation/issues/11384
+ *  https://github.com/software-mansion/react-native-screens/issues/1762
+ */
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$exporter/asset'
@@ -60,6 +68,14 @@ export default function RouteHome(props: PropsType) {
                 tabBarIcon: ({ color }) => tabBarIcon(route.name, color),
             })}
             initialRouteName={HOME.path}
+            /**
+             *  BUG
+             *  Temperorly setting falsea to "detachInactiveScreens".
+             *  there is an bug with react navigation with new Architecture
+             *  https://github.com/react-navigation/react-navigation/issues/11384
+             *  https://github.com/software-mansion/react-native-screens/issues/1762
+             */
+            detachInactiveScreens={false}
             /* -------------------------------- */
         >
             <Screen name={HOME.path} component={RoutePost} />

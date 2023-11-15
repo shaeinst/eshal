@@ -53,12 +53,15 @@ export default function PostView({ route }: PropsType) {
         <View style={styles.container}>
             <Text>POST VIEW SCREEN</Text>
             <Text>{data?.account?.display_name}</Text>
+            <Text>{data?.account?.username}</Text>
             <View style={styles.mediaContainer}>
-                <Image
-                    resizeMode="cover"
-                    source={{ uri: activePreview?.url }}
-                    style={styles.postPreview}
-                />
+                {activePreview?.url && (
+                    <Image
+                        resizeMode="cover"
+                        source={{ uri: activePreview.url }}
+                        style={styles.postPreview}
+                    />
+                )}
             </View>
         </View>
     )

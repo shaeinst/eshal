@@ -3,16 +3,22 @@
 import axios from 'axios'
 import { MStatusType } from '$exporter/type'
 
-export default async function publicTimelineApi(): Promise<MStatusType[] | undefined> {
+export default async function publicTimelineApi(id?: string): Promise<MStatusType[]> {
     //
 
-    const serverUrl = 'https://mastodon.social/api/v1/timelines/public'
+    const params = id
+        ? {
+              limit: 20,
+              min_id: id,
+          }
+        : {
+              limit: 20,
+          }
 
-    const response = await axios.get(serverUrl, {
-        params: {
-            limit: 30,
-        },
-    })
+    // console.log("from Api: ", id);
+    // console.log(params)
+
+    const response = await axios.get('https://mastodon.social/api/v1/timelines/public', { params })
 
     return response.data
 }

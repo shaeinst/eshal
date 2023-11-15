@@ -10,13 +10,9 @@ export function useStyles() {
         container: {
             flex: 1,
         },
-
-        separatorContainer: {
-            backgroundColor: COLORS.background,
-            paddingVertical: 32,
-        },
         separator: {
             backgroundColor: COLORS.seperator,
+            marginVertical: 32,
             height: 1,
         },
         footer: {

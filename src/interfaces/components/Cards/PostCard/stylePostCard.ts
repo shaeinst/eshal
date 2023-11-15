@@ -29,6 +29,7 @@ export function useStyles() {
             fontFamily: FONTS.Inter.fontFamily,
             color: COLORS.primary,
             fontStyle: 'italic',
+            textDecorationLine: 'underline',
         },
         /* ------------------------------------ */
 

@@ -9,7 +9,7 @@ export default function Profile() {
 
     return (
         <View style={styles.container}>
-            <Text> profile screen</Text>
+            <Text style={{color: 'red'}}> profile screen</Text>
         </View>
     )
 }

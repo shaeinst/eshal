@@ -67,7 +67,6 @@ function PostCard(props: { data: MStatusType }) {
             case 'navigate':
                 // navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
                 navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
-
                 break
 
             case 'content':
@@ -84,7 +83,12 @@ function PostCard(props: { data: MStatusType }) {
     }, [])
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => handle('navigate')}
+            style={styles.container}
+            //
+        >
             {/********** Replied | BOOST ***********/}
             {data.reblog ? (
                 <View style={styles.boostContainer}>
@@ -129,11 +133,9 @@ function PostCard(props: { data: MStatusType }) {
                     </View>
 
                     {/********** POST Description ***********/}
-                    <TouchableOpacity
-                        onPress={() => handle('navigate')}
-                        style={[isLongContent.toggle ? styles.contentContainer : null]}>
+                    <View style={[isLongContent.toggle ? styles.contentContainer : null]}>
                         <HTMLView value={data.content} stylesheet={styles} />
-                    </TouchableOpacity>
+                    </View>
 
                     <View style={styles.accessibility}>
                         {isLongContent.isLong ? (
@@ -247,7 +249,7 @@ function PostCard(props: { data: MStatusType }) {
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

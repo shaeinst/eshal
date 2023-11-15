@@ -15,6 +15,7 @@ const colors = {
     active: { light: '#000000', dark: '#ffffff' },
     success: { light: '#038B8B', dark: '#038B8B' },
     actionIcon: { light: '#10100F', dark: '#AAAAAA' },
+    skeleton: { light: '#DDDDDD', dark: '#444444' },
 
     // theme mode independent colors
     common: {
@@ -37,6 +38,7 @@ interface ColorsInterface {
     weakText: string
     seperator: string
     actionIcon: string
+    skeleton: string
 }
 
 function useColors() {
@@ -62,6 +64,7 @@ function useColors() {
                   success: colors.success.dark,
                   seperator: colors.seperator.dark,
                   actionIcon: colors.actionIcon.dark,
+                  skeleton: colors.skeleton.dark,
               }
             : {
                   ...colors.common,
@@ -79,6 +82,7 @@ function useColors() {
                   success: colors.success.light,
                   seperator: colors.seperator.light,
                   actionIcon: colors.actionIcon.light,
+                  skeleton: colors.skeleton.light,
               }
 
     return { COLORS, themeMode }

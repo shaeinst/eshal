@@ -20,7 +20,7 @@ export function useStyles() {
         postPreview: {
             //
             width: '100%',
-            height: 'auto',
+            height: 200,
         },
     })
 
