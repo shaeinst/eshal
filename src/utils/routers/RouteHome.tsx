@@ -5,13 +5,13 @@ import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$export
 import { ROUTERS } from '$exporter/constant'
 import { RoutePost } from './RoutePost'
 
+const { HOME } = ROUTERS
+
 type PropsType = {
     bg: string
     fg: string
     hide?: boolean
 }
-
-const { HOME } = ROUTERS
 
 type RootStackParamList = {
     [HOME.path]: undefined

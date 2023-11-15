@@ -1,7 +1,7 @@
 const APP = 'eshal://app' as const
 
 export const ROUTERS = {
-    PREFIX: APP as const,
+    PREFIX: APP,
 
     // when APP is launched
     STARTUP: {
@@ -28,7 +28,7 @@ export const ROUTERS = {
             path: 'timeline' as const,
             prefix: `${APP}/timeline` as const,
 
-            POSTVIEW: { path: 'postview' as const, prefix: `${APP}/postview` as const },
+            POSTVIEW: { path: 'postview/:postId' as const, prefix: `${APP}/postview` as const },
         },
         ADDPOST: { path: 'addpost' as const, prefix: `${APP}/addpost` as const },
         PROFILE: { path: 'profile' as const, prefix: `${APP}/profile` as const },

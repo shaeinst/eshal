@@ -4,9 +4,11 @@ import { ROUTERS } from '$exporter/constant'
 import { PostViewScreen, TimelineScreen } from '$exporter/screen'
 import { MStatusType } from '$exporter/type'
 
+const { TIMELINE } = ROUTERS.HOME
+
 type RootStackParamList = {
-    [ROUTERS.HOME.TIMELINE.path]: undefined
-    [ROUTERS.HOME.TIMELINE.POSTVIEW.path]: { data: MStatusType }
+    [TIMELINE.path]: undefined
+    [TIMELINE.POSTVIEW.path]: { data?: MStatusType; postId?: string }
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -18,11 +20,11 @@ export function RoutePost() {
                 animationTypeForReplace: 'pop',
                 headerShown: false,
             }}
-            initialRouteName={ROUTERS.HOME.TIMELINE.path}
+            initialRouteName={TIMELINE.path}
             /* -------------------------------- */
         >
-            <Stack.Screen name={ROUTERS.HOME.TIMELINE.path} component={TimelineScreen} />
-            <Stack.Screen name={ROUTERS.HOME.TIMELINE.POSTVIEW.path} component={PostViewScreen} />
+            <Stack.Screen name={TIMELINE.path} component={TimelineScreen} />
+            <Stack.Screen name={TIMELINE.POSTVIEW.path} component={PostViewScreen} />
         </Stack.Navigator>
     )
 }
