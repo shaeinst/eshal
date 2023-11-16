@@ -2,7 +2,7 @@
  * https://docs.joinmastodon.org/entities/Poll/
  */
 
-import { CustomEmoji } from './CustomEmojiType'
+import { CustomEmojiType } from './CustomEmojiType'
 
 export type PollType = {
     id: string
@@ -11,7 +11,7 @@ export type PollType = {
     multiple: boolean
     votes_count: number
     voters_count: number | null
-    emojis: Array<CustomEmoji>
+    emojis: Array<CustomEmojiType>
     options: Array<{ title: string; votes_count: number | null }>
     voted?: boolean
     own_votes?: Array<number>

@@ -2,7 +2,7 @@
  * https://docs.joinmastodon.org/entities/CustomEmoji/
  */
 
-export type CustomEmoji = {
+export type CustomEmojiType = {
     shortcode: string
     url: string
     static_url: string

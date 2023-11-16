@@ -1,24 +1,50 @@
-import Animated from 'react-native-reanimated'
+import { useReducer } from 'react';
+import { StyleSheet, Pressable, View } from 'react-native';
+import { MotiView } from 'moti';
+import { Skeleton } from 'moti/skeleton';
 
-import { useOpacityAnimation } from '$exporter/animation'
-import { useStyles } from './stylePostSkeleton'
+export default function HelloWorld() {
+  const [dark, toggle] = useReducer((s) => !s, true);
 
-const { View } = Animated
+  const colorMode = dark ? 'dark' : 'light';
 
-export default function PostSkeleton() {
-    //
-    const { styles } = useStyles()
-    const { styles: animatedStyles } = useOpacityAnimation()
-
-    return (
-        <View style={styles.container}>
-            <View style={[styles.profile, animatedStyles]} />
-            <View style={styles.authorContainer}>
-                <View style={[styles.line, animatedStyles]} />
-                <View style={[styles.line, animatedStyles]} />
-                <View style={[styles.body, animatedStyles]} />
-                <View style={[styles.line, animatedStyles]} />
-            </View>
-        </View>
-    )
+  return (
+    <Pressable onPress={toggle} style={styles.container}>
+      <MotiView
+        transition={{
+          type: 'timing',
+        }}
+        style={[styles.container, styles.padded]}
+        animate={{ backgroundColor: dark ? '#000000' : '#ffffff' }}
+      >
+        <Skeleton colorMode={colorMode} radius="round" height={75} width={75} />
+        <Spacer />
+        <Skeleton colorMode={colorMode} width={250} />
+        <Spacer height={8} />
+        <Skeleton colorMode={colorMode} width={'100%'} />
+        <Spacer height={8} />
+        <Skeleton colorMode={colorMode} width={'100%'} />
+      </MotiView>
+    </Pressable>
+  );
 }
+
+const Spacer = ({ height = 16 }) => <View style={{ height }} />;
+
+const styles = StyleSheet.create({
+  shape: {
+    justifyContent: 'center',
+    height: 250,
+    width: 250,
+    borderRadius: 25,
+    marginRight: 10,
+    backgroundColor: 'white',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  padded: {
+    padding: 16,
+  },
+});

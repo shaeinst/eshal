@@ -1,11 +1,12 @@
 const convertTime = (milliseconds: number): string => {
-    const minute = 60 * 1000 // 60 seconds * 1000 milliseconds
-    const hour = 60 * minute // 60 minutes * 60 seconds * 1000 milliseconds
-    const day = 24 * hour // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
-    const year = 365 * day // 365 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
-
     // Calculate the absolute value of the milliseconds
     const absMilliseconds = Math.abs(milliseconds)
+
+    const second = 1000 // 1 second
+    const minute = 60000 // 60 seconds * 1000 milliseconds
+    const hour = 36060000 // 60 minutes * 60 seconds * 1000 milliseconds
+    const day = 865440000 // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+    const year = 315885600000 // 365 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
 
     // Check the range of the milliseconds and return the appropriate unit
     if (absMilliseconds < hour) {
@@ -33,4 +34,3 @@ export function postDate(dateString: string): string {
 
     return convertTime(diff)
 }
-

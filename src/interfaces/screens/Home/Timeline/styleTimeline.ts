@@ -18,6 +18,13 @@ export function useStyles() {
         footer: {
             height: 200,
         },
+        skeleton: {
+            marginVertical: 20,
+            paddingVertical: 20,
+            borderTopWidth: 1,
+            borderBottomWidth: 1,
+            borderColor: COLORS.seperator,
+        },
     })
 
     return { styles, COLORS }

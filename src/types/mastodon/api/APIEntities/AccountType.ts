@@ -2,7 +2,7 @@
  * https://docs.joinmastodon.org/entities/Account/
  */
 
-import { CustomEmoji } from './CustomEmojiType'
+import { CustomEmojiType } from './CustomEmojiType'
 import { RoleType } from './RoleType'
 
 export type AccountType = {
@@ -26,7 +26,7 @@ export type AccountType = {
     followers_count: number
     following_count: number
     fields: Array<FieldType>
-    emojis: Array<CustomEmoji>
+    emojis: Array<CustomEmojiType>
     noindex?: boolean | null
     moved?: AccountType | null
     suspended?: boolean | null

@@ -43,6 +43,9 @@ export function useStyles() {
         thirdContainer: {
             width: '85%',
         },
+        skeleton: {
+            gap: 6,
+        },
         /** *************************** **/
         boostContainer: {
             flexDirection: 'row',

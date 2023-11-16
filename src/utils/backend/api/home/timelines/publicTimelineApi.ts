@@ -8,11 +8,11 @@ export default async function publicTimelineApi(id?: string): Promise<MStatusTyp
 
     const params = id
         ? {
-              limit: 20,
+              limit: 30,
               min_id: id,
           }
         : {
-              limit: 20,
+              limit: 30,
           }
 
     // console.log("from Api: ", id);

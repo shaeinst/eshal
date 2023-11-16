@@ -6,31 +6,32 @@ import { PostCard, PostSkeleton } from '$exporter/component'
 import { queryHomeTimeline, queryPublicTimeline } from '$exporter/backend'
 import { useStyles } from './styleTimeline'
 import { MStatusType } from '$exporter/type'
+import { postReducer } from '$exporter/func'
+import { MPOST_STATUS_DATA } from '$exporter/fakedata'
 
 export default function Timeline() {
     //
     const { styles } = useStyles()
 
     // const { data, error, isLoading, isFetching, refetch } = queryHomeTimeline()
-    const { data, error, isLoading, isFetching, fetchNextPage } = queryPublicTimeline()
-
-    const handleRefresh = () => {
-        fetchNextPage()
-    }
+    const { data, error, isLoading, isFetching, handleRefresh } = queryPublicTimeline()
 
     const flatlistRender = ({ item }: { item: MStatusType }) => {
-        return <PostCard data={item} />
+        return <PostCard  data={item} />
     }
     const renderSeparator = useCallback(() => <Text style={styles.separator}></Text>, [styles])
-    const renderFooter = useCallback(() => <Text style={styles.footer}> </Text>, [styles])
+    const Skeleton = useCallback(
+        () => (
+            <View style={styles.skeleton}>
+                <PostCard skeleton data={MPOST_STATUS_DATA[0]} />
+            </View>
+        ),
+        [styles],
+    )
 
     console.log('=====================')
-    console.log('FROM TIMELINE ', data?.pages.length)
+    console.log('FROM TIMELINE ', data.length)
     console.log('=====================')
-
-    if (!data?.pages || error) {
-        return <PostSkeleton />
-    }
 
     return (
         <View style={styles.container}>
@@ -42,11 +43,8 @@ export default function Timeline() {
                 showsVerticalScrollIndicator={false}
                 overScrollMode="never"
                 ItemSeparatorComponent={renderSeparator}
-                ListFooterComponent={renderFooter}
-                data={data.pages.reduce(
-                    (accumulator, currentValue) => accumulator.concat(currentValue),
-                    [],
-                )}
+                ListFooterComponent={Skeleton}
+                data={data}
                 keyExtractor={item => item.id}
                 renderItem={flatlistRender}
             />

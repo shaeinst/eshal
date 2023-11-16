@@ -1,17 +1,20 @@
 type ReturnType = {
     clientId: string
     clientSecret: string
+    accessToken: string
 }
 
 export default function secrete(): ReturnType {
     //TODO: for now, secrete is hardcoded
 
-    const clientId = '864ELq9VqDLHb9lcm_H0uDg-Z4IHzcQKMH4YajJ7YVs'
-    const clientSecret = '2woqdzke-OhL8gqHqT9KV6vHCuvgGpkD3XvhTrT09Ik'
+    const clientKey = 'zKrXU-RLonON8q-tbTAucBpfIjQmktpbJpotdc3xR_w'
+    const clientSecret = '6jcXJUKg-aL3RnbSeTTlLLLPr5QgZireMN8nuxuIiJs'
+    const accessToken = 'AG9rJjyCQsUPu1kzPKp0DW0_P1kn9DV5gbODBJanHlw'
 
     return {
-        clientId,
+        clientId: clientKey,
         clientSecret,
+        accessToken,
     }
 }
 
