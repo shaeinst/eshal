@@ -1,16 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
-import { FONTS, RouteHome, useColors, useZustandStore, WHITESPACE } from '$exporter'
+import { FONTS, RouteHome, useColors } from '$exporter'
 
 export default function HomeInitial() {
     //
-    const { styles, COLORS } = useStyles()
-    const { nav: navTitle, hideBottomTab } = useZustandStore()
+    const { styles } = useStyles()
 
     return (
         <View style={styles.container}>
-            <RouteHome bg={COLORS.background} fg={COLORS.logo} hide={hideBottomTab} />
+            <RouteHome />
         </View>
     )
 }

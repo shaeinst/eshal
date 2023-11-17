@@ -6,20 +6,15 @@
  *  https://github.com/software-mansion/react-native-screens/issues/1762
  */
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$exporter/asset'
 import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$exporter/screen'
 import { ROUTERS } from '$exporter/constant'
+import { BottomNav } from '$exporter/component'
 import { RoutePost } from './RoutePost'
+import { useCallback } from 'react'
 
 const { HOME } = ROUTERS
-
-type PropsType = {
-    bg: string
-    fg: string
-    hide?: boolean
-}
 
 type RootStackParamList = {
     [HOME.path]: undefined
@@ -31,42 +26,18 @@ type RootStackParamList = {
 
 const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>()
 
-const tabBarIcon = (routeName: string, color: string) => {
-    switch (routeName) {
-        case HOME.path:
-            return <HomeIcon stroke={color} />
-        case HOME.ADDPOST.path:
-            return <AddPostIcon stroke={color} />
-        case HOME.SEARCH.path:
-            return <SearchIcon stroke={color} />
-        case HOME.ALERT.path:
-            return <AlertIcon stroke={color} />
-        case HOME.PROFILE.path:
-            return <ProfileIcon fill={color} />
-        default:
-            return null
-    }
-}
-
-export default function RouteHome(props: PropsType) {
+export default function RouteHome() {
     //
+
+    const TabBar = useCallback((prop: BottomTabBarProps) => <BottomNav {...prop} />, [])
 
     return (
         <Navigator
-            screenOptions={({ route }) => ({
+            tabBar={TabBar}
+            screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
-                tabBarActiveTintColor: props.fg,
-                tabBarStyle: {
-                    top: props.hide ? 101 : null,
-                    height: props.hide ? 0 : 60,
-                    shadowColor: 'transparent',
-                    borderTopWidth: 0,
-                    backgroundColor: props.bg,
-                    paddingBottom: 10,
-                },
-                tabBarIcon: ({ color }) => tabBarIcon(route.name, color),
-            })}
+            }}
             initialRouteName={HOME.path}
             /**
              *  BUG

@@ -5,7 +5,7 @@ export { default as PrimaryButton } from '../interfaces/components/Buttons/Prima
 export { default as CredInput } from '../interfaces/components/Forms/CredInput/CredInput'
 
 // NAVBAR
-export { default as Navbar } from '../interfaces/components/Navbar/Navbar'
+export { default as BottomNav } from '../interfaces/components/Navigations/BottomNav/BottomNav'
 
 // CARDS
 export { default as PostCard } from '../interfaces/components/Cards/PostCard/PostCard'
