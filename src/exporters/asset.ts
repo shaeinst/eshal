@@ -20,6 +20,9 @@ export { default as CommentIcon } from '../assets/icons/SvgIcons/Comment'
 export { default as SingleDotIcon } from '../assets/icons/SvgIcons/SingleDot'
 export { default as ReplyIcon } from '../assets/icons/SvgIcons/Reply'
 export { default as EyeIcon } from '../assets/icons/SvgIcons/Eye'
+export { default as BackIcon } from '../assets/icons/SvgIcons/Back'
+export { default as VoteIcon } from '../assets/icons/SvgIcons/Vote'
+export { default as PlusMinuxCircleIcon } from '../assets/icons/SvgIcons/PlusMinuxCircle'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';

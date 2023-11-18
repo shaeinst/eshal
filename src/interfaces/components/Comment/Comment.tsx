@@ -1,24 +1,31 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import { Text, TouchableOpacity, View, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
+import FastImage from 'react-native-fast-image'
+import HTMLView from 'react-native-htmlview'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import HTMLView from 'react-native-htmlview'
-import FastImage from 'react-native-fast-image'
-import { FlashList } from '@shopify/flash-list'
 
-import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, ReplyIcon, SwitchIcon, VoteIcon } from '$exporter/asset'
-import { MStatusType } from '$exporter/type'
+import {
+    BoostIcon,
+    CommentIcon,
+    ExpandIcon,
+    MoreDotIcon,
+    PlusMinuxCircleIcon,
+    SwitchIcon,
+    VoteIcon,
+} from '$exporter/asset'
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
-import { BlurImage } from '$exporter/component'
+import { MStatusType } from '$exporter/type'
 import { ROUTERS } from '$exporter/constant'
-import { useStyles } from './stylePostCard'
+import { BlurImage } from '$exporter/component'
+import { useStyles } from './styleComment'
 
-function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
+export default function Comment({ data }: { data: MStatusType }) {
     //
-    const { data, isViewMode } = props
-
+    const [recursiveComment, setRecursiveComment] = useState(false)
     const [isAlt, setIsAlt] = useState(false)
+    const [showThread, setShowThread] = useState(recursiveComment)
     const [isLongContent, setIsLongContent] = useState({
         isLong: data.content.length > 1000 || false,
         toggle: data.content.length > 1000 || false,
@@ -33,68 +40,27 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
             : { url: undefined, description: undefined, preview: undefined },
     )
 
-    const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
     const { styles, COLORS } = useStyles()
 
     const displayName = useMemo(
         () => parseName(data.account.display_name, data.account.emojis),
         [data.account.display_name, data.account.emojis],
     )
-    const displayBoosterName = useMemo(
-        () => (data.reblog ? parseName(data.reblog.account.display_name, data.reblog.account.emojis) : []),
-        [data.reblog?.account.display_name, data.reblog?.account.emojis],
-    )
 
     /*--------- HANDLERS -------------*/
-    const handleNavigate = useCallback(() => {
-        // navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
-        navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
-    }, [])
     const handleContent = useCallback(() => {
         setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
     }, [])
     const handleAlt = useCallback(() => {
         setIsAlt(prev => !prev)
     }, [])
+    const handleThread = useCallback(() => {
+        setShowThread(prev => !prev)
+        setRecursiveComment(prev => !prev)
+    }, [])
 
     return (
-        <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={handleNavigate}
-            disabled={isViewMode}
-            style={[styles.container]}
-            //
-        >
-            {/********** Replied | BOOST ***********/}
-            {data.reblog && !isViewMode ? (
-                <View style={styles.boostContainer}>
-                    <FastImage source={{ uri: data.reblog?.account.avatar }} style={styles.boostUserPic} />
-                    <View style={styles.authorNameContainer}>
-                        {displayBoosterName.map(type => {
-                            return type.name ? (
-                                <Text key={`${type.name} + ${Math.random()}`} style={styles.authorName}>
-                                    {type.name}
-                                </Text>
-                            ) : (
-                                <FastImage
-                                    key={`${type.url} + ${Math.random()}`}
-                                    source={{ uri: type.url }}
-                                    style={styles.emoji}
-                                />
-                            )
-                        })}
-                    </View>
-                    <BoostIcon width={16} height={17} fill="#038B8B" />
-                    <Text style={styles.boostText}>boosted</Text>
-                </View>
-            ) : null}
-            {data.in_reply_to_id && !isViewMode ? (
-                <View style={styles.boostContainer}>
-                    <ReplyIcon width={16} height={17} fill="#038B8B" />
-                    <Text style={styles.boostText}>in reply</Text>
-                </View>
-            ) : null}
-            {/********** AUTHOR INFO ***********/}
+        <View style={styles.container}>
             <View style={styles.authorContainer}>
                 <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
                 <View>
@@ -116,7 +82,7 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
                     <Text style={styles.authorId}>@{data.account.acct}</Text>
                 </View>
             </View>
-            <View style={isViewMode ? styles.view2ndContainer : styles.secondContainer}>
+            <View style={styles.postContainer}>
                 {/********** POST Description ***********/}
                 <HTMLView
                     value={data.content}
@@ -144,45 +110,27 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
 
                 {/********** POST Media ***********/}
                 {activePreview.url ? (
-                    <View style={isViewMode ? styles.isViewMediaContainer : styles.mediaContainer}>
+                    <View style={styles.mediaContainer}>
                         <Animated.View sharedTransitionTag="sharedPostPreview" style={styles.postPreviewContainer}>
                             {data.sensitive ? (
                                 <BlurImage imageUrl={activePreview.url} />
                             ) : (
-                                // <Image
-                                //     resizeMode="cover"
-                                //     source={{ uri: activePreview.url }}
-                                //     style={styles.postPreview}
-                                // />
                                 <FastImage style={styles.postPreview} source={{ uri: activePreview.url }} />
                             )}
                             {isAlt ? <Text style={styles.altText}>{activePreview.description}</Text> : null}
                         </Animated.View>
                         {data.media_attachments ? (
                             <View style={styles.mediaListContainer}>
-                                <FlatList
-                                    data={data.media_attachments}
-                                    overScrollMode="never"
-                                    horizontal
-                                    // estimatedItemSize={20} //FlashList specific option
-                                    nestedScrollEnabled
-                                    showsVerticalScrollIndicator={true}
-                                    ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
-                                    renderItem={({ item }) => (
-                                        // <Image
-                                        //     source={{ uri: item.preview_url }}
-                                        //     style={styles.media}
-                                        // />
-                                        //
-                                        <FastImage style={styles.media} source={{ uri: item.preview_url }} />
-                                    )}
-                                />
+                                {/* -------------------------------- TODO: -----------------------------*/}
                             </View>
                         ) : null}
                     </View>
                 ) : null}
                 {/********** POST ACTIONS ***********/}
                 <View style={styles.actionContainer}>
+                    <TouchableOpacity style={styles.actionButton}>
+                        <Text style={styles.actionText}>{data.replies_count} replies</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.actionButton}>
                         <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
                             {data.favourites_count}
@@ -195,18 +143,33 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
                         </Text>
                         <BoostIcon fill={data.reblogged ? COLORS.success : COLORS.actionIcon} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
-                        <Text style={styles.actionText}>{data.replies_count}</Text>
-                        <CommentIcon stroke={COLORS.actionIcon} />
-                    </TouchableOpacity>
                     <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
                     <TouchableOpacity>
                         <MoreDotIcon style={styles.more} />
                     </TouchableOpacity>
+
+                    {true ? (
+                        // {recursiveComment ? (
+                        <TouchableOpacity style={styles.threadIconButton} onPress={handleThread}>
+                            <PlusMinuxCircleIcon fill={COLORS.weakText} minus={showThread ? true : false} />
+                        </TouchableOpacity>
+                    ) : null}
                 </View>
             </View>
-        </TouchableOpacity>
+            {/*---------- Recursion -------------*/}
+            {recursiveComment && showThread ? (
+                <View style={styles.recursiveComment}>
+                    <Comment data={data} />
+                </View>
+            ) : null}
+            {true ? (
+                // {recursiveComment ? (
+                <TouchableOpacity
+                    disabled={!recursiveComment}
+                    style={styles.threadContainer}
+                    onLongPress={handleThread}
+                />
+            ) : null}
+        </View>
     )
 }
-
-export default React.memo(PostCard)

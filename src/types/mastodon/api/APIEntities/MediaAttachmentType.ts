@@ -7,7 +7,7 @@ export type MediaAttachmentType = {
     type: 'unknown' | 'image' | 'gifv' | 'video' | 'audio'
     url: string
     preview_url: string
-    remote_url: string | null
+    remote_url?: string | null
     meta: string
     description: string
     blurhash: string

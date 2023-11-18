@@ -12,10 +12,10 @@ const colors = {
     logo: { light: '#10100F', dark: '#F9F2F2' },
     navbar: { light: '#657786', dark: '#657786' },
     seperator: { light: '#dddddd', dark: '#222222' },
-    active: { light: '#000000', dark: '#ffffff' },
     success: { light: '#038B8B', dark: '#038B8B' },
-    actionIcon: { light: '#10100F', dark: '#AAAAAA' },
+    actionIcon: { light: '#777777', dark: '#afafaf' },
     skeleton: { light: '#DDDDDD', dark: '#444444' },
+    active: { light: '#000000', dark: '#ffffff' },
 
     // theme mode independent colors
     common: {

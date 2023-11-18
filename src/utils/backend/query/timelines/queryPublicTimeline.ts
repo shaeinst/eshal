@@ -1,19 +1,71 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { useZustandStore } from '$exporter'
 import { MPOST_STATUS_DATA } from '$exporter/fakedata'
 import publicTimelineApi from '../../api/home/timelines/publicTimelineApi'
+import { MStatusType } from '$exporter/type'
+
+const mergeArrays = (previous: MStatusType[], fetched: MStatusType[]): MStatusType[] => {
+    const map = new Map()
+
+    // Create a map from array1 with id as the key
+    previous.forEach(item => {
+        map.set(item.id, item)
+    })
+
+    // Merge or replace items from array2 into array1
+    fetched.forEach(item => {
+        map.set(item.id, item)
+    })
+
+    // Return merged values from the map
+    return Array.from(map.values())
+}
+
+const arraySlider = (props: {
+    data: MStatusType[]
+    upper: number
+    height: number
+    freq: number
+    direction: 'up' | 'down'
+}): {
+    data: MStatusType[]
+    up: number
+} => {
+    //
+    const { data, upper, height, freq, direction } = props
+    let up = 0
+    const dataLength = data.length
+
+    if (height + freq >= dataLength) {
+        return { data, up }
+    }
+    if (direction === 'up') {
+        up = upper - freq < 1 ? 0 : upper - freq
+    } else {
+        up = upper + freq + height >= dataLength ? dataLength - height : upper + freq
+    }
+
+    return {
+        up,
+        data: data.slice(up, up + height),
+    }
+}
+
+const HEIGHT = 20
+const FREQ = 1
 
 export default function queryHomeTimeline() {
     //
     const [cursor, setCursor] = useState<string | undefined>(undefined)
     const { auth } = useZustandStore()
+    const [loadingIndicator, setLoadingIndicator] = useState(false)
+    const [dataStore, setDataStore] = useState<MStatusType[]>([])
+    const [visibleData, setVisibleData] = useState<MStatusType[]>(MPOST_STATUS_DATA)
+    const [visibleUpperLimit, setVisibleUpperLimit] = useState(0)
 
-    const handleRefresh = () => {
-        // todo:
-        console.log("handleRefresh: ")
-    }
+    const [refetchLimit, setRefetchLimit] = useState(false)
 
     const query = useQuery({
         queryKey: ['PublicTimelineApi'],
@@ -21,14 +73,67 @@ export default function queryHomeTimeline() {
         queryFn: () => publicTimelineApi(cursor),
     })
 
-    useCallback(() => {
-        // will handle setting cursor data later
-        console.log('useCallback | FROM publicTimelineApi')
+    const handleDataSlider = (direction: 'up' | 'down') => {
+        //
+        const slidedData = arraySlider({
+            data: dataStore,
+            height: HEIGHT,
+            freq: FREQ,
+            upper: visibleUpperLimit,
+            direction: direction,
+        })
+        setVisibleUpperLimit(slidedData.up)
+        setVisibleData(slidedData.data)
+    }
+    const handleRefresh = () => {
+        // todo:
+        setLoadingIndicator(true)
+        console.log('handleRefresh: ')
+        query.refetch()
+        // handleDataSlider('up')
+    }
+
+    const handleEndReached = () => {
+        console.log('End Reached')
+        setLoadingIndicator(false)
+        handleRefresh()
+        handleDataSlider('down')
+    }
+
+    const handleOnScroll = ({ nativeEvent }) => {
+        const { contentOffset } = nativeEvent
+        // Check if the user is close to the top of the list
+        console.log("POSITION: ", contentOffset)
+        if (contentOffset.y <= 0) {
+            // Perform the action when the user reaches the top
+            console.log('Reached the top of the list!')
+            // setVisibleUpperLimit(prev => prev + 4) // Increase the count when scrolled
+            // Add your action here
+        }
+    }
+
+    useEffect(() => {
+        if (refetchLimit) {
+            return
+        }
+        console.log('DATA LENGTH: ', dataStore.length)
+        if (query.data.length > 2) {
+            //     return
+            setCursor(query.data[query.data.length - 1].id)
+        }
+
+        if (dataStore.length < 100) {
+            setDataStore(prev => mergeArrays(prev, query.data))
+        }
     }, [query.data])
 
     return {
         ...query,
+        data: dataStore,
         handleRefresh,
+        handleEndReached,
+        handleOnScroll,
+        loadingIndicator: loadingIndicator && (query.isLoading || query.isFetching),
     }
     // const response = useInfiniteQuery({
     //     queryKey: ['PublicTimelineApi'],

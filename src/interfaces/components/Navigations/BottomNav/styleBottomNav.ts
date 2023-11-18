@@ -10,6 +10,8 @@ export function useStyles() {
         container: {
             flexDirection: 'row',
             justifyContent: 'space-around',
+            borderTopWidth : 1,
+            borderTopColor: COLORS.seperator,
         },
 
         icon: {

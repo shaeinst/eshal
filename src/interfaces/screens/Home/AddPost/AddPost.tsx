@@ -8,7 +8,7 @@ export default function AddPost() {
 
     return (
         <View style={styles.container}>
-            <Text> post screen</Text>
+            <Text style={styles.text}> post screen</Text>
         </View>
     )
 }

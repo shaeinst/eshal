@@ -9,7 +9,8 @@ export default async function publicTimelineApi(id?: string): Promise<MStatusTyp
     const params = id
         ? {
               limit: 30,
-              min_id: id,
+              // min_id: id,
+              max_id: id,
           }
         : {
               limit: 30,
@@ -18,7 +19,14 @@ export default async function publicTimelineApi(id?: string): Promise<MStatusTyp
     // console.log("from Api: ", id);
     // console.log(params)
 
-    const response = await axios.get('https://mastodon.social/api/v1/timelines/public', { params })
+    const endpoint = 'https://mastodon.social/api/v1/timelines/home'
+    // const endpoint = "https://mastodon.social/api/v1/timelines/public"
+    const response = await axios.get(endpoint, {
+        params,
+        headers: {
+            Authorization: 'Bearer mlHKFPP1noA2K2PwpD9CfxeP1v3eLdbmXtumjt0upy8',
+        },
+    })
 
     return response.data
 }

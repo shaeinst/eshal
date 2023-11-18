@@ -12,6 +12,10 @@ export function useStyles() {
             alignItems: 'center',
             justifyContent: 'center',
         },
+        text: {
+            ...FONTS.Inter['SB-32'],
+            color: COLORS.error
+        }
     })
 
     return { styles, COLORS }

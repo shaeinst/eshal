@@ -35,46 +35,9 @@ export function useStyles() {
         /* ------------------------------------ */
 
         container: {
-            backgroundColor: COLORS.background,
-            // flexDirection: 'row',
-            gap: 6,
-
-            borderBottomColor: COLORS.seperator,
-            paddingVertical: 32,
-            borderBottomWidth: 1,
+            // backgroundColor: 'red',
+            marginVertical: 20,
         },
-        secondContainer: {
-            marginLeft: 48,
-        },
-        view2ndContainer: {
-            marginLeft: 0,
-        },
-        skeleton: {
-            gap: 6,
-        },
-        /** *************************** **/
-        boostContainer: {
-            flexDirection: 'row',
-            gap: 6,
-            marginBottom: 16,
-            alignItems: 'center',
-        },
-        boostUserPic: {
-            width: 26,
-            height: 26,
-            borderRadius: 20,
-            borderWidth: 0.5,
-        },
-        boostUserName: {
-            ...FONTS.Inter['Md-14'],
-            color: COLORS.strongText,
-        },
-        boostText: {
-            ...FONTS.Inter['Md-14'],
-            color: COLORS.success,
-        },
-        /** *************************** **/
-
         authorContainer: {
             flexDirection: 'row',
             gap: 8,
@@ -82,12 +45,9 @@ export function useStyles() {
         authorProfilePic: {
             borderRadius: 50,
             borderWidth: 0.5,
-            width: 40,
-            height: 40,
-        },
-        emoji: {
-            width: 12,
-            height: 12,
+            width: 32,
+            height: 32,
+            backgroundColor: COLORS.background
         },
         authorNameContainer: {
             flexDirection: 'row',
@@ -97,27 +57,24 @@ export function useStyles() {
             ...FONTS.Inter['SB-14'],
             color: COLORS.text,
         },
-        postDate: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-            marginLeft: 'auto',
-        },
-        more: {
-            paddingHorizontal: 18,
-        },
-
         authorId: {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,
             marginBottom: 6,
         },
-        /** *************************** **/
+        emoji: {
+            width: 12,
+            height: 12,
+        },
+        //------------------------
+        postContainer: {
+            marginLeft: 36,
+        },
+
         contentContainer: {
             maxHeight: 220,
             overflow: 'hidden',
         },
-        /** *************************** **/
-
         accessibility: {
             flexDirection: 'row',
             alignItems: 'center',
@@ -127,7 +84,6 @@ export function useStyles() {
             flexDirection: 'row',
             padding: 2,
             gap: 4,
-            // backgroundColor: 'red',
         },
         accessibilityClick: {
             flexDirection: 'row',
@@ -160,6 +116,11 @@ export function useStyles() {
         postPreview: {
             borderRadius: 12,
             flex: 1,
+        },
+        postDate: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+            marginLeft: 'auto',
         },
         altText: {
             position: 'absolute',
@@ -197,12 +158,12 @@ export function useStyles() {
         actionContainer: {
             flexDirection: 'row',
             alignItems: 'center',
+            gap: 10,
         },
         actionButton: {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 6,
             gap: 4,
         },
         actionText: {
@@ -212,6 +173,29 @@ export function useStyles() {
         activeActionText: {
             ...FONTS.Inter['Md-14'],
             color: COLORS.success,
+        },
+        more: {
+            //
+        },
+        threadIconButton: {
+            position: 'absolute',
+            backgroundColor: COLORS.background,
+            left: -30,
+        },
+        recursiveComment: {
+            marginLeft: 20,
+        },
+        threadContainer: {
+            position: 'absolute',
+            // backgroundColor: 'red',
+            top: 0,
+            left: 16,
+            zIndex: -1,
+            height: '99%',
+            width: 24,
+            alignItems: 'center',
+            width: 2,
+            backgroundColor: COLORS.seperator,
         },
     })
 

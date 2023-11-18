@@ -7,9 +7,6 @@ export function useStyles() {
     const { COLORS } = useColors()
 
     const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-        },
         separator: {
             backgroundColor: COLORS.seperator,
             marginVertical: 32,
@@ -21,9 +18,10 @@ export function useStyles() {
         skeleton: {
             marginVertical: 20,
             paddingVertical: 20,
-            borderTopWidth: 1,
-            borderBottomWidth: 1,
-            borderColor: COLORS.seperator,
+        },
+        skeletonText: {
+            color: COLORS.text,
+            textAlign: 'center',
         },
     })
 

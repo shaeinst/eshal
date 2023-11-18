@@ -1,53 +1,55 @@
 import React, { useCallback } from 'react'
-import { ActivityIndicator, FlatList, Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 
 import { PostCard, PostSkeleton } from '$exporter/component'
 import { queryHomeTimeline, queryPublicTimeline } from '$exporter/backend'
-import { useStyles } from './styleTimeline'
 import { MStatusType } from '$exporter/type'
 import { postReducer } from '$exporter/func'
-import { MPOST_STATUS_DATA } from '$exporter/fakedata'
+import { useStyles } from './styleTimeline'
 
-export default function Timeline() {
+function Timeline() {
     //
     const { styles } = useStyles()
 
     // const { data, error, isLoading, isFetching, refetch } = queryHomeTimeline()
-    const { data, error, isLoading, isFetching, handleRefresh } = queryPublicTimeline()
+    const { data, error, isError, isLoading, isFetching, handleRefresh, handleOnScroll, handleEndReached } =
+        queryPublicTimeline()
 
-    const flatlistRender = ({ item }: { item: MStatusType }) => {
-        return <PostCard  data={item} />
-    }
-    const renderSeparator = useCallback(() => <Text style={styles.separator}></Text>, [styles])
+    const flatlistRender = useCallback(({ item }: { item: MStatusType }) => {
+        return <PostCard data={item} />
+    }, [])
+
     const Skeleton = useCallback(
         () => (
             <View style={styles.skeleton}>
-                <PostCard skeleton data={MPOST_STATUS_DATA[0]} />
+                {isLoading || isFetching ? <Text style={styles.skeletonText}> Loading...</Text> : null}
+                {isError ? <Text style={styles.skeletonText}>{error}</Text> : null}
             </View>
         ),
         [styles],
     )
 
-    console.log('=====================')
-    console.log('FROM TIMELINE ', data.length)
-    console.log('=====================')
+    // console.log('=====================')
+    // console.log('FROM TIMELINE ', data.length)
+    // console.log('=====================')
 
     return (
-        <View style={styles.container}>
-            <FlatList
-                // estimatedItemSize={600}
-                onRefresh={handleRefresh}
-                onEndReached={handleRefresh}
-                refreshing={isLoading || isFetching}
-                showsVerticalScrollIndicator={false}
-                overScrollMode="never"
-                ItemSeparatorComponent={renderSeparator}
-                ListFooterComponent={Skeleton}
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={flatlistRender}
-            />
-        </View>
+        <FlatList
+            // estimatedItemSize={600}
+            refreshing={false}
+            showsVerticalScrollIndicator={false}
+            overScrollMode="never"
+            ListFooterComponent={Skeleton}
+            data={data}
+            keyExtractor={item => item.id}
+            renderItem={flatlistRender}
+            onRefresh={handleRefresh}
+            onEndReached={handleEndReached}
+            onEndReachedThreshold={0.4}
+            onScroll={handleOnScroll}
+        />
     )
 }
+
+export default React.memo(Timeline)

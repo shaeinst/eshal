@@ -15,3 +15,4 @@ export { default as PostSkeleton } from '../interfaces/components/Skeletons/Post
 
 // OTHERS
 export { default as BlurImage } from '../interfaces/components/Blurs/BlurImage/BlurImage'
+export { default as Comment } from '../interfaces/components/Comment/Comment'

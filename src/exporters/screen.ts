@@ -15,4 +15,4 @@ export { default as ProfileScreen } from '../interfaces/screens/Home/Profile/Pro
 export { default as SearchScreen } from '../interfaces/screens/Home/Search/Search'
 export { default as AlertScreen } from '../interfaces/screens/Home/Alert/Alert'
 export { default as SettingScreen } from '../interfaces/screens/Home/Setting/Setting'
-export { default as PostViewScreen } from '../interfaces/screens/Home/PostView/PostView'
+export { default as PostDetailsScreen } from '../interfaces/screens/Home/PostDetails/PostDetails'

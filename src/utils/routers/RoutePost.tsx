@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { ROUTERS } from '$exporter/constant'
-import { PostViewScreen, TimelineScreen } from '$exporter/screen'
+import { PostDetailsScreen, TimelineScreen } from '$exporter/screen'
 import { MStatusType } from '$exporter/type'
 
 const { TIMELINE } = ROUTERS.HOME
@@ -24,7 +24,7 @@ export function RoutePost() {
             /* -------------------------------- */
         >
             <Stack.Screen name={TIMELINE.path} component={TimelineScreen} />
-            <Stack.Screen name={TIMELINE.POSTVIEW.path} component={PostViewScreen} />
+            <Stack.Screen name={TIMELINE.POSTVIEW.path} component={PostDetailsScreen} />
         </Stack.Navigator>
     )
 }

@@ -9,9 +9,10 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'red',
+            gap: 20,
+        },
+        header: {
+            flexDirection: 'row',
         },
         mediaContainer: {
             width: '100%',
