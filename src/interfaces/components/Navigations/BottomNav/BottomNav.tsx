@@ -4,7 +4,7 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { useZustandStore } from '$exporter'
-import { Icons } from './Icons'
+import Icons from './Icons'
 import { useStyles } from './styleBottomNav'
 
 export default function BottomNav({ state, descriptors, navigation }: BottomTabBarProps) {
@@ -29,14 +29,12 @@ export default function BottomNav({ state, descriptors, navigation }: BottomTabB
     }, [hideBottomTab])
 
     return (
-        <Animated.View
-            // exiting={SlideOutLeft}
-            style={[styles.container, animatedStyles]}>
+        <Animated.View style={[styles.container, animatedStyles]}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key]
                 const label =
                     options.tabBarLabel !== undefined
-                        ? options.tabBarLabel
+                        ? options.tabBarLabel.toString()
                         : options.title !== undefined
                         ? options.title
                         : route.name
@@ -71,10 +69,13 @@ export default function BottomNav({ state, descriptors, navigation }: BottomTabB
                         testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
-                        style={{ flex: 1, alignItems: 'center' }}
+                        style={styles.icon}
                         //
                     >
-                        {Icons(label.toString(), isFocused ? COLORS.active : COLORS.actionIcon)}
+                        <Icons
+                            routeName={label}
+                            color={isFocused ? COLORS.active : COLORS.actionIcon}
+                        />
                     </TouchableOpacity>
                 )
             })}

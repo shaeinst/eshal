@@ -1,9 +1,16 @@
+import React from 'react'
 import { ROUTERS } from '$exporter/constant'
 import { AddPostIcon, AlertIcon, HomeIcon, ProfileIcon, SearchIcon } from '$exporter/asset'
 
 const { HOME } = ROUTERS
 
-export const Icons = (routeName: string, color: string) => {
+type PropsType = {
+    routeName: string
+    color: string
+}
+
+function Icons({ routeName, color }: PropsType) {
+    //
     switch (routeName) {
         case HOME.path:
             return <HomeIcon stroke={color} />
@@ -19,3 +26,5 @@ export const Icons = (routeName: string, color: string) => {
             return null
     }
 }
+
+export default React.memo(Icons)

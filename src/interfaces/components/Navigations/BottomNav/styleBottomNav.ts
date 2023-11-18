@@ -11,6 +11,11 @@ export function useStyles() {
             flexDirection: 'row',
             justifyContent: 'space-around',
         },
+
+        icon: {
+            flex: 1,
+            alignItems: 'center',
+        },
     })
 
     return { styles, COLORS }
