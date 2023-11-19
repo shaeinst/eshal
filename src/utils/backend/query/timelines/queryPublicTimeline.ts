@@ -103,10 +103,10 @@ export default function queryHomeTimeline() {
     const handleOnScroll = ({ nativeEvent }) => {
         const { contentOffset } = nativeEvent
         // Check if the user is close to the top of the list
-        console.log("POSITION: ", contentOffset)
+        // console.log("POSITION: ", contentOffset)
         if (contentOffset.y <= 0) {
             // Perform the action when the user reaches the top
-            console.log('Reached the top of the list!')
+            // console.log('Reached the top of the list!')
             // setVisibleUpperLimit(prev => prev + 4) // Increase the count when scrolled
             // Add your action here
         }
@@ -129,7 +129,7 @@ export default function queryHomeTimeline() {
 
     return {
         ...query,
-        data: dataStore,
+        // data: dataStore,
         handleRefresh,
         handleEndReached,
         handleOnScroll,

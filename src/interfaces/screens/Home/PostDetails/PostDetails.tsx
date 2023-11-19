@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { RouteProp, useNavigation } from '@react-navigation/native'
 import Animated from 'react-native-reanimated'
 
@@ -9,6 +9,7 @@ import { ROUTERS } from '$exporter/constant'
 import { Comment, PostCard } from '$exporter/component'
 import { BackIcon, BoostIcon } from '$exporter/asset'
 import { useStyles } from './stylePostDetails'
+import { MPOST_STATUS_DATA } from '$exporter/fakedata'
 
 const { POSTVIEW } = ROUTERS.HOME.TIMELINE
 
@@ -23,6 +24,7 @@ type PropsType = {
 
 export default function PostDetails({ route }: PropsType) {
     //
+
     const { data } = route.params
 
     const { styles, COLORS } = useStyles()
@@ -33,23 +35,28 @@ export default function PostDetails({ route }: PropsType) {
     // console.log('PostView Screen: id=', route.params?.postId)
     // console.log("====================================")
 
+    const flatListData = MPOST_STATUS_DATA
+
     useEffect(() => {
         setHideBottomTab(true)
         return () => setHideBottomTab(false)
     }, [])
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={goBack}>
-                        <BackIcon stroke={COLORS.text} />
-                    </TouchableOpacity>
-                </View>
-                {data ? <PostCard isViewMode data={data} /> : null}
-
-                {data ? <Comment data={data} /> : null}
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={goBack}>
+                    <BackIcon stroke={COLORS.text} />
+                </TouchableOpacity>
             </View>
-        </ScrollView>
+            {data ? (
+                <FlatList
+                    // keyExtractor={item => item.id}
+                    data={flatListData}
+                    ListHeaderComponent={() => <PostCard isViewMode data={data} />}
+                    renderItem={({ item }) => <Comment data={item} />}
+                />
+            ) : null}
+        </View>
     )
 }

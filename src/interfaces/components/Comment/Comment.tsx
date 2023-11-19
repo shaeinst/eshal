@@ -12,8 +12,8 @@ import {
     ExpandIcon,
     MoreDotIcon,
     PlusMinuxCircleIcon,
+    StarIcon,
     SwitchIcon,
-    VoteIcon,
 } from '$exporter/asset'
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
 import { MStatusType } from '$exporter/type'
@@ -135,7 +135,7 @@ export default function Comment({ data }: { data: MStatusType }) {
                         <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
                             {data.favourites_count}
                         </Text>
-                        <VoteIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
+                        <StarIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.actionButton}>
                         <Text style={data.reblogged ? styles.activeActionText : styles.actionText}>
@@ -151,7 +151,7 @@ export default function Comment({ data }: { data: MStatusType }) {
                     {true ? (
                         // {recursiveComment ? (
                         <TouchableOpacity style={styles.threadIconButton} onPress={handleThread}>
-                            <PlusMinuxCircleIcon fill={COLORS.weakText} minus={showThread ? true : false} />
+                            <PlusMinuxCircleIcon fill={COLORS.seperator} minus={showThread ? true : false} />
                         </TouchableOpacity>
                     ) : null}
                 </View>

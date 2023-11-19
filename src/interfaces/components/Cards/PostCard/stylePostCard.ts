@@ -43,11 +43,17 @@ export function useStyles() {
             paddingVertical: 32,
             borderBottomWidth: 1,
         },
+        inReplyContainer: {
+            borderRadius: 12,
+            borderColor: COLORS.seperator,
+            borderWidth: 1,
+            padding: 4,
+            marginTop: 4,
+            marginBottom: 6,
+        },
+
         secondContainer: {
             marginLeft: 48,
-        },
-        view2ndContainer: {
-            marginLeft: 0,
         },
         skeleton: {
             gap: 6,
@@ -142,10 +148,13 @@ export function useStyles() {
         /** *************************** **/
 
         mediaContainer: {
-            // flexDirection: 'row',
             gap: 8,
             height: 200,
             marginTop: 6,
+            borderWidth: 1,
+            borderColor: COLORS.seperator,
+            borderRadius: 12,
+            overflow: 'hidden',
         },
         isViewMediaContainer: {
             gap: 8,
@@ -157,9 +166,18 @@ export function useStyles() {
             flex: 1,
             overflow: 'hidden',
         },
+        cardDescription: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+        },
+        cardLink: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.primary,
+            fontStyle: 'italic',
+            textDecorationLine: 'underline',
+        },
         postPreview: {
-            borderRadius: 12,
-            flex: 1,
+            height: 140,
         },
         altText: {
             position: 'absolute',
@@ -209,9 +227,37 @@ export function useStyles() {
             ...FONTS.Inter['Md-14'],
             color: COLORS.actionIcon,
         },
+        inReplyActionText: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+        },
         activeActionText: {
             ...FONTS.Inter['Md-14'],
             color: COLORS.success,
+        },
+        activeInReplyActionText: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.success,
+        },
+        /** *************************** **/
+        inReplySkeleton: {
+            minHeight: 160,
+            borderWidth: 1,
+            borderRadius: 12,
+            borderColor: COLORS.seperator,
+            // borderColor: COLORS.seperator,
+        },
+        isViewModeText: {
+            ...FONTS.Inter['Md-14'],
+            color: COLORS.text,
+            flexDirection: 'row',
+            textAlign: 'center',
+        },
+        cardContainer: {
+            borderRadius: 12,
+            borderWidth: 1,
+            borderColor: COLORS.seperator,
+            overflow: 'hidden',
         },
     })
 

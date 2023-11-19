@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Text, TouchableOpacity, View, FlatList } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
@@ -7,31 +7,34 @@ import HTMLView from 'react-native-htmlview'
 import FastImage from 'react-native-fast-image'
 import { FlashList } from '@shopify/flash-list'
 
-import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, ReplyIcon, SwitchIcon, VoteIcon } from '$exporter/asset'
+import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, ReplyIcon, StarIcon, SwitchIcon } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
 import { BlurImage } from '$exporter/component'
 import { ROUTERS } from '$exporter/constant'
 import { useStyles } from './stylePostCard'
+import { queryStatus } from '$exporter/backend'
 
-function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
+function PostCard(props: { data: MStatusType; isViewMode?: boolean; inReply?: boolean }) {
     //
-    const { data, isViewMode } = props
+    const { data, isViewMode, inReply } = props
 
+    const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
+
+    const [reachedLimit, setReachedLimit] = useState(false)
     const [isAlt, setIsAlt] = useState(false)
     const [isLongContent, setIsLongContent] = useState({
         isLong: data.content.length > 1000 || false,
         toggle: data.content.length > 1000 || false,
     })
-    const [activePreview, setActivePreview] = useState<{ url?: string; description?: string; preview?: string }>(
-        data?.media_attachments?.length
-            ? {
-                  url: data.media_attachments[0].preview_url,
-                  description: data.media_attachments[0].description,
-                  preview: data.media_attachments[0].preview_url,
-              }
-            : { url: undefined, description: undefined, preview: undefined },
-    )
+
+    const [activePreview, setActivePreview] = useState(() => {
+        if (data?.media_attachments?.length && (!data?.card || data.media_attachments.length > 1)) {
+            const { preview_url, description } = data.media_attachments[0]
+            return { url: preview_url, description, preview: preview_url }
+        }
+        return { url: undefined, description: undefined, preview: undefined }
+    })
 
     const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
     const { styles, COLORS } = useStyles()
@@ -48,6 +51,9 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
     /*--------- HANDLERS -------------*/
     const handleNavigate = useCallback(() => {
         // navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
+        if (data.in_reply_to_id) {
+            navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data: query?.data, id: data.in_reply_to_id })
+        }
         navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
     }, [])
     const handleContent = useCallback(() => {
@@ -62,7 +68,7 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
             activeOpacity={0.5}
             onPress={handleNavigate}
             disabled={isViewMode}
-            style={[styles.container]}
+            style={inReply ? styles.inReplyContainer : styles.container}
             //
         >
             {/********** Replied | BOOST ***********/}
@@ -88,12 +94,6 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
                     <Text style={styles.boostText}>boosted</Text>
                 </View>
             ) : null}
-            {data.in_reply_to_id && !isViewMode ? (
-                <View style={styles.boostContainer}>
-                    <ReplyIcon width={16} height={17} fill="#038B8B" />
-                    <Text style={styles.boostText}>in reply</Text>
-                </View>
-            ) : null}
             {/********** AUTHOR INFO ***********/}
             <View style={styles.authorContainer}>
                 <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
@@ -116,7 +116,7 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
                     <Text style={styles.authorId}>@{data.account.acct}</Text>
                 </View>
             </View>
-            <View style={isViewMode ? styles.view2ndContainer : styles.secondContainer}>
+            <View style={isViewMode ? null : styles.secondContainer}>
                 {/********** POST Description ***********/}
                 <HTMLView
                     value={data.content}
@@ -181,32 +181,82 @@ function PostCard(props: { data: MStatusType; isViewMode?: boolean }) {
                         ) : null}
                     </View>
                 ) : null}
+
+                {/********** Link | Article ***********/}
+                {data.card && !activePreview.preview ? (
+                    <TouchableOpacity style={styles.cardContainer}>
+                        {data.card.type === 'photo' ? (
+                            <FastImage style={styles.postPreview} source={{ uri: data.card.image }} />
+                        ) : data.card.type === 'video' ? (
+                            <FastImage style={styles.postPreview} source={{ uri: data.card.image }} />
+                        ) : data.card.type === 'link' ? (
+                            <>
+                                <Text style={styles.cardDescription}> {data.card.description}</Text>
+                                <Text style={styles.cardLink}> {data.card.url}</Text>
+                                <FastImage  style={styles.postPreview} source={{ uri: data.card.image }} />
+                            </>
+                        ) : (
+                            // Rich Card
+                            <FastImage style={styles.postPreview} source={{ uri: data.card.image }} />
+                        )}
+                    </TouchableOpacity>
+                ) : null}
+
+                {/*------------- in Reply ---------------*/}
+                {data.in_reply_to_id && !inReply && !isViewMode ? (
+                    query?.data ? (
+                        <PostCard inReply={true} data={query.data} />
+                    ) : (
+                        // <Text style={{ color: 'green' }}>{query.data.account.display_name}</Text>
+                        <View style={styles.inReplySkeleton}>
+                            <Text style={{ color: 'green' }}>{query?.error?.message}</Text>
+                            <Text style={{ color: 'green' }}>Loading {query?.isLoading}</Text>
+                            <Text style={{ color: 'red' }}>Fetching {query?.isFetching}</Text>
+                        </View>
+                    )
+                ) : null}
                 {/********** POST ACTIONS ***********/}
                 <View style={styles.actionContainer}>
-                    <TouchableOpacity style={styles.actionButton}>
-                        <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
-                            {data.favourites_count}
-                        </Text>
-                        <VoteIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
-                        <Text style={data.reblogged ? styles.activeActionText : styles.actionText}>
-                            {data.reblogs_count}
-                        </Text>
-                        <BoostIcon fill={data.reblogged ? COLORS.success : COLORS.actionIcon} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
-                        <Text style={styles.actionText}>{data.replies_count}</Text>
-                        <CommentIcon stroke={COLORS.actionIcon} />
-                    </TouchableOpacity>
-                    <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
-                    <TouchableOpacity>
-                        <MoreDotIcon style={styles.more} />
-                    </TouchableOpacity>
+                    {inReply ? (
+                        <>
+                            <Text style={styles.inReplyActionText}>
+                                {`${data.replies_count} replies . ${data.favourites_count} favs . ${data.reblogs_count} boosts `}
+                            </Text>
+                            <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
+                        </>
+                    ) : (
+                        <>
+                            <TouchableOpacity style={styles.actionButton}>
+                                <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
+                                    {data.favourites_count}
+                                </Text>
+                                <StarIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.actionButton}>
+                                <Text style={data.reblogged ? styles.activeActionText : styles.actionText}>
+                                    {data.reblogs_count}
+                                </Text>
+                                <BoostIcon fill={data.reblogged ? COLORS.success : COLORS.actionIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.actionButton}>
+                                <Text style={styles.actionText}>{data.replies_count}</Text>
+                                <CommentIcon stroke={COLORS.actionIcon} />
+                            </TouchableOpacity>
+                            <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
+                            <TouchableOpacity>
+                                <MoreDotIcon style={styles.more} />
+                            </TouchableOpacity>
+                        </>
+                    )}
                 </View>
             </View>
+            {isViewMode ? (
+                <Text style={styles.isViewModeText}>
+                    {`${data.replies_count} replies  ${data.favourites_count} favourites  ${data.reblogs_count} boosts `}
+                </Text>
+            ) : null}
         </TouchableOpacity>
     )
 }
 
-export default React.memo(PostCard)
+export default PostCard

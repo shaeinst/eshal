@@ -30,6 +30,7 @@ export default {
 
         // Bold
         'Bd-12': { fontFamily: 'Inter-Bold', fontSize: 12 },
+        'Bd-14': { fontFamily: 'Inter-Bold', fontSize: 14 },
         'Bd-18': { fontFamily: 'Inter-Bold', fontSize: 18 },
         'Bd-20': { fontFamily: 'Inter-Bold', fontSize: 20 },
         'Bd-32': { fontFamily: 'Inter-Bold', fontSize: 32 },
