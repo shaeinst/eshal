@@ -16,6 +16,7 @@ const colors = {
     actionIcon: { light: '#777777', dark: '#afafaf' },
     skeleton: { light: '#DDDDDD', dark: '#444444' },
     active: { light: '#000000', dark: '#ffffff' },
+    cardBorder: { light: '#000000', dark: '#ffffff' },
 
     // theme mode independent colors
     common: {
@@ -39,6 +40,7 @@ interface ColorsInterface {
     seperator: string
     actionIcon: string
     skeleton: string
+    cardBorder: string
 }
 
 function useColors() {
@@ -65,6 +67,7 @@ function useColors() {
                   seperator: colors.seperator.dark,
                   actionIcon: colors.actionIcon.dark,
                   skeleton: colors.skeleton.dark,
+                  cardBorder: colors.cardBorder.dark,
               }
             : {
                   ...colors.common,
@@ -83,6 +86,7 @@ function useColors() {
                   seperator: colors.seperator.light,
                   actionIcon: colors.actionIcon.light,
                   skeleton: colors.skeleton.light,
+                  cardBorder: colors.cardBorder.light,
               }
 
     return { COLORS, themeMode }

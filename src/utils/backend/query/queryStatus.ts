@@ -9,10 +9,10 @@ export default function queryStatus(id?: string) {
 
     // const { auth } = useZustandStore()
 
-    // console.log(id)
+    // console.log("queryStatus.tsx: ", id)
 
     return useQuery({
         queryKey: ['statusApi', id],
-        queryFn: () => statusApi(id),
+        queryFn: statusApi,
     })
 }

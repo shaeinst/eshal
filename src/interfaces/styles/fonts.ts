@@ -11,6 +11,7 @@ export default {
         // Regular
         'Rg-10': { fontFamily: 'Inter-Regular', fontSize: 10 },
         'Rg-14': { fontFamily: 'Inter-Regular', fontSize: 14 },
+        'Rg-15': { fontFamily: 'Inter-Regular', fontSize: 15 },
         'Rg-16': { fontFamily: 'Inter-Regular', fontSize: 16 },
         'Rg-18': { fontFamily: 'Inter-Regular', fontSize: 18 },
         'Rg-20': { fontFamily: 'Inter-Regular', fontSize: 20 },

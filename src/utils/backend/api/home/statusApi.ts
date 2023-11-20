@@ -3,13 +3,16 @@ import axios from 'axios'
 
 import { ENDPOINTS } from '../../endPoints'
 
-export default async function statusApi(id: string): Promise<MStatusType> {
+type PropsType = {
+    queryKey: [_key: string, id: string]
+}
+
+export default async function statusApi({ queryKey }: PropsType): Promise<MStatusType> {
     //
 
-    // const { token_type, server_url, access_token } = props
+    const [_key, id] = queryKey
 
     const endpoint = `https://mastodon.social/api/v1/statuses/${id}`
-
 
     const response = await axios.get(endpoint, {
         headers: {

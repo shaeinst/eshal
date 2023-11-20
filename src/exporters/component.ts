@@ -10,6 +10,9 @@ export { default as BottomNav } from '../interfaces/components/Navigations/Botto
 // CARDS
 export { default as PostCard } from '../interfaces/components/Cards/PostCard/PostCard'
 
+// MODALS
+export { default as ProfileModal } from '../interfaces/components/Modals/Profile/ProfileModal'
+
 // SKELETONS
 export { default as PostSkeleton } from '../interfaces/components/Skeletons/PostSkeleton/PostSkeleton'
 

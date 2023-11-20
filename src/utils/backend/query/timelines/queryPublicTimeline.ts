@@ -129,7 +129,7 @@ export default function queryHomeTimeline() {
 
     return {
         ...query,
-        // data: dataStore,
+        data: dataStore,
         handleRefresh,
         handleEndReached,
         handleOnScroll,

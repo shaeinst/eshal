@@ -7,7 +7,8 @@ export function useStyles() {
     const { COLORS } = useColors()
 
     const tagSyles = {
-        fontFamily: FONTS.Inter.fontFamily,
+        ...FONTS.Inter['Rg-15'],
+        // fontFamily: FONTS.Inter.fontFamily,
         color: COLORS.text,
     }
 
@@ -45,7 +46,7 @@ export function useStyles() {
         },
         inReplyContainer: {
             borderRadius: 12,
-            borderColor: COLORS.seperator,
+            borderColor: COLORS.cardBorder,
             borderWidth: 1,
             padding: 4,
             marginTop: 4,
@@ -54,6 +55,9 @@ export function useStyles() {
 
         secondContainer: {
             marginLeft: 48,
+        },
+        altSecondContainer: {
+            padding: 8,
         },
         skeleton: {
             gap: 6,
@@ -148,7 +152,6 @@ export function useStyles() {
         /** *************************** **/
 
         mediaContainer: {
-            gap: 8,
             height: 200,
             marginTop: 6,
             borderWidth: 1,
@@ -164,7 +167,9 @@ export function useStyles() {
         },
         postPreviewContainer: {
             flex: 1,
-            overflow: 'hidden',
+        },
+        postPreview: {
+            flex: 1,
         },
         cardDescription: {
             ...FONTS.Inter['Lt-12'],
@@ -175,9 +180,6 @@ export function useStyles() {
             color: COLORS.primary,
             fontStyle: 'italic',
             textDecorationLine: 'underline',
-        },
-        postPreview: {
-            height: 140,
         },
         altText: {
             position: 'absolute',
@@ -258,6 +260,7 @@ export function useStyles() {
             borderWidth: 1,
             borderColor: COLORS.seperator,
             overflow: 'hidden',
+            padding: 4,
         },
     })
 
