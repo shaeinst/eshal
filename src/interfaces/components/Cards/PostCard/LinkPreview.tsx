@@ -11,7 +11,7 @@ export function LinkPreview({ card }: { card: MPreviewCardType }) {
 
     return (
         <TouchableOpacity style={styles.cardContainer}>
-            <Text style={styles.cardDescription}> {card.description}</Text>
+            <Text style={styles.cardDescription}> {card.description.slice(0, 120)}...</Text>
             <Text style={styles.cardLink}> {card.url}</Text>
             {card.image ? <FastImage resizeMode='center' style={styles.postPreview} source={{ uri: card.image }} /> : null}
         </TouchableOpacity>

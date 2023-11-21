@@ -8,13 +8,14 @@ export function useStyles() {
     const styles = StyleSheet.create({
         blank: {
             flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.8)',
         },
         modalContainer: {
             flex: 1,
         },
         modalView: {
-            height: "40%",
-            width: "100%",
+            height: '40%',
+            width: '100%',
             borderColor: COLORS.text,
         },
         image: {

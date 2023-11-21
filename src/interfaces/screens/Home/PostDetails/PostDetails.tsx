@@ -36,6 +36,8 @@ export default function PostDetails({ route }: PropsType) {
     // console.log("====================================")
 
     const flatListData = MPOST_STATUS_DATA
+    const flatListHeader = <PostCard isViewMode data={data} />
+    const flatlistRender = ({ item }: { item: MStatusType }) => <Comment data={item} />
 
     useEffect(() => {
         setHideBottomTab(true)
@@ -53,8 +55,8 @@ export default function PostDetails({ route }: PropsType) {
                 <FlatList
                     // keyExtractor={item => item.id}
                     data={flatListData}
-                    ListHeaderComponent={() => <PostCard isViewMode data={data} />}
-                    renderItem={({ item }) => <Comment data={item} />}
+                    ListHeaderComponent={flatListHeader}
+                    renderItem={flatlistRender}
                 />
             ) : null}
         </View>

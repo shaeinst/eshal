@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-import { Alert, Modal, Pressable, Text, View } from 'react-native'
+import { Modal, Pressable, View } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { BlurView } from '@react-native-community/blur'
-
-import FastImage from 'react-native-fast-image'
 
 import { useStyles } from './styleProfileModal'
 
@@ -25,7 +22,7 @@ export default function ProfileModal() {
     const ModalComponent = () => (
         <Modal animationType="none" transparent visible={showModal} onRequestClose={handleClose}>
             <Pressable style={styles.blank} onPress={handleClose}>
-                <BlurView style={styles.modalContainer} blurType="dark" blurAmount={18} blurRadius={2}>
+                <View style={styles.modalContainer}>
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                         <Pressable style={styles.modalView}>
                             <Animated.Image
@@ -35,7 +32,7 @@ export default function ProfileModal() {
                             />
                         </Pressable>
                     </View>
-                </BlurView>
+                </View>
             </Pressable>
         </Modal>
     )

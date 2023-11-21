@@ -17,15 +17,7 @@ function Timeline() {
     const { data, error, isError, isLoading, isFetching, handleRefresh, handleOnScroll, handleEndReached } =
         queryPublicTimeline()
 
-    const { ModalComponent, showModal, modalUrl, handleModal } = ProfileModal()
-
-    // console.log('=====================')
-    // console.log('FROM TIMELINE ', data.length)
-    // console.log('=====================')
-
-    const flatlistRender = useCallback(({ item }: { item: MStatusType }) => {
-        return <PostCard handleModal={handleModal} data={item} />
-    }, [])
+    const flatlistRender = ({ item }: { item: MStatusType }) => <PostCard data={item} />
 
     const Skeleton = useCallback(
         () => (
@@ -38,23 +30,20 @@ function Timeline() {
     )
 
     return (
-        <>
-            <FlatList
-                // estimatedItemSize={600}
-                refreshing={false}
-                showsVerticalScrollIndicator={false}
-                overScrollMode="never"
-                ListFooterComponent={Skeleton}
-                data={data}
-                keyExtractor={item => item.id}
-                renderItem={flatlistRender}
-                onRefresh={handleRefresh}
-                onEndReached={handleEndReached}
-                onEndReachedThreshold={0.4}
-                onScroll={handleOnScroll}
-            />
-            {showModal && modalUrl ? <ModalComponent /> : null}
-        </>
+        <FlatList
+            // estimatedItemSize={600}
+            refreshing={false}
+            showsVerticalScrollIndicator={false}
+            overScrollMode="never"
+            ListFooterComponent={Skeleton}
+            data={data}
+            keyExtractor={item => item.id}
+            renderItem={flatlistRender}
+            onRefresh={handleRefresh}
+            onEndReached={handleEndReached}
+            onEndReachedThreshold={0.4}
+            onScroll={handleOnScroll}
+        />
     )
 }
 

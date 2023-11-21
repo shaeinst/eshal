@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import { Text, TouchableOpacity, View, FlatList } from 'react-native'
+import { Text, TouchableOpacity, View, FlatList, ImageBackground } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -14,32 +14,32 @@ import { BlurImage } from '$exporter/component'
 import { ROUTERS } from '$exporter/constant'
 import { queryStatus } from '$exporter/backend'
 import { useStyles } from './stylePostCard'
-import  LinkPreview  from './LinkPreview'
+import LinkPreview from './LinkPreview'
 
 type PropsType = {
     data: MStatusType
     isViewMode?: boolean
     inReply?: boolean
-    handleModal: (url?: string) => void
 }
 
-function PostCard(props: PropsType) {
+export default React.memo(function PostCard(props: PropsType) {
     //
-    const { data, isViewMode, inReply, handleModal } = props
+    const { data, isViewMode, inReply } = props
 
     const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
 
+    const [lazyLoad, setLazyLoad] = useState(false)
     const [isAlt, setIsAlt] = useState(false)
     const [isLongContent, setIsLongContent] = useState({
-        isLong: data.content.length > 1000 || false,
-        toggle: data.content.length > 1000 || false,
+        isLong: data.content.length > 500 || false,
+        toggle: data.content.length > 500 || false,
     })
     const [activePreview, setActivePreview] = useState(() => {
         if (data?.media_attachments?.length && (!data?.card || data.media_attachments.length > 1)) {
-            const { preview_url, description } = data.media_attachments[0]
-            return { url: preview_url, description }
+            const { preview_url, description, remote_url } = data.media_attachments[0]
+            return { url: preview_url, description, remoteUrl: remote_url ? remote_url : undefined }
         }
-        return { url: undefined, description: undefined }
+        return { url: undefined, description: undefined, remoteUrl: undefined }
     })
 
     const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
@@ -61,17 +61,21 @@ function PostCard(props: PropsType) {
             navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data: query?.data, id: data.in_reply_to_id })
         }
         navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
-    }, [])
+    }, [data, query, navigate])
+
     const handleContent = useCallback(() => {
         setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
     }, [])
     const handleAlt = useCallback(() => {
         setIsAlt(prev => !prev)
     }, [])
+    const handleLazyLoad = useCallback(() => {
+        setLazyLoad(true)
+    }, [])
 
     return (
         <TouchableOpacity
-            activeOpacity={0.5}
+            activeOpacity={0.8}
             onPress={handleNavigate}
             disabled={isViewMode}
             style={inReply ? styles.inReplyContainer : styles.container}
@@ -80,27 +84,17 @@ function PostCard(props: PropsType) {
             {/********** Replied | BOOST ***********/}
             {data.reblog?.account && !isViewMode ? (
                 <View style={styles.boostContainer}>
-                    <TouchableOpacity onPress={() => handleModal(data.reblog?.account.avatar)}>
-                        <Animated.Image
-                            sharedTransitionTag="profile"
-                            style={styles.boostUserPic}
-                            source={{ uri: data.reblog?.account.avatar }}
-                        />
-                    </TouchableOpacity>
+                    <FastImage style={styles.boostUserPic} source={{ uri: data.reblog?.account.avatar }} />
                     <View style={styles.authorNameContainer}>
-                        {displayBoosterName.map(type => {
-                            return type.name ? (
-                                <Text key={`${type.name} + ${Math.random()}`} style={styles.authorName}>
+                        {displayBoosterName.map((type, index) =>
+                            type.name ? (
+                                <Text key={index} style={styles.authorName}>
                                     {type.name}
                                 </Text>
                             ) : (
-                                <FastImage
-                                    key={`${type.url} + ${Math.random()}`}
-                                    source={{ uri: type.url }}
-                                    style={styles.emoji}
-                                />
-                            )
-                        })}
+                                <FastImage key={index} source={{ uri: type.url }} style={styles.emoji} />
+                            ),
+                        )}
                     </View>
                     <BoostIcon width={16} height={17} fill="#038B8B" />
                     <Text style={styles.boostText}>boosted</Text>
@@ -108,14 +102,7 @@ function PostCard(props: PropsType) {
             ) : null}
             {/********** AUTHOR INFO ***********/}
             <View style={styles.authorContainer}>
-                <TouchableOpacity onPress={() => handleModal(data.account.avatar)}>
-                    {/* <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} /> */}
-                    <Animated.Image
-                        sharedTransitionTag="profilePic"
-                        style={styles.authorProfilePic}
-                        source={{ uri: data.account.avatar }}
-                    />
-                </TouchableOpacity>
+                <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
                 <View>
                     <View style={styles.authorNameContainer}>
                         {displayName.map(type => {
@@ -135,7 +122,11 @@ function PostCard(props: PropsType) {
                     <Text style={styles.authorId}>@{data.account.acct}</Text>
                 </View>
             </View>
-            <View style={isViewMode || inReply ? styles.altSecondContainer : styles.secondContainer}>
+            <Animated.View
+                sharedTransitionTag={`description${data.id}`}
+                style={isViewMode || inReply ? styles.altSecondContainer : styles.secondContainer}
+                //
+            >
                 {/********** POST Description ***********/}
                 <HTMLView
                     value={data.content}
@@ -164,7 +155,7 @@ function PostCard(props: PropsType) {
                 {/********** POST Media ***********/}
                 {activePreview.url ? (
                     <View style={isViewMode ? styles.isViewMediaContainer : styles.mediaContainer}>
-                        <Animated.View sharedTransitionTag="sharedPostPreview" style={styles.postPreviewContainer}>
+                        <View style={styles.postPreviewContainer}>
                             {data.sensitive ? (
                                 <BlurImage imageUrl={activePreview.url} />
                             ) : (
@@ -173,10 +164,25 @@ function PostCard(props: PropsType) {
                                 //     source={{ uri: activePreview.url }}
                                 //     style={styles.postPreview}
                                 // />
-                                <FastImage resizeMode='contain' style={styles.postPreview} source={{ uri: activePreview.url }} />
+                                <>
+                                    {lazyLoad || !activePreview.remoteUrl ? null : (
+                                        <ImageBackground
+                                            source={{ uri: activePreview.remoteUrl }}
+                                            style={styles.postPreview}
+                                            blurRadius={25}
+                                            //
+                                        />
+                                    )}
+                                    <FastImage
+                                        resizeMode="contain"
+                                        style={lazyLoad ? styles.postPreview : null}
+                                        source={{ uri: activePreview.url }}
+                                        onLoad={handleLazyLoad}
+                                    />
+                                </>
                             )}
                             {isAlt ? <Text style={styles.altText}>{activePreview.description}</Text> : null}
-                        </Animated.View>
+                        </View>
                         {data.media_attachments ? (
                             // TODO:
                             <View style={styles.mediaListContainer}>
@@ -208,7 +214,7 @@ function PostCard(props: PropsType) {
                 {/*------------- in Reply ---------------*/}
                 {data.in_reply_to_id && !inReply && !isViewMode ? (
                     query?.data ? (
-                        <PostCard handleModal={handleModal} inReply={true} data={query.data} />
+                        <PostCard inReply={true} data={query.data} />
                     ) : (
                         // <Text style={{ color: 'green' }}>{query.data.account.display_name}</Text>
                         <View style={styles.inReplySkeleton}>
@@ -252,7 +258,7 @@ function PostCard(props: PropsType) {
                         </>
                     )}
                 </View>
-            </View>
+            </Animated.View>
             {isViewMode ? (
                 <Text style={styles.isViewModeText}>
                     {`${data.replies_count} replies  ${data.favourites_count} favourites  ${data.reblogs_count} boosts `}
@@ -260,6 +266,4 @@ function PostCard(props: PropsType) {
             ) : null}
         </TouchableOpacity>
     )
-}
-
-export default PostCard
+})
