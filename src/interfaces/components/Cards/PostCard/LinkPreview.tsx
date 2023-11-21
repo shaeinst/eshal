@@ -1,22 +1,24 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { FONTS, useColors } from '$exporter'
 import { MPreviewCardType } from '$exporter/type'
 
-export function LinkPreview({ card }: { card: MPreviewCardType }) {
+export default React.memo(function LinkPreview({ card }: { card: MPreviewCardType }) {
     //
     const { styles } = useSyles()
 
     return (
-        <TouchableOpacity style={styles.cardContainer}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.cardContainer}>
             <Text style={styles.cardDescription}> {card.description.slice(0, 120)}...</Text>
             <Text style={styles.cardLink}> {card.url}</Text>
-            {card.image ? <FastImage resizeMode='center' style={styles.postPreview} source={{ uri: card.image }} /> : null}
+            {card.image ? (
+                <FastImage style={styles.postPreview} source={{ uri: card.image }} />
+            ) : null}
         </TouchableOpacity>
     )
-}
+})
 
 const useSyles = () => {
     //
@@ -51,5 +53,3 @@ const useSyles = () => {
 
     return { styles }
 }
-
-export default React.memo(LinkPreview)

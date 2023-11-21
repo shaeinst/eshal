@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
+import { useMemo } from 'react'
 
 export function useStyles() {
     //
@@ -17,7 +18,8 @@ export function useStyles() {
         // HTMLView
         /* ------------------------------------ */
         strong: tagSyles,
-        span: tagSyles,
+        // span: tagSyles,
+        // a: tagSyles,
         p: tagSyles,
         b: tagSyles,
         em: tagSyles,
@@ -31,7 +33,6 @@ export function useStyles() {
             fontFamily: FONTS.Inter.fontFamily,
             color: COLORS.primary,
             fontStyle: 'italic',
-            textDecorationLine: 'underline',
         },
         /* ------------------------------------ */
 
@@ -152,10 +153,8 @@ export function useStyles() {
         /** *************************** **/
 
         mediaContainer: {
-            height: 200,
+            // height: 200,
             marginTop: 6,
-            borderWidth: 1,
-            borderColor: COLORS.seperator,
             borderRadius: 12,
             overflow: 'hidden',
         },
@@ -264,5 +263,5 @@ export function useStyles() {
         },
     })
 
-    return { styles, COLORS }
+    return useMemo(() => ({ styles, COLORS }), [COLORS])
 }

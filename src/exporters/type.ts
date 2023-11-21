@@ -9,5 +9,7 @@ export type { StatusType as MStatusType } from '../types/mastodon/api/APIEntitie
 export type { MediaAttachmentType as MMediaAttachmentType } from '../types/mastodon/api/APIEntities/MediaAttachmentType'
 export type { AccountType as MAccountType } from '../types/mastodon/api/APIEntities/AccountType'
 export type { CustomEmojiType as MCustomEmojiType } from '../types/mastodon/api/APIEntities/CustomEmojiType'
-export type {  PreviewCardType as MPreviewCardType } from '../types/mastodon/api/APIEntities/PreviewCard'
+export type { PreviewCardType as MPreviewCardType } from '../types/mastodon/api/APIEntities/PreviewCard'
 
+// Theme
+export type { ColorType as ColorType } from '../types/ThemeType'

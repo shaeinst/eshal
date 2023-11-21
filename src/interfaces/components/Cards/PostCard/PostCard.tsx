@@ -174,7 +174,6 @@ export default React.memo(function PostCard(props: PropsType) {
                                         />
                                     )}
                                     <FastImage
-                                        resizeMode="contain"
                                         style={lazyLoad ? styles.postPreview : null}
                                         source={{ uri: activePreview.url }}
                                         onLoad={handleLazyLoad}

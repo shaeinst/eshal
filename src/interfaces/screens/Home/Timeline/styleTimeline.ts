@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { FONTS, useColors, WHITESPACE } from '$exporter'
+import { useColors } from '$exporter'
 
 export function useStyles() {
     //

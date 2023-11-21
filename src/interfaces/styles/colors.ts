@@ -1,4 +1,6 @@
+import { useMemo } from 'react'
 import { useColorScheme } from 'react-native'
+import { ColorType } from '$exporter/type'
 
 const colors = {
     primary: { light: '#1DA1F2', dark: '#1DA1F2' },
@@ -24,31 +26,11 @@ const colors = {
     },
 }
 
-interface ColorsInterface {
-    primary: string
-    background: string
-    text: string
-    strongText: string
-    placeholder: string
-    border: string
-    error: string
-    logo: string
-    navbar: string
-    active: string
-    success: string
-    weakText: string
-    seperator: string
-    actionIcon: string
-    skeleton: string
-    cardBorder: string
-}
-
-function useColors() {
+export default function useColors() {
     //
-
     const themeMode = useColorScheme()
 
-    const COLORS: ColorsInterface & typeof colors.common =
+    const COLORS: ColorType & typeof colors.common =
         themeMode === 'dark'
             ? {
                   ...colors.common,
@@ -89,6 +71,5 @@ function useColors() {
                   cardBorder: colors.cardBorder.light,
               }
 
-    return { COLORS, themeMode }
+    return useMemo(() => ({ COLORS, themeMode }), [themeMode])
 }
-export default useColors
