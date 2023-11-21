@@ -7,11 +7,11 @@ import { useZustandStore } from '$exporter'
 import Icons from './Icons'
 import { useStyles } from './styleBottomNav'
 
-export default function BottomNav({ state, descriptors, navigation }: BottomTabBarProps) {
+export default React.memo(function BottomNav({ state, descriptors, navigation }: BottomTabBarProps) {
     //
 
     const { styles, COLORS } = useStyles()
-    const { hideBottomTab } = useZustandStore()
+    const { hideBottomTab, setActiveBottomTab } = useZustandStore()
     const height = useSharedValue(50)
 
     const animatedStyles = useAnimatedStyle(() => ({
@@ -48,6 +48,8 @@ export default function BottomNav({ state, descriptors, navigation }: BottomTabB
                         canPreventDefault: true,
                     })
 
+                    setActiveBottomTab({ name: route.name })
+
                     if (!isFocused && !event.defaultPrevented) {
                         navigation.navigate(route.name, route.params)
                     }
@@ -72,13 +74,10 @@ export default function BottomNav({ state, descriptors, navigation }: BottomTabB
                         style={styles.icon}
                         //
                     >
-                        <Icons
-                            routeName={label}
-                            color={isFocused ? COLORS.active : COLORS.actionIcon}
-                        />
+                        <Icons routeName={label} color={isFocused ? COLORS.active : COLORS.actionIcon} />
                     </TouchableOpacity>
                 )
             })}
         </Animated.View>
     )
-}
+})

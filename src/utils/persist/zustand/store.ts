@@ -8,12 +8,17 @@ interface StoreInterface {
     auth: AuthStateType
     nav: string
     hideBottomTab: boolean
+    activeBottomTab: {
+        name: string
+        pressedTime: number
+    }
     //
     setIsFreshApp: (prop: boolean) => void
     setAuth: (prop: AuthStateType) => void
     resetAuth: () => void
     setNav: (prop: string) => void
     setHideBottomTab: (prop: boolean) => void
+    setActiveBottomTab: (prop: { name: string }) => void
 }
 
 export const useStore = create<StoreInterface>(set => ({
@@ -29,6 +34,10 @@ export const useStore = create<StoreInterface>(set => ({
     },
     nav: 'Eshal',
     hideBottomTab: false,
+    activeBottomTab: {
+        name: '',
+        pressedTime: 0,
+    },
     /**
      * Actions
      */
@@ -46,5 +55,13 @@ export const useStore = create<StoreInterface>(set => ({
     },
     setHideBottomTab: (prop: boolean) => {
         set(state => ({ hideBottomTab: prop }))
+    },
+    setActiveBottomTab: (prop: { name: string }) => {
+        set(state => ({
+            activeBottomTab: {
+                name: prop.name,
+                pressedTime: prop.name === state.activeBottomTab.name ? state.activeBottomTab.pressedTime + 1 : 0,
+            },
+        }))
     },
 }))

@@ -1,17 +1,21 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
+import { useFocusEffect } from '@react-navigation/native'
 
 import { PostCard, PostSkeleton, ProfileModal } from '$exporter/component'
 import { queryHomeTimeline, queryPublicTimeline } from '$exporter/backend'
 import { MStatusType } from '$exporter/type'
 import { postReducer } from '$exporter/func'
+import { useZustandStore } from '$exporter'
 import { useStyles } from './styleTimeline'
 
-function Timeline() {
+export default React.memo(function Timeline() {
     //
+    const refFlatlist = useRef<FlatList>(null)
 
     const { styles } = useStyles()
+    const { activeBottomTab } = useZustandStore()
 
     // const { data, error, isLoading, isFetching, refetch } = queryHomeTimeline()
     const { data, error, isError, isLoading, isFetching, handleRefresh, handleOnScroll, handleEndReached } =
@@ -29,8 +33,18 @@ function Timeline() {
         [styles],
     )
 
+    useFocusEffect(
+        useCallback(() => {
+            // go to top of flatlist
+            if (activeBottomTab.pressedTime > 0) {
+                refFlatlist.current?.scrollToOffset({ animated: true, offset: 0 })
+            }
+        }, [activeBottomTab]),
+    )
+
     return (
         <FlatList
+            ref={refFlatlist}
             // estimatedItemSize={600}
             refreshing={false}
             showsVerticalScrollIndicator={false}
@@ -45,6 +59,4 @@ function Timeline() {
             onScroll={handleOnScroll}
         />
     )
-}
-
-export default React.memo(Timeline)
+})
