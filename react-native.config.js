@@ -7,6 +7,7 @@ module.exports = {
                  * https://github.com/Shopify/flash-list/issues/811#issuecomment-1624778573
                  */
                 'CellContainer',
+                'AutoLayoutView',
                 /**
                  * will remove this once react-native-fast-image support new architecture
                  * https://github.com/DylanVann/react-native-fast-image

@@ -116,7 +116,7 @@ export default function queryHomeTimeline() {
         if (refetchLimit) {
             return
         }
-        console.log('DATA LENGTH: ', dataStore.length)
+        // console.log('queryPublicTimeline: DATA LENGTH: ', dataStore.length)
         if (query.data.length > 2) {
             //     return
             setCursor(query.data[query.data.length - 1].id)

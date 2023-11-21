@@ -12,7 +12,7 @@ import { useStyles } from './styleTimeline'
 
 export default React.memo(function Timeline() {
     //
-    const refFlatlist = useRef<FlatList>(null)
+    const refFlatlist = useRef<FlashList<any>>(null)
 
     const { styles } = useStyles()
     const { activeBottomTab } = useZustandStore()
@@ -43,9 +43,9 @@ export default React.memo(function Timeline() {
     )
 
     return (
-        <FlatList
+        <FlashList
             ref={refFlatlist}
-            // estimatedItemSize={600}
+            estimatedItemSize={500}
             refreshing={false}
             showsVerticalScrollIndicator={false}
             overScrollMode="never"

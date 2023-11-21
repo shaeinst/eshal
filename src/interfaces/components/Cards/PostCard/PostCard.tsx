@@ -61,7 +61,7 @@ export default React.memo(function PostCard(props: PropsType) {
             navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data: query?.data, id: data.in_reply_to_id })
         }
         navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
-    }, [data, query, navigate])
+    }, [data, query?.data, navigate])
 
     const handleContent = useCallback(() => {
         setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
