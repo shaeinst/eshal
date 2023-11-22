@@ -11,11 +11,13 @@ export default React.memo(function LinkPreview({ card }: { card: MPreviewCardTyp
 
     return (
         <TouchableOpacity activeOpacity={0.8} style={styles.cardContainer}>
-            <Text style={styles.cardDescription}> {card.description.slice(0, 120)}...</Text>
-            <Text style={styles.cardLink}> {card.url}</Text>
-            {card.image ? (
-                <FastImage style={styles.postPreview} source={{ uri: card.image }} />
-            ) : null}
+            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardDescription}>
+                {card.description}
+            </Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.cardLink}>
+                {card.url}
+            </Text>
+            {card.image ? <FastImage style={styles.postPreview} source={{ uri: card.image }} /> : null}
         </TouchableOpacity>
     )
 })
@@ -45,9 +47,10 @@ const useSyles = () => {
         },
         cardLink: {
             ...FONTS.Inter['Lt-12'],
-            color: COLORS.primary,
+            color: COLORS.link,
             fontStyle: 'italic',
             textDecorationLine: 'underline',
+            marginBottom: 2,
         },
     })
 

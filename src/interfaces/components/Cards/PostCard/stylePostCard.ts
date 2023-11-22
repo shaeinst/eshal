@@ -31,7 +31,7 @@ export function useStyles() {
         h5: tagSyles,
         a: {
             fontFamily: FONTS.Inter.fontFamily,
-            color: COLORS.primary,
+            color: COLORS.link,
             fontStyle: 'italic',
         },
         /* ------------------------------------ */
@@ -165,7 +165,8 @@ export function useStyles() {
             marginTop: 6,
         },
         postPreviewContainer: {
-            flex: 1,
+            // aspectRatio: 1.4,
+            height: 200,
         },
         postPreview: {
             flex: 1,
@@ -181,17 +182,16 @@ export function useStyles() {
             textDecorationLine: 'underline',
         },
         altText: {
-            position: 'absolute',
             ...FONTS.Inter['Lt-12'],
-            maxWidth: '96%',
-            maxHeight: 185,
+            position: 'absolute',
             top: 4,
             left: 6,
             padding: 4,
-            borderRadius: 12,
-
             color: COLORS.text,
             backgroundColor: COLORS.background,
+            maxWidth: '96%',
+            maxHeight: 185,
+            borderRadius: 12,
         },
         mediaListContainer: {
             justifyContent: 'center',

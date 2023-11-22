@@ -7,21 +7,23 @@ const { HOME } = ROUTERS
 type PropsType = {
     routeName: string
     color: string
+    isFocused: boolean
 }
 
-function Icons({ routeName, color }: PropsType) {
+function Icons({ routeName, color, isFocused }: PropsType) {
     //
+    const toFill = isFocused ? { fill: color, stroke: color } : { stroke: color }
     switch (routeName) {
         case HOME.path:
-            return <HomeIcon stroke={color} />
+            return <HomeIcon {...toFill} />
         case HOME.ADDPOST.path:
-            return <AddPostIcon stroke={color} />
+            return <AddPostIcon {...toFill} />
         case HOME.SEARCH.path:
-            return <SearchIcon stroke={color} />
+            return <SearchIcon {...toFill} />
         case HOME.ALERT.path:
-            return <AlertIcon stroke={color} />
+            return <AlertIcon {...toFill} />
         case HOME.PROFILE.path:
-            return <ProfileIcon fill={color} />
+            return <ProfileIcon {...toFill}  />
         default:
             return null
     }

@@ -45,7 +45,7 @@ export default React.memo(function Timeline() {
     return (
         <FlashList
             ref={refFlatlist}
-            estimatedItemSize={500}
+            estimatedItemSize={184}
             refreshing={false}
             showsVerticalScrollIndicator={false}
             overScrollMode="never"

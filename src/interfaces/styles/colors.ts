@@ -1,6 +1,25 @@
 import { useMemo } from 'react'
 import { useColorScheme } from 'react-native'
-import { ColorType } from '$exporter/type'
+
+export type ColorType = {
+    primary: string
+    background: string
+    text: string
+    strongText: string
+    placeholder: string
+    border: string
+    error: string
+    logo: string
+    navbar: string
+    success: string
+    weakText: string
+    seperator: string
+    actionIcon: string
+    skeleton: string
+    cardBorder: string
+    link: string
+    tabShadow: string
+}
 
 const colors = {
     primary: { light: '#1DA1F2', dark: '#1DA1F2' },
@@ -15,10 +34,12 @@ const colors = {
     navbar: { light: '#657786', dark: '#657786' },
     seperator: { light: '#dddddd', dark: '#222222' },
     success: { light: '#038B8B', dark: '#038B8B' },
-    actionIcon: { light: '#777777', dark: '#afafaf' },
+    actionIcon: { light: '#777777', dark: '#989898' },
     skeleton: { light: '#DDDDDD', dark: '#444444' },
     active: { light: '#000000', dark: '#ffffff' },
     cardBorder: { light: '#000000', dark: '#ffffff' },
+    link: { light: '#038B8B', dark: '#038B8B' },
+    tabShadow: { light: '#000000', dark: '#ffffff' },
 
     // theme mode independent colors
     common: {
@@ -44,12 +65,13 @@ export default function useColors() {
                   error: colors.error.dark,
                   logo: colors.logo.dark,
                   navbar: colors.navbar.dark,
-                  active: colors.active.dark,
                   success: colors.success.dark,
                   seperator: colors.seperator.dark,
                   actionIcon: colors.actionIcon.dark,
                   skeleton: colors.skeleton.dark,
                   cardBorder: colors.cardBorder.dark,
+                  link: colors.link.dark,
+                  tabShadow: colors.tabShadow.dark,
               }
             : {
                   ...colors.common,
@@ -63,12 +85,13 @@ export default function useColors() {
                   error: colors.error.light,
                   logo: colors.logo.light,
                   navbar: colors.navbar.light,
-                  active: colors.active.light,
                   success: colors.success.light,
                   seperator: colors.seperator.light,
                   actionIcon: colors.actionIcon.light,
                   skeleton: colors.skeleton.light,
                   cardBorder: colors.cardBorder.light,
+                  link: colors.link.light,
+                  tabShadow: colors.tabShadow.light,
               }
 
     return useMemo(() => ({ COLORS, themeMode }), [themeMode])

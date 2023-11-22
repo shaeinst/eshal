@@ -10,7 +10,7 @@ import { FlashList } from '@shopify/flash-list'
 import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, StarIcon, SwitchIcon } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
-import { BlurImage } from '$exporter/component'
+import { BlurImage, PostSkeleton } from '$exporter/component'
 import { ROUTERS } from '$exporter/constant'
 import { queryStatus } from '$exporter/backend'
 import { useStyles } from './stylePostCard'
@@ -56,11 +56,10 @@ export default React.memo(function PostCard(props: PropsType) {
 
     /*--------- HANDLERS -------------*/
     const handleNavigate = useCallback(() => {
-        // navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path)
-        if (data.in_reply_to_id) {
-            navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data: query?.data, id: data.in_reply_to_id })
-        }
-        navigate(ROUTERS.HOME.TIMELINE.POSTVIEW.path, { data })
+        navigate(ROUTERS.HOME.path, {
+            screen: ROUTERS.HOME.TIMELINE.DETAILS.POSTVIEW.path,
+            params: { data },
+        })
     }, [data, query?.data, navigate])
 
     const handleContent = useCallback(() => {
@@ -122,8 +121,7 @@ export default React.memo(function PostCard(props: PropsType) {
                     <Text style={styles.authorId}>@{data.account.acct}</Text>
                 </View>
             </View>
-            <Animated.View
-                sharedTransitionTag={`description${data.id}`}
+            <View
                 style={isViewMode || inReply ? styles.altSecondContainer : styles.secondContainer}
                 //
             >
@@ -174,13 +172,18 @@ export default React.memo(function PostCard(props: PropsType) {
                                         />
                                     )}
                                     <FastImage
+                                        resizeMode="cover"
                                         style={lazyLoad ? styles.postPreview : null}
                                         source={{ uri: activePreview.url }}
                                         onLoad={handleLazyLoad}
                                     />
                                 </>
                             )}
-                            {isAlt ? <Text style={styles.altText}>{activePreview.description}</Text> : null}
+                            {isAlt ? (
+                                <Text numberOfLines={10} ellipsizeMode="tail" style={styles.altText}>
+                                    {activePreview.description}
+                                </Text>
+                            ) : null}
                         </View>
                         {data.media_attachments ? (
                             // TODO:
@@ -215,12 +218,7 @@ export default React.memo(function PostCard(props: PropsType) {
                     query?.data ? (
                         <PostCard inReply={true} data={query.data} />
                     ) : (
-                        // <Text style={{ color: 'green' }}>{query.data.account.display_name}</Text>
-                        <View style={styles.inReplySkeleton}>
-                            <Text style={{ color: 'green' }}>{query?.error?.message}</Text>
-                            <Text style={{ color: 'green' }}>Loading {query?.isLoading}</Text>
-                            <Text style={{ color: 'red' }}>Fetching {query?.isFetching}</Text>
-                        </View>
+                        <PostSkeleton />
                     )
                 ) : null}
                 {/********** POST ACTIONS ***********/}
@@ -257,7 +255,7 @@ export default React.memo(function PostCard(props: PropsType) {
                         </>
                     )}
                 </View>
-            </Animated.View>
+            </View>
             {isViewMode ? (
                 <Text style={styles.isViewModeText}>
                     {`${data.replies_count} replies  ${data.favourites_count} favourites  ${data.reblogs_count} boosts `}

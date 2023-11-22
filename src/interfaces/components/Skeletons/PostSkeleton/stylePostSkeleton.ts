@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { FONTS, useColors } from '$exporter'
+import { useColors } from '$exporter'
 
 export function useStyles() {
     //
@@ -8,29 +8,35 @@ export function useStyles() {
 
     const styles = StyleSheet.create({
         container: {
-            //
-            gap: 10,
-            flexDirection: 'row',
-        },
-        profile: {
-            width: 40,
-            height: 40,
-            borderRadius: 100,
-            backgroundColor: COLORS.skeleton,
+            height: 200,
+            padding: 8,
+            borderWidth: 1,
+            borderRadius: 12,
+            borderColor: COLORS.border,
+            gap: 8,
         },
         authorContainer: {
-            flex: 1,
-            gap:5,
+            flexDirection: 'row',
+            gap: 10,
         },
-        line: {
-            height: 20,
+        author: {
             backgroundColor: COLORS.skeleton,
-            borderRadius: 4,
+            width: 40,
+            height: 40,
+            borderRadius: 50,
+        },
+        authorInfo: {
+            flex: 1,
+            backgroundColor: COLORS.skeleton,
+            borderRadius: 10,
         },
         body: {
-            height: 180,
-            borderRadius: 12,
+            flex: 1,
             backgroundColor: COLORS.skeleton,
+            borderRadius: 10,
+        },
+        inReplyMargin: {
+            // marginLeft: 50,
         },
     })
 

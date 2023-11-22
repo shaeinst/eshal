@@ -9,9 +9,9 @@ import { useCallback } from 'react'
 import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$exporter/screen'
-import { ROUTERS } from '$exporter/constant'
 import { BottomNav } from '$exporter/component'
-import { RoutePost } from './RoutePost'
+import { ROUTERS } from './ConstRoute'
+import { RouteDetails } from './RouteDetails'
 
 const { HOME } = ROUTERS
 
@@ -48,7 +48,7 @@ export default function RouteHome() {
             detachInactiveScreens={false}
             /* -------------------------------- */
         >
-            <Screen name={HOME.path} component={RoutePost} />
+            <Screen name={HOME.path} component={RouteDetails} />
             <Screen name={HOME.ADDPOST.path} component={AddPostScreen} />
             <Screen name={HOME.SEARCH.path} component={SearchScreen} />
             <Screen name={HOME.ALERT.path} component={AlertScreen} />

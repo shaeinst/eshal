@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 
 import { FONTS, useColors } from '$exporter'
 
@@ -17,6 +17,11 @@ export function useStyles() {
             padding: 4,
             width: 40,
             alignItems: 'center',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+            elevation: 10,
+            borderRadius: 50,
         },
         overlayText: {
             ...FONTS.Inter['Rg-10'],

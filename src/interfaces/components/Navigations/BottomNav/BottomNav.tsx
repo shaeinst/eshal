@@ -74,7 +74,7 @@ export default React.memo(function BottomNav({ state, descriptors, navigation }:
                         style={styles.icon}
                         //
                     >
-                        <Icons routeName={label} color={isFocused ? COLORS.active : COLORS.actionIcon} />
+                        <Icons routeName={label} isFocused={isFocused} color={COLORS.actionIcon} />
                     </TouchableOpacity>
                 )
             })}
