@@ -250,7 +250,7 @@ export function useStyles() {
         },
         isViewModeText: {
             ...FONTS.Inter['Md-14'],
-            color: COLORS.text,
+            color: COLORS.weakText,
             flexDirection: 'row',
             textAlign: 'center',
         },

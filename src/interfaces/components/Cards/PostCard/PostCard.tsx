@@ -57,7 +57,7 @@ export default React.memo(function PostCard(props: PropsType) {
     /*--------- HANDLERS -------------*/
     const handleNavigate = useCallback(() => {
         navigate(ROUTERS.HOME.path, {
-            screen: ROUTERS.HOME.TIMELINE.DETAILS.POSTVIEW.path,
+            screen: ROUTERS.HOME.STACK_TIMELINE.POSTVIEW.path,
             params: { data },
         })
     }, [data, query?.data, navigate])
@@ -258,7 +258,7 @@ export default React.memo(function PostCard(props: PropsType) {
             </View>
             {isViewMode ? (
                 <Text style={styles.isViewModeText}>
-                    {`${data.replies_count} replies  ${data.favourites_count} favourites  ${data.reblogs_count} boosts `}
+                    {`${data.favourites_count} favourites  ${data.reblogs_count} boosts  ${data.replies_count} replies`}
                 </Text>
             ) : null}
         </TouchableOpacity>

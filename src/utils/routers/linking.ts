@@ -16,12 +16,12 @@ export const links: LinkingOptions<ReactNavigation.RootParamList> = {
             },
 
             // HOME
-            [HOME.TIMELINE.path]: {
+            [HOME.path]: {
                 path: HOME.path,
 
                 screens: {
-                    [HOME.TIMELINE.DETAILS.POSTVIEW.path]: {
-                        path: HOME.TIMELINE.DETAILS.POSTVIEW.path,
+                    [HOME.STACK_TIMELINE.POSTVIEW.path]: {
+                        path: HOME.STACK_TIMELINE.POSTVIEW.path,
                         parse: {
                             postId: (id: string) => id.replace(/^@/, ''),
                         },

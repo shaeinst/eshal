@@ -11,7 +11,7 @@ import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/b
 import { AlertScreen, AddPostScreen, ProfileScreen, SearchScreen } from '$exporter/screen'
 import { BottomNav } from '$exporter/component'
 import { ROUTERS } from './ConstRoute'
-import { RouteDetails } from './RouteDetails'
+import { StackTimeline } from './stacks/StackTimeline'
 
 const { HOME } = ROUTERS
 
@@ -48,7 +48,7 @@ export default function RouteHome() {
             detachInactiveScreens={false}
             /* -------------------------------- */
         >
-            <Screen name={HOME.path} component={RouteDetails} />
+            <Screen name={HOME.path} component={StackTimeline} />
             <Screen name={HOME.ADDPOST.path} component={AddPostScreen} />
             <Screen name={HOME.SEARCH.path} component={SearchScreen} />
             <Screen name={HOME.ALERT.path} component={AlertScreen} />

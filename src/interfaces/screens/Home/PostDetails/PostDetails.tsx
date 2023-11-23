@@ -11,7 +11,7 @@ import { BackIcon, BoostIcon } from '$exporter/asset'
 import { useStyles } from './stylePostDetails'
 import { MPOST_STATUS_DATA } from '$exporter/fakedata'
 
-const { POSTVIEW } = ROUTERS.HOME.TIMELINE.DETAILS
+const { POSTVIEW } = ROUTERS.HOME.TIMELINE
 
 type PropsType = {
     route: RouteProp<

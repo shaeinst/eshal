@@ -24,24 +24,9 @@ export const ROUTERS = {
         path: 'home' as const,
         prefix: `${APP}/home` as const,
 
-        TIMELINE: {
-            path: 'timeline' as const,
-            prefix: `${APP}/timeline` as const,
-
-            TABS: {
-                HOME: {
-                    path: 'timelineHome' as const,
-                    name: 'Home' as const,
-                },
-                LOCAL: {
-                    path: 'timelineLocal' as const,
-                    name: 'Local' as const,
-                },
-            },
-
-            DETAILS: {
-                POSTVIEW: { path: 'postview/:postId' as const, prefix: `${APP}/postview` as const },
-            },
+        STACK_TIMELINE: {
+            TIMELINE: { path: 'timeline' as const, prefix: `${APP}/timeline` as const },
+            POSTVIEW: { path: 'postview/:postId' as const, prefix: `${APP}/postview` as const },
         },
         ADDPOST: { path: 'addpost' as const, prefix: `${APP}/addpost` as const },
         PROFILE: { path: 'profile' as const, prefix: `${APP}/profile` as const },
