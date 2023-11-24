@@ -1,20 +1,20 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import { Text, TouchableOpacity, View, FlatList, ImageBackground } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import HTMLView from 'react-native-htmlview'
 import FastImage from 'react-native-fast-image'
-import { FlashList } from '@shopify/flash-list'
 
 import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, StarIcon, SwitchIcon } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
-import { BlurImage, PostSkeleton } from '$exporter/component'
+import { PostSkeleton } from '$exporter/component'
 import { ROUTERS } from '$exporter/constant'
 import { queryStatus } from '$exporter/backend'
 import { useStyles } from './stylePostCard'
 import LinkPreview from './LinkPreview'
+import { Media } from './Media'
 
 type PropsType = {
     data: MStatusType
@@ -28,18 +28,9 @@ export default React.memo(function PostCard(props: PropsType) {
 
     const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
 
-    const [lazyLoad, setLazyLoad] = useState(false)
-    const [isAlt, setIsAlt] = useState(false)
     const [isLongContent, setIsLongContent] = useState({
         isLong: data.content.length > 500 || false,
         toggle: data.content.length > 500 || false,
-    })
-    const [activePreview, setActivePreview] = useState(() => {
-        if (data?.media_attachments?.length && (!data?.card || data.media_attachments.length > 1)) {
-            const { preview_url, description, remote_url } = data.media_attachments[0]
-            return { url: preview_url, description, remoteUrl: remote_url ? remote_url : undefined }
-        }
-        return { url: undefined, description: undefined, remoteUrl: undefined }
     })
 
     const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
@@ -65,12 +56,7 @@ export default React.memo(function PostCard(props: PropsType) {
     const handleContent = useCallback(() => {
         setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
     }, [])
-    const handleAlt = useCallback(() => {
-        setIsAlt(prev => !prev)
-    }, [])
-    const handleLazyLoad = useCallback(() => {
-        setLazyLoad(true)
-    }, [])
+
 
     return (
         <TouchableOpacity
@@ -121,10 +107,8 @@ export default React.memo(function PostCard(props: PropsType) {
                     <Text style={styles.authorId}>@{data.account.acct}</Text>
                 </View>
             </View>
-            <View
-                style={isViewMode || inReply ? styles.altSecondContainer : styles.secondContainer}
-                //
-            >
+
+            <View style={isViewMode || inReply ? styles.altSecondContainer : styles.secondContainer}>
                 {/********** POST Description ***********/}
                 <HTMLView
                     value={data.content}
@@ -141,77 +125,15 @@ export default React.memo(function PostCard(props: PropsType) {
                             </Text>
                         </TouchableOpacity>
                     ) : null}
-
-                    {activePreview.description ? (
-                        <TouchableOpacity onPress={handleAlt} style={styles.accessibilityClick}>
-                            <SwitchIcon isOn={isAlt} />
-                            <Text style={styles.accessibilityText}>ALT</Text>
-                        </TouchableOpacity>
-                    ) : null}
                 </View>
 
                 {/********** POST Media ***********/}
-                {activePreview.url ? (
-                    <View style={isViewMode ? styles.isViewMediaContainer : styles.mediaContainer}>
-                        <View style={styles.postPreviewContainer}>
-                            {data.sensitive ? (
-                                <BlurImage imageUrl={activePreview.url} />
-                            ) : (
-                                // <Image
-                                //     resizeMode="cover"
-                                //     source={{ uri: activePreview.url }}
-                                //     style={styles.postPreview}
-                                // />
-                                <>
-                                    {lazyLoad || !activePreview.remoteUrl ? null : (
-                                        <ImageBackground
-                                            source={{ uri: activePreview.remoteUrl }}
-                                            style={styles.postPreview}
-                                            blurRadius={25}
-                                            //
-                                        />
-                                    )}
-                                    <FastImage
-                                        resizeMode="cover"
-                                        style={lazyLoad ? styles.postPreview : null}
-                                        source={{ uri: activePreview.url }}
-                                        onLoad={handleLazyLoad}
-                                    />
-                                </>
-                            )}
-                            {isAlt ? (
-                                <Text numberOfLines={10} ellipsizeMode="tail" style={styles.altText}>
-                                    {activePreview.description}
-                                </Text>
-                            ) : null}
-                        </View>
-                        {data.media_attachments ? (
-                            // TODO:
-                            <View style={styles.mediaListContainer}>
-                                <FlatList
-                                    data={data.media_attachments}
-                                    overScrollMode="never"
-                                    horizontal
-                                    // estimatedItemSize={20} //FlashList specific option
-                                    nestedScrollEnabled
-                                    showsVerticalScrollIndicator={true}
-                                    ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
-                                    renderItem={({ item }) => (
-                                        // <Image
-                                        //     source={{ uri: item.preview_url }}
-                                        //     style={styles.media}
-                                        // />
-                                        //
-                                        <FastImage style={styles.media} source={{ uri: item.preview_url }} />
-                                    )}
-                                />
-                            </View>
-                        ) : null}
-                    </View>
+                {data.media_attachments.length > 0 ? (
+                    <Media data={data.media_attachments} isSensitive={data.sensitive} isViewMode={isViewMode} />
                 ) : null}
 
                 {/********** Link | Article ***********/}
-                {data.card && !activePreview.url ? <LinkPreview card={data.card} /> : null}
+                {data.card ? <LinkPreview card={data.card} /> : null}
 
                 {/*------------- in Reply ---------------*/}
                 {data.in_reply_to_id && !inReply && !isViewMode ? (

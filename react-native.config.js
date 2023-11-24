@@ -13,12 +13,17 @@ module.exports = {
                  * https://github.com/DylanVann/react-native-fast-image
                  */
                 'FastImageView',
-
                 /**
                  *  new architecture for react-native-linear-gradient already implemented. wait for release
                  *  https://github.com/react-native-linear-gradient/react-native-linear-gradient/issues/622
                  */
                 'BVLinearGradient',
+                /**
+                 *  new architecture for react-native-video (android) yet to be merged
+                 *  https://github.com/react-native-video/react-native-video/pull/3122
+                 *  https://github.com/react-native-video/react-native-video/issues/2650
+                 */
+                'RCTVideo'
             ],
         },
         ios: {

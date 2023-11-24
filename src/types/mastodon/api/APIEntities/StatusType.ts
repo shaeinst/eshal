@@ -23,7 +23,7 @@ export type StatusType = {
     replies_count: number
     mentions: Array<{ id: string; username: string; url: string; acct: string }>
     tags: Array<{ name: string; url: string }>
-    media_attachments?: Array<MediaAttachmentType> // NOTE: in official doc, this is not optional but i think it must have to be
+    media_attachments: Array<MediaAttachmentType>
     emojis: Array<CustomEmojiType>
     filtered?: Array<FilterResultType>
     favourited?: boolean

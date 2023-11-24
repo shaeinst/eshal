@@ -152,25 +152,6 @@ export function useStyles() {
         },
         /** *************************** **/
 
-        mediaContainer: {
-            // height: 200,
-            marginTop: 6,
-            borderRadius: 12,
-            overflow: 'hidden',
-        },
-        isViewMediaContainer: {
-            gap: 8,
-            width: '100%',
-            aspectRatio: 1.4,
-            marginTop: 6,
-        },
-        postPreviewContainer: {
-            // aspectRatio: 1.4,
-            height: 200,
-        },
-        postPreview: {
-            flex: 1,
-        },
         cardDescription: {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,
@@ -181,32 +162,7 @@ export function useStyles() {
             fontStyle: 'italic',
             textDecorationLine: 'underline',
         },
-        altText: {
-            ...FONTS.Inter['Lt-12'],
-            position: 'absolute',
-            top: 4,
-            left: 6,
-            padding: 4,
-            color: COLORS.text,
-            backgroundColor: COLORS.background,
-            maxWidth: '96%',
-            maxHeight: 185,
-            borderRadius: 12,
-        },
-        mediaListContainer: {
-            justifyContent: 'center',
-            borderRadius: 8,
-        },
-        seperator: {
-            backgroundColor: COLORS.background,
-            width: 6,
-        },
-        media: {
-            //
-            height: '100%',
-            width: 75,
-            borderRadius: 8,
-        },
+
         textIndicator: {
             ...FONTS.Inter['Bd-12'],
             color: COLORS.placeholder,

@@ -12,7 +12,7 @@ import { useStyles } from './styleTimeline'
 
 export default React.memo(function Timeline() {
     //
-    const refFlatlist = useRef<FlashList<any>>(null)
+    const refFlasList = useRef<FlashList<any>>(null)
 
     const { styles } = useStyles()
     const { activeBottomTab } = useZustandStore()
@@ -37,15 +37,15 @@ export default React.memo(function Timeline() {
         useCallback(() => {
             // go to top of flatlist
             if (activeBottomTab.pressedTime > 0) {
-                refFlatlist.current?.scrollToOffset({ animated: true, offset: 0 })
+                refFlasList.current?.scrollToOffset({ animated: true, offset: 0 })
             }
         }, [activeBottomTab]),
     )
 
     return (
         <FlashList
-            ref={refFlatlist}
-            estimatedItemSize={184}
+            ref={refFlasList}
+            estimatedItemSize={340}
             refreshing={false}
             showsVerticalScrollIndicator={false}
             overScrollMode="never"
