@@ -55,6 +55,7 @@ export function useStyles() {
         },
 
         secondContainer: {
+            gap: 2,
             marginLeft: 48,
         },
         altSecondContainer: {
@@ -120,7 +121,6 @@ export function useStyles() {
         authorId: {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,
-            marginBottom: 6,
         },
         /** *************************** **/
         contentContainer: {
@@ -129,11 +129,6 @@ export function useStyles() {
         },
         /** *************************** **/
 
-        accessibility: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: 4,
-        },
         expandButton: {
             flexDirection: 'row',
             padding: 2,

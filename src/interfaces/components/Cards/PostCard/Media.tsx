@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
@@ -9,17 +9,20 @@ import { MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FlashList } from '@shopify/flash-list'
 import Video, { VideoRef } from 'react-native-video'
 
+const { width } = Dimensions.get('window')
+
 type PropsType = {
-    isViewMode?: boolean
-    isSensitive: boolean
     data: MMediaAttachmentType[]
+    isSensitive: boolean
+    inReply?: boolean
+    isViewMode?: boolean
 }
 
 export function Media(props: PropsType) {
     //
-    const { isViewMode, isSensitive, data } = props
+    const { data, inReply, isViewMode, isSensitive } = props
 
-    const [lazyLoad, setLazyLoad] = useState(false)
+    const [lazyLoad, setLazyLoad] = useState(true)
     const [isAlt, setIsAlt] = useState(false)
 
     const videoRef = useRef<VideoRef>(null)
@@ -36,37 +39,52 @@ export function Media(props: PropsType) {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <FlashList
-                data={data}
-                estimatedItemSize={100}
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => {
-                    if (item.type === 'video' || item.type === 'audio') {
-                        return (
-                            <Video
-                                // Can be a URL or a local file.
-                                source={{ uri: item.url }}
-                                // Store reference
-                                ref={videoRef}
-                                // Callback when remote video is buffering
-                                // onBuffer={onBuffer}
-                                // Callback when video cannot be loaded
-                                // onError={onError}
-                                style={{backgroundColor: 'pink', height: 200, width: 300}}
-                            />
-                        )
-                    }
-                    return <FastImage source={{ uri: item.url }} style={styles.media} />
-                }}
-            />
-        </View>
+        <FlashList
+            // data={data}
+            data={data}
+            estimatedItemSize={100}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => {
+                // <FastImage source={{ uri: item }} style={styles.media} resizeMode="cover" />
+                return (
+                    <TouchableWithoutFeedback>
+                        <View
+                            style={
+                                data.length === 1
+                                    ? inReply
+                                        ? styles.inReplyIfSingleContainer
+                                        : styles.ifSingleContainer
+                                    : inReply
+                                    ? styles.inReplyContainer
+                                    : styles.container
+                            }>
+
+                            {isSensitive ? (
+                                <BlurImage nsfw={isSensitive} imageUrl={item.url} />
+                            ) : (
+                                <FastImage source={{ uri: item.url }} style={styles.media} />
+                            )}
+
+                            {item.description ? (
+                                <>
+                                    {isAlt ? (
+                                        <Text numberOfLines={12} style={styles.altDescription}>
+                                            {item.description}
+                                        </Text>
+                                    ) : null}
+                                    <TouchableOpacity onPress={handleAlt}>
+                                        <Text style={styles.altText}>ALT</Text>
+                                    </TouchableOpacity>
+                                </>
+                            ) : null}
+                        </View>
+                    </TouchableWithoutFeedback>
+                )
+            }}
+        />
     )
 }
-
-const { width, height } = Dimensions.get('window')
 
 const useStyles = () => {
     //
@@ -75,13 +93,50 @@ const useStyles = () => {
     const styles = StyleSheet.create({
         //
         container: {
-            height: 200,
-            width: 300,
+            width: width * 0.7,
+            height: width * 0.5,
+            marginHorizontal: 4,
+            borderWidth: 0.4,
+            borderRadius: 12,
+            borderColor: COLORS.seperator,
+        },
+        ifSingleContainer: {
+            width: width * 0.8,
+            height: width * 0.6,
+        },
+        inReplyContainer: {
+            width: width * 0.7,
+            height: width * 0.5,
+        },
+        inReplyIfSingleContainer: {
+            width: width * 0.74,
+            height: width * 0.5,
         },
         media: {
-            resizeMode: 'cover',
-            height: 100,
-            width: 'auto',
+            flex: 1,
+            borderRadius: 12,
+            overflow: 'hidden',
+        },
+        altText: {
+            ...FONTS.Inter['Md-10'],
+            position: 'absolute',
+            bottom: 6,
+            right: 6,
+            color: COLORS.background,
+            backgroundColor: COLORS.text,
+            borderRadius: 12,
+            paddingHorizontal: 4,
+        },
+        altDescription: {
+            ...FONTS.Inter['Lt-12'],
+            backgroundColor: COLORS.background,
+            color: COLORS.text,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            padding: 2,
+            borderRadius: 12,
+            margin: 2,
         },
     })
 

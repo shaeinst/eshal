@@ -11,7 +11,6 @@ export function useStyles() {
             flex: 1,
             overflow: 'hidden',
             borderRadius: 12,
-            padding: 10,
         },
         button: {
             padding: 4,

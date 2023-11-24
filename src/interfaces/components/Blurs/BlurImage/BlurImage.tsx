@@ -6,18 +6,19 @@ import { useStyles } from './styleBlurImage'
 
 type PropsType = {
     imageUrl: string
+    nsfw:boolean
 }
 
-export default function Blur({ imageUrl }: PropsType) {
+export default function Blur({ imageUrl, nsfw }: PropsType) {
     //
     const { styles } = useStyles()
-    const [showNSFW, setShowSNFW] = useState(false)
+    const [showNSFW, setShowSNFW] = useState(nsfw)
 
     return (
         <ImageBackground
             source={{ uri: imageUrl }}
             style={styles.container}
-            blurRadius={showNSFW ? 0 : 100}
+            blurRadius={showNSFW ? 100 : 0}
             //
         >
             <TouchableOpacity onPress={() => setShowSNFW(prev => !prev)} style={styles.button}>

@@ -57,7 +57,6 @@ export default React.memo(function PostCard(props: PropsType) {
         setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
     }, [])
 
-
     return (
         <TouchableOpacity
             activeOpacity={0.8}
@@ -116,24 +115,27 @@ export default React.memo(function PostCard(props: PropsType) {
                     style={[isLongContent.toggle ? styles.contentContainer : null]}
                 />
 
-                <View style={styles.accessibility}>
-                    {isLongContent.isLong ? (
-                        <TouchableOpacity onPress={handleContent} style={styles.expandButton}>
-                            <ExpandIcon collapse={!isLongContent.toggle} />
-                            <Text style={styles.accessibilityText}>
-                                {isLongContent.toggle ? 'Expand Text' : 'Collapse Text'}
-                            </Text>
-                        </TouchableOpacity>
-                    ) : null}
-                </View>
+                {isLongContent.isLong ? (
+                    <TouchableOpacity onPress={handleContent} style={styles.expandButton}>
+                        <ExpandIcon collapse={!isLongContent.toggle} />
+                        <Text style={styles.accessibilityText}>
+                            {isLongContent.toggle ? 'Expand Text' : 'Collapse Text'}
+                        </Text>
+                    </TouchableOpacity>
+                ) : null}
 
                 {/********** POST Media ***********/}
                 {data.media_attachments.length > 0 ? (
-                    <Media data={data.media_attachments} isSensitive={data.sensitive} isViewMode={isViewMode} />
+                    <Media
+                        data={data.media_attachments}
+                        inReply={inReply}
+                        isSensitive={data.sensitive}
+                        isViewMode={isViewMode}
+                    />
                 ) : null}
 
                 {/********** Link | Article ***********/}
-                {data.card ? <LinkPreview card={data.card} /> : null}
+                {/* {data.card ? <LinkPreview card={data.card} /> : null} */}
 
                 {/*------------- in Reply ---------------*/}
                 {data.in_reply_to_id && !inReply && !isViewMode ? (
