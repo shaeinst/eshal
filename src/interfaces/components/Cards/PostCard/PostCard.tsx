@@ -24,7 +24,9 @@ type PropsType = {
 
 export default React.memo(function PostCard(props: PropsType) {
     //
-    const { data, isViewMode, inReply } = props
+    const { data: _data, isViewMode, inReply } = props
+
+    const data = useMemo(() => _data.reblog || _data, [_data])
 
     const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
 
@@ -41,8 +43,8 @@ export default React.memo(function PostCard(props: PropsType) {
         [data.account.display_name, data.account.emojis],
     )
     const displayBoosterName = useMemo(
-        () => (data.reblog ? parseName(data.reblog.account.display_name, data.reblog.account.emojis) : []),
-        [data.reblog?.account.display_name, data.reblog?.account.emojis],
+        () => (_data.reblog ? parseName(_data.account.display_name, _data.account.emojis) : []),
+        [_data.account.display_name, data.account.emojis],
     )
 
     /*--------- HANDLERS -------------*/
@@ -66,9 +68,9 @@ export default React.memo(function PostCard(props: PropsType) {
             //
         >
             {/********** Replied | BOOST ***********/}
-            {data.reblog?.account && !isViewMode ? (
+            {_data.reblog?.account && !isViewMode ? (
                 <View style={styles.boostContainer}>
-                    <FastImage style={styles.boostUserPic} source={{ uri: data.reblog?.account.avatar }} />
+                    <FastImage style={styles.boostUserPic} source={{ uri: _data.account.avatar }} />
                     <View style={styles.authorNameContainer}>
                         {displayBoosterName.map((type, index) =>
                             type.name ? (
