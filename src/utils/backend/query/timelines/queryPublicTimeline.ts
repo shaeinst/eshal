@@ -64,12 +64,11 @@ export default function queryHomeTimeline() {
     const [dataStore, setDataStore] = useState<MStatusType[]>([])
     const [visibleData, setVisibleData] = useState<MStatusType[]>(MPOST_STATUS_DATA)
     const [visibleUpperLimit, setVisibleUpperLimit] = useState(0)
-
-    const [refetchLimit, setRefetchLimit] = useState(false)
+    const [latest3, setLatest3] = useState<string[]>([])
 
     const query = useQuery({
         queryKey: ['PublicTimelineApi'],
-        initialData: MPOST_STATUS_DATA,
+        // initialData: MPOST_STATUS_DATA,
         queryFn: () => publicTimelineApi(cursor),
     })
 
@@ -113,7 +112,7 @@ export default function queryHomeTimeline() {
     }
 
     useEffect(() => {
-        if (refetchLimit) {
+        if (!query.data || query.data.length < 1) {
             return
         }
         // console.log('queryPublicTimeline: DATA LENGTH: ', dataStore.length)
@@ -125,6 +124,8 @@ export default function queryHomeTimeline() {
         if (dataStore.length < 100) {
             setDataStore(prev => mergeArrays(prev, query.data))
         }
+        // hardcoded: will change later
+        setLatest3([query.data[0].account.avatar, query.data[1].account.avatar, query.data[2].account.avatar])
     }, [query.data])
 
     return {
@@ -134,6 +135,7 @@ export default function queryHomeTimeline() {
         handleEndReached,
         handleOnScroll,
         loadingIndicator: loadingIndicator && (query.isLoading || query.isFetching),
+        latest3
     }
     // const response = useInfiniteQuery({
     //     queryKey: ['PublicTimelineApi'],

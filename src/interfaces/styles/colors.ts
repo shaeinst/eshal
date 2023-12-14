@@ -38,7 +38,7 @@ const colors = {
     skeleton: { light: '#DDDDDD', dark: '#444444' },
     active: { light: '#000000', dark: '#ffffff' },
     cardBorder: { light: '#000000', dark: '#ffffff' },
-    link: { light: '#038B8B', dark: '#038B8B' },
+    link: { light: '#0095F6', dark: '#0095F6' },
     tabShadow: { light: '#000000', dark: '#ffffff' },
 
     // theme mode independent colors

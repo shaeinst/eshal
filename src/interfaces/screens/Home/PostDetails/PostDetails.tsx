@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { RouteProp, useNavigation } from '@react-navigation/native'
 import Animated from 'react-native-reanimated'
@@ -6,7 +6,7 @@ import Animated from 'react-native-reanimated'
 import { useZustandStore } from '$exporter'
 import { MStatusType } from '$exporter/type'
 import { ROUTERS } from '$exporter/constant'
-import { Comment, PostCard } from '$exporter/component'
+import { Comment, PostDetailsCard } from '$exporter/component'
 import { BackIcon, BoostIcon } from '$exporter/asset'
 import { useStyles } from './stylePostDetails'
 import { MPOST_STATUS_DATA } from '$exporter/fakedata'
@@ -36,7 +36,16 @@ export default function PostDetails({ route }: PropsType) {
     // console.log("====================================")
 
     const flatListData = MPOST_STATUS_DATA
-    const flatListHeader = <PostCard isViewMode data={data} />
+    const flatListHeader = useMemo(() => {
+        return (
+            <View>
+                <TouchableOpacity onPress={goBack}>
+                    <BackIcon stroke={COLORS.text} />
+                </TouchableOpacity>
+                <PostDetailsCard isViewMode data={data} />
+            </View>
+        )
+    }, [])
     const flatlistRender = ({ item }: { item: MStatusType }) => <Comment data={item} />
 
     useEffect(() => {
@@ -46,11 +55,6 @@ export default function PostDetails({ route }: PropsType) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={goBack}>
-                    <BackIcon stroke={COLORS.text} />
-                </TouchableOpacity>
-            </View>
             {data ? (
                 <FlatList
                     // keyExtractor={item => item.id}

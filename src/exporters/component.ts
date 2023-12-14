@@ -9,6 +9,7 @@ export { default as BottomNav } from '../interfaces/components/Navigations/Botto
 
 // CARDS
 export { default as PostCard } from '../interfaces/components/Cards/PostCard/PostCard'
+export { default as PostDetailsCard } from '../interfaces/components/Cards/PostDetailsCard/PostDetailsCard'
 
 // MODALS
 export { default as ProfileModal } from '../interfaces/components/Modals/Profile/ProfileModal'
@@ -19,3 +20,4 @@ export { default as PostSkeleton } from '../interfaces/components/Skeletons/Post
 // OTHERS
 export { default as BlurImage } from '../interfaces/components/Blurs/BlurImage/BlurImage'
 export { default as Comment } from '../interfaces/components/Comment/Comment'
+export { default as LatestPostIndicator } from '../interfaces/components/LatestPostIndicator/LatestPostIndicator'

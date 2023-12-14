@@ -48,16 +48,7 @@ export function Media(props: PropsType) {
                 // <FastImage source={{ uri: item }} style={styles.media} resizeMode="cover" />
                 return (
                     <TouchableWithoutFeedback>
-                        <View
-                            style={
-                                data.length === 1
-                                    ? inReply
-                                        ? styles.inReplyIfSingleContainer
-                                        : styles.ifSingleContainer
-                                    : inReply
-                                    ? styles.inReplyContainer
-                                    : styles.container
-                            }>
+                        <View style={data.length === 1 ? styles.ifSingleContainer : styles.container}>
                             {isSensitive ? (
                                 <BlurImage nsfw={isSensitive} imageUrl={item.url} />
                             ) : (
@@ -91,7 +82,7 @@ const useStyles = () => {
     const styles = StyleSheet.create({
         //
         container: {
-            width: width * 0.7,
+            width: width * 0.8,
             height: width * 0.5,
             marginHorizontal: 4,
             borderWidth: 0.4,
@@ -99,16 +90,8 @@ const useStyles = () => {
             borderColor: COLORS.seperator,
         },
         ifSingleContainer: {
-            width: width * 0.8,
+            width: width * 0.9,
             height: width * 0.6,
-        },
-        inReplyContainer: {
-            width: width * 0.7,
-            height: width * 0.5,
-        },
-        inReplyIfSingleContainer: {
-            width: width * 0.74,
-            height: width * 0.5,
         },
         media: {
             flex: 1,

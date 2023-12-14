@@ -10,9 +10,6 @@ export function useStyles() {
         container: {
             height: 200,
             padding: 8,
-            borderWidth: 1,
-            borderRadius: 12,
-            borderColor: COLORS.border,
             gap: 8,
         },
         authorContainer: {
@@ -37,6 +34,12 @@ export function useStyles() {
         },
         inReplyMargin: {
             // marginLeft: 50,
+        },
+        border: {
+            height: 220,
+            borderWidth: 1,
+            borderRadius: 12,
+            borderColor: COLORS.border,
         },
     })
 

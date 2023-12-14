@@ -7,6 +7,9 @@ export function useStyles() {
     const { COLORS } = useColors()
 
     const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+        },
         separator: {
             backgroundColor: COLORS.seperator,
             marginVertical: 32,

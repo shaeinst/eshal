@@ -23,15 +23,15 @@ type PropsType = {
 
 export default React.memo(function PostCard(props: PropsType) {
     //
-    const { data: _data,  inReply } = props
+    const { data: _data, inReply } = props
 
     const data = useMemo(() => _data.reblog || _data, [_data])
 
     const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
 
     const [isLongContent, setIsLongContent] = useState({
-        isLong: data.content.length > 500 ? true : false,
-        toggle: data.content.length > 500 ? true : false,
+        isLong: data.content.length > 800 ? true : false,
+        toggle: data.content.length > 800 ? true : false,
     })
 
     const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
@@ -62,28 +62,10 @@ export default React.memo(function PostCard(props: PropsType) {
         <TouchableOpacity
             activeOpacity={0.8}
             onPress={handleNavigate}
+            disabled
             style={inReply ? styles.inReplyContainer : styles.container}
             //
         >
-            {/********** Replied | BOOST ***********/}
-            {_data.reblog?.account ? (
-                <View style={styles.boostContainer}>
-                    <FastImage style={styles.boostUserPic} source={{ uri: _data.account.avatar }} />
-                    <View style={styles.authorNameContainer}>
-                        {displayBoosterName.map((type, index) =>
-                            type.name ? (
-                                <Text key={index} style={styles.authorName}>
-                                    {type.name}
-                                </Text>
-                            ) : (
-                                <FastImage key={index} source={{ uri: type.url }} style={styles.emoji} />
-                            ),
-                        )}
-                    </View>
-                    <BoostIcon width={16} height={17} fill="#038B8B" />
-                    <Text style={styles.boostText}>boosted</Text>
-                </View>
-            ) : null}
             {/********** AUTHOR INFO ***********/}
             <View style={styles.authorContainer}>
                 <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
@@ -107,7 +89,7 @@ export default React.memo(function PostCard(props: PropsType) {
                 </View>
             </View>
 
-            <View style={inReply ? styles.altSecondContainer : styles.secondContainer}>
+            <View style={styles.altSecondContainer}>
                 {/********** POST Description ***********/}
                 <HTMLView
                     value={data.content}
@@ -126,59 +108,39 @@ export default React.memo(function PostCard(props: PropsType) {
 
                 {/********** POST Media ***********/}
                 {data.media_attachments.length > 0 ? (
-                    <Media
-                        data={data.media_attachments}
-                        inReply={inReply}
-                        isSensitive={data.sensitive}
-                    />
+                    <Media data={data.media_attachments} inReply={inReply} isSensitive={data.sensitive} />
                 ) : null}
 
                 {/********** Link | Article ***********/}
                 {data.card && data.media_attachments.length < 1 ? <LinkPreview card={data.card} /> : null}
 
-                {/*------------- in Reply ---------------*/}
-                {data.in_reply_to_id && !inReply ? (
-                    query?.data ? (
-                        <PostCard inReply={true} data={query.data} />
-                    ) : (
-                        <PostSkeleton />
-                    )
-                ) : null}
                 {/********** POST ACTIONS ***********/}
                 <View style={styles.actionContainer}>
-                    {inReply ? (
-                        <>
-                            <Text style={styles.inReplyActionText}>
-                                {`${data.replies_count} replies · ${data.favourites_count} favs · ${data.reblogs_count} boosts `}
-                            </Text>
-                            <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
-                        </>
-                    ) : (
-                        <>
-                            <TouchableOpacity style={styles.actionButton}>
-                                <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
-                                    {data.favourites_count}
-                                </Text>
-                                <StarIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.actionButton}>
-                                <Text style={data.reblogged ? styles.activeActionText : styles.actionText}>
-                                    {data.reblogs_count}
-                                </Text>
-                                <BoostIcon fill={data.reblogged ? COLORS.success : COLORS.actionIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.actionButton}>
-                                <Text style={styles.actionText}>{data.replies_count}</Text>
-                                <CommentIcon stroke={COLORS.actionIcon} />
-                            </TouchableOpacity>
-                            <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
-                            <TouchableOpacity>
-                                <MoreDotIcon style={styles.more} />
-                            </TouchableOpacity>
-                        </>
-                    )}
+                    <TouchableOpacity style={styles.actionButton}>
+                        <Text style={data.favourited ? styles.activeActionText : styles.actionText}>
+                            {data.favourites_count}
+                        </Text>
+                        <StarIcon fill={data.favourited ? COLORS.success : COLORS.actionIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.actionButton}>
+                        <Text style={data.reblogged ? styles.activeActionText : styles.actionText}>
+                            {data.reblogs_count}
+                        </Text>
+                        <BoostIcon fill={data.reblogged ? COLORS.success : COLORS.actionIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.actionButton}>
+                        <Text style={styles.actionText}>{data.replies_count}</Text>
+                        <CommentIcon stroke={COLORS.actionIcon} />
+                    </TouchableOpacity>
+                    <Text style={styles.postDate}>{postDate(data.created_at)} ago</Text>
+                    <TouchableOpacity>
+                        <MoreDotIcon style={styles.more} />
+                    </TouchableOpacity>
                 </View>
             </View>
+            <Text style={styles.isViewModeText}>
+                {`${data.favourites_count} favourites · ${data.reblogs_count} boosts · ${data.replies_count} replies`}
+            </Text>
         </TouchableOpacity>
     )
 })

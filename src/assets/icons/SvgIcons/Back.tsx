@@ -3,7 +3,7 @@ import Svg, { Path, SvgProps } from 'react-native-svg'
 
 function SvgComponent(props: SvgProps) {
     return (
-        <Svg width={32} height={32} viewBox="0 0 512 512" {...props}>
+        <Svg width={30} height={30} viewBox="0 0 512 512" {...props}>
             <Path
                 fill="none"
                 stroke={props.stroke ? props.stroke : '#292D32'}

@@ -10,7 +10,7 @@ export default React.memo(function PostSkeleton({ inReply }: { inReply?: boolean
     const { styles } = useStyles()
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, inReply ? styles.border : null]}>
             <View style={styles.authorContainer}>
                 <Animated.View style={styles.author} />
                 <Animated.View style={styles.authorInfo} />

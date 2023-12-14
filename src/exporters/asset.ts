@@ -23,6 +23,7 @@ export { default as EyeIcon } from '../assets/icons/SvgIcons/Eye'
 export { default as BackIcon } from '../assets/icons/SvgIcons/Back'
 export { default as VoteIcon } from '../assets/icons/SvgIcons/Vote'
 export { default as PlusMinuxCircleIcon } from '../assets/icons/SvgIcons/PlusMinuxCircle'
+export { default as ArrowUpIcon } from '../assets/icons/SvgIcons/ArrowUp'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';
