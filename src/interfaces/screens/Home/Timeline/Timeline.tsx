@@ -59,6 +59,7 @@ export default React.memo(function Timeline() {
                 onEndReachedThreshold={0.4}
                 onScroll={handleOnScroll}
             />
-            {latest3.length > 0 ? <LatestPostIndicator urls={latest3} /> : null} </View>
+            {latest3.length > 0 ? <LatestPostIndicator urls={latest3} /> : null}
+        </View>
     )
 })

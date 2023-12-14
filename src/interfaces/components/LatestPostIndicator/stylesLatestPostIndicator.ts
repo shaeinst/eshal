@@ -9,11 +9,11 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             position: 'absolute',
-            bottom: 8,
-            // left: 100,
-            // right: 100,
-            alignItems: 'center',
+            top: 1,
             alignSelf: 'center',
+        },
+        touchContainer: {
+            alignItems: 'center',
         },
         imageContainer: {
             flexDirection: 'row',
@@ -35,7 +35,7 @@ export function useStyles() {
             paddingHorizontal: 4,
             borderRadius: 8,
             borderWidth: 0.5,
-            borderColor: COLORS.text
+            borderColor: COLORS.text,
         },
         text: {
             ...FONTS.Inter['Md-10'],

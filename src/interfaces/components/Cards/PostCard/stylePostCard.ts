@@ -48,7 +48,7 @@ export function useStyles() {
         inReplyContainer: {
             borderRadius: 12,
             borderColor: COLORS.cardBorder,
-            borderWidth: 1,
+            borderWidth: 0.6,
             padding: 4,
             marginTop: 4,
             marginBottom: 6,

@@ -10,3 +10,4 @@ export type { MediaAttachmentType as MMediaAttachmentType } from '../types/masto
 export type { AccountType as MAccountType } from '../types/mastodon/api/APIEntities/AccountType'
 export type { CustomEmojiType as MCustomEmojiType } from '../types/mastodon/api/APIEntities/CustomEmojiType'
 export type { PreviewCardType as MPreviewCardType } from '../types/mastodon/api/APIEntities/PreviewCard'
+export type { NotificationType as MNotificationType } from '../types/mastodon/api/APIEntities/Notification'
