@@ -70,7 +70,7 @@ export function useStyles() {
         boostContainer: {
             flexDirection: 'row',
             gap: 6,
-            marginBottom: 16,
+            marginBottom: 8,
             alignItems: 'center',
         },
         boostUserPic: {
