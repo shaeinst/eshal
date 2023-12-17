@@ -41,6 +41,7 @@ export function Media(props: PropsType) {
         <FlashList
             // data={data}
             data={data}
+            keyExtractor={item => item.id + inReply}
             estimatedItemSize={100}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -103,6 +104,7 @@ const useStyles = () => {
             height: width * 0.6,
         },
         inReplyContainer: {
+            marginHorizontal: 4,
             width: width * 0.7,
             height: width * 0.5,
         },

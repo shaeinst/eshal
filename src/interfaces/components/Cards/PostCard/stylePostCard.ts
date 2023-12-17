@@ -97,18 +97,6 @@ export function useStyles() {
             width: 40,
             height: 40,
         },
-        emoji: {
-            width: 12,
-            height: 12,
-        },
-        authorNameContainer: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        authorName: {
-            ...FONTS.Inter['SB-14'],
-            color: COLORS.text,
-        },
         postDate: {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,

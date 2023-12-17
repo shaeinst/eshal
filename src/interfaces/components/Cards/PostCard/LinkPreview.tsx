@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import React, { useCallback, useMemo } from 'react'
+import { Linking, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { FONTS, useColors } from '$exporter'
@@ -9,15 +9,23 @@ export default React.memo(function LinkPreview({ card }: { card: MPreviewCardTyp
     //
     const { styles } = useSyles()
 
+    const handleClick = useCallback(() => {
+        Linking.openURL(card.url)
+    }, [])
+
     return (
-        <TouchableOpacity activeOpacity={0.8} style={styles.cardContainer}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.cardContainer} onPress={handleClick}>
             <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardDescription}>
                 {card.description}
             </Text>
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.cardLink}>
                 {card.url}
             </Text>
-            {card.image ? <FastImage style={styles.postPreview} source={{ uri: card.image }} /> : null}
+            {card.image ? (
+                <TouchableWithoutFeedback>
+                    <FastImage style={styles.postPreview} source={{ uri: card.image }} />
+                </TouchableWithoutFeedback>
+            ) : null}
         </TouchableOpacity>
     )
 })

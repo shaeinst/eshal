@@ -8,13 +8,15 @@ import FastImage from 'react-native-fast-image'
 
 import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, StarIcon, SwitchIcon } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
-import { parseDisplayName as parseName, postDate } from '$exporter/func'
+import { postDate } from '$exporter/func'
 import { PostSkeleton } from '$exporter/component'
 import { ROUTERS } from '$exporter/constant'
 import { queryStatus } from '$exporter/backend'
+
 import { useStyles } from './stylePostCard'
 import LinkPreview from './LinkPreview'
 import { Media } from './Media'
+import AuthorName from './AuthorName'
 
 type PropsType = {
     data: MStatusType
@@ -23,7 +25,7 @@ type PropsType = {
 
 export default React.memo(function PostCard(props: PropsType) {
     //
-    const { data: _data,  inReply } = props
+    const { data: _data, inReply } = props
 
     const data = useMemo(() => _data.reblog || _data, [_data])
 
@@ -36,15 +38,6 @@ export default React.memo(function PostCard(props: PropsType) {
 
     const { navigate } = useNavigation<NativeStackNavigationProp<any>>()
     const { styles, COLORS } = useStyles()
-
-    const displayName = useMemo(
-        () => parseName(data.account.display_name, data.account.emojis),
-        [data.account.display_name, data.account.emojis],
-    )
-    const displayBoosterName = useMemo(
-        () => (_data.reblog ? parseName(_data.account.display_name, _data.account.emojis) : []),
-        [_data.account.display_name, data.account.emojis],
-    )
 
     /*--------- HANDLERS -------------*/
     const handleNavigate = useCallback(() => {
@@ -69,17 +62,7 @@ export default React.memo(function PostCard(props: PropsType) {
             {_data.reblog?.account ? (
                 <View style={styles.boostContainer}>
                     <FastImage style={styles.boostUserPic} source={{ uri: _data.account.avatar }} />
-                    <View style={styles.authorNameContainer}>
-                        {displayBoosterName.map((type, index) =>
-                            type.name ? (
-                                <Text key={index} style={styles.authorName}>
-                                    {type.name}
-                                </Text>
-                            ) : (
-                                <FastImage key={index} source={{ uri: type.url }} style={styles.emoji} />
-                            ),
-                        )}
-                    </View>
+                    <AuthorName displayName={_data.account.display_name} emojis={_data.account.emojis} />
                     <BoostIcon width={16} height={17} fill="#038B8B" />
                     <Text style={styles.boostText}>boosted</Text>
                 </View>
@@ -88,21 +71,7 @@ export default React.memo(function PostCard(props: PropsType) {
             <View style={styles.authorContainer}>
                 <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
                 <View>
-                    <View style={styles.authorNameContainer}>
-                        {displayName.map(type => {
-                            return type.name ? (
-                                <Text key={`${type.name} + ${Math.random()}`} style={styles.authorName}>
-                                    {type.name}
-                                </Text>
-                            ) : (
-                                <FastImage
-                                    key={`${type.url} + ${Math.random()}`}
-                                    source={{ uri: type.url }}
-                                    style={styles.emoji}
-                                />
-                            )
-                        })}
-                    </View>
+                    <AuthorName displayName={data.account.display_name} emojis={data.account.emojis} />
                     <Text style={styles.authorId}>@{data.account.acct}</Text>
                 </View>
             </View>
@@ -126,11 +95,7 @@ export default React.memo(function PostCard(props: PropsType) {
 
                 {/********** POST Media ***********/}
                 {data.media_attachments.length > 0 ? (
-                    <Media
-                        data={data.media_attachments}
-                        inReply={inReply}
-                        isSensitive={data.sensitive}
-                    />
+                    <Media data={data.media_attachments} inReply={inReply} isSensitive={data.sensitive} />
                 ) : null}
 
                 {/********** Link | Article ***********/}

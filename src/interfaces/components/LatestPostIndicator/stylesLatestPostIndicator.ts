@@ -9,7 +9,7 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             position: 'absolute',
-            top: 1,
+            top: 2,
             alignSelf: 'center',
         },
         touchContainer: {
@@ -31,7 +31,7 @@ export function useStyles() {
             alignItems: 'center',
             backgroundColor: COLORS.background,
             position: 'absolute',
-            bottom: -8,
+            bottom: -4,
             paddingHorizontal: 4,
             borderRadius: 8,
             borderWidth: 0.5,
