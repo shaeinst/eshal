@@ -21,7 +21,7 @@ export default React.memo(function Timeline() {
     const { data, error, isError, isLoading, isFetching, handleRefresh, handleOnScroll, handleEndReached, latest3 } =
         queryPublicTimeline()
 
-    const flatlistRender = useCallback(({ item }: { item: MStatusType }) => <PostCard data={item} />, [data])
+    const listRender = useCallback(({ item }: { item: MStatusType }) => <PostCard data={item} />, [data])
 
     const Skeleton = useCallback(
         () => (
@@ -53,7 +53,7 @@ export default React.memo(function Timeline() {
                 ListFooterComponent={Skeleton}
                 data={data}
                 keyExtractor={item => item.id}
-                renderItem={flatlistRender}
+                renderItem={listRender}
                 onRefresh={handleRefresh}
                 onEndReached={handleEndReached}
                 onEndReachedThreshold={0.4}

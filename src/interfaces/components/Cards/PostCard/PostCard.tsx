@@ -15,7 +15,7 @@ import { queryStatus } from '$exporter/backend'
 
 import { useStyles } from './stylePostCard'
 import LinkPreview from './LinkPreview'
-import { Media } from './Media'
+import Media from './Media'
 import AuthorName from './AuthorName'
 
 type PropsType = {

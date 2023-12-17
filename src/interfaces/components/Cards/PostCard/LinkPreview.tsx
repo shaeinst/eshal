@@ -1,13 +1,13 @@
 import React, { useCallback, useMemo } from 'react'
-import { Linking, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { Linking, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
-import { FONTS, useColors } from '$exporter'
 import { MPreviewCardType } from '$exporter/type'
+import { useStyles } from './stylePostCard'
 
 export default React.memo(function LinkPreview({ card }: { card: MPreviewCardType }) {
     //
-    const { styles } = useSyles()
+    const { styles } = useStyles()
 
     const handleClick = useCallback(() => {
         Linking.openURL(card.url)
@@ -29,38 +29,3 @@ export default React.memo(function LinkPreview({ card }: { card: MPreviewCardTyp
         </TouchableOpacity>
     )
 })
-
-const useSyles = () => {
-    //
-    const { COLORS } = useColors()
-
-    const styles = StyleSheet.create({
-        //
-        cardContainer: {
-            borderRadius: 12,
-            borderWidth: 1,
-            borderColor: COLORS.seperator,
-            overflow: 'hidden',
-            padding: 4,
-        },
-        postPreview: {
-            height: 140,
-            width: '100%',
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-        },
-        cardDescription: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-        },
-        cardLink: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.link,
-            fontStyle: 'italic',
-            textDecorationLine: 'underline',
-            marginBottom: 2,
-        },
-    })
-
-    return { styles }
-}

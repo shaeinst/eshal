@@ -1,7 +1,9 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
 import { useMemo } from 'react'
+
+const { width } = Dimensions.get('window')
 
 export function useStyles() {
     //
@@ -135,17 +137,6 @@ export function useStyles() {
         },
         /** *************************** **/
 
-        cardDescription: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-        },
-        cardLink: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.primary,
-            fontStyle: 'italic',
-            textDecorationLine: 'underline',
-        },
-
         textIndicator: {
             ...FONTS.Inter['Bd-12'],
             color: COLORS.placeholder,
@@ -193,6 +184,58 @@ export function useStyles() {
             flexDirection: 'row',
             textAlign: 'center',
         },
+
+        // Media.tsx
+        mediaContainer: {
+            width: width * 0.7,
+            height: width * 0.5,
+            marginHorizontal: 4,
+            borderWidth: 0.4,
+            borderRadius: 12,
+            borderColor: COLORS.seperator,
+        },
+        ifSingleContainer: {
+            width: width * 0.8,
+            height: width * 0.6,
+        },
+        mediaInReplyContainer: {
+            marginHorizontal: 4,
+            width: width * 0.7,
+            height: width * 0.5,
+        },
+        inReplyIfSingleContainer: {
+            width: width * 0.74,
+            height: width * 0.5,
+        },
+        media: {
+            flex: 1,
+            borderRadius: 12,
+            overflow: 'hidden',
+        },
+        altText: {
+            ...FONTS.Inter['Md-10'],
+            position: 'absolute',
+            bottom: 6,
+            right: 6,
+            color: COLORS.text,
+            backgroundColor: COLORS.background,
+            borderRadius: 12,
+            paddingHorizontal: 4,
+        },
+        altDescription: {
+            ...FONTS.Inter['Lt-12'],
+            backgroundColor: COLORS.background,
+            color: COLORS.text,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            padding: 2,
+            borderRadius: 12,
+            margin: 2,
+        },
+        // end Media
+
+        // LinkPreview.tsx
         cardContainer: {
             borderRadius: 12,
             borderWidth: 1,
@@ -200,6 +243,39 @@ export function useStyles() {
             overflow: 'hidden',
             padding: 4,
         },
+        postPreview: {
+            height: 140,
+            width: '100%',
+            borderBottomLeftRadius: 8,
+            borderBottomRightRadius: 8,
+        },
+        cardDescription: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+        },
+        cardLink: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.link,
+            fontStyle: 'italic',
+            textDecorationLine: 'underline',
+            marginBottom: 2,
+        },
+        // end LinkPreview.tsx
+
+        // AuthorName.tsx
+        authorNameContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        authorName: {
+            ...FONTS.Inter['SB-14'],
+            color: COLORS.text,
+        },
+        emoji: {
+            wiidth: 12,
+            height: 12,
+        },
+        // end AuthorName.tsx
     })
 
     return useMemo(() => ({ styles, COLORS }), [COLORS])

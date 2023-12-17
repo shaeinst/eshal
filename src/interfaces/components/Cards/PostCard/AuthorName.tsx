@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useMemo } from 'react'
+import { Text, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
-import { FONTS, useColors } from '$exporter'
 import { MCustomEmojiType } from '$exporter/type'
 import { parseDisplayName as parseName } from '$exporter/func'
+
+import { useStyles } from './stylePostCard'
 
 type PropsType = {
     displayName: string
@@ -34,27 +35,3 @@ export default React.memo(function AuthorName({ displayName, emojis }: PropsType
         </View>
     )
 })
-
-const useStyles = () => {
-    //
-    const { COLORS } = useColors()
-
-    const styles = StyleSheet.create({
-        //
-        container: {},
-        authorNameContainer: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        authorName: {
-            ...FONTS.Inter['SB-14'],
-            color: COLORS.text,
-        },
-        emoji: {
-            width: 12,
-            height: 12,
-        },
-    })
-
-    return { styles }
-}
