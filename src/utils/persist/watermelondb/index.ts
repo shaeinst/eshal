@@ -19,10 +19,3 @@ export const database = new Database({
     adapter,
     modelClasses: MODELS,
 })
-
-export const { localStorage } = database
-
-export const KEYS = {
-    TOKEN: 'LOCALSTORAGE_TOKEN_KEY',
-    FRESH_APP: 'LOCALSTORAGE_FRESH_APP_KEY',
-}

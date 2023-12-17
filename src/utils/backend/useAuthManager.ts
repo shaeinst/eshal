@@ -1,9 +1,15 @@
+/**
+ * !WARNING: i refactored the wdbLocalStorage and using it here without testing.
+ * expect to have the errors
+ */
+
 import { useEffect } from 'react'
 import { Linking } from 'react-native'
 import { useMutation } from '@tanstack/react-query'
 
 import { useZustandStore } from '$exporter'
-import { storageToken } from '$exporter/persist'
+import { TokenType } from '$exporter/type'
+import { wdbLocalStorage } from '$exporter/persist'
 import { ROUTERS } from '$exporter/constant'
 
 import { ENDPOINTS } from './endPoints'
@@ -12,11 +18,12 @@ import loginApi from './api/auth/loginApi'
 import logoutApi from './api/auth/logoutApi'
 import createApi from './api/auth/createApi'
 
+const { set, remove, KEYS } = wdbLocalStorage
+
 export default function useAuthManager() {
     //
     const { clientId, clientSecret } = secrete()
     const { setAuth, resetAuth, auth } = useZustandStore()
-    const { set, remove } = storageToken()
 
     const redirectUri = ROUTERS.PREFIX
     const { AUTH } = ENDPOINTS
@@ -51,14 +58,16 @@ export default function useAuthManager() {
         }
 
         Linking.addEventListener('url', async event => {
-            mutateAsyncLogin({ url: event.url, instanceURL, clientId, clientSecret }).then(
-                token => {
-                    if (!token) return
-                    set(token).then(tokenSaved => {
-                        if (tokenSaved) setAuth({ token, isSignedIn: true })
+            mutateAsyncLogin({ url: event.url, instanceURL, clientId, clientSecret }).then(token => {
+                if (!token) return
+                set<TokenType>({ key: KEYS.TOKEN, value: token })
+                    .then(() => {
+                        setAuth({ token, isSignedIn: true })
                     })
-                },
-            )
+                    .catch(e => {
+                        console.log('error from useAuthManager.ts:\n', e)
+                    })
+            })
         })
         const scope = 'read write follow push'
         const authUrl = `${instanceURL}${AUTH.authorize}?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
@@ -68,10 +77,14 @@ export default function useAuthManager() {
     const logout = async () => {
         //
         mutateAsyncLogout({ auth, clientId, clientSecret }).then(() => {
-            remove().then(() => {
-                // since access token is revoked, we don't care if removing token fails from local storage
-                resetAuth()
-            })
+            remove(KEYS.TOKEN)
+                .then(() => {
+                    // since access token is revoked, we don't care if removing token fails from local storage
+                    resetAuth()
+                })
+                .catch(e => {
+                    console.log('error from useAuthManager.ts:\n', e)
+                })
         })
     }
 
