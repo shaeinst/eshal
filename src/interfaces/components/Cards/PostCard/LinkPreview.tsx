@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo } from 'react'
-import { Linking, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { Linking, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { MPreviewCardType } from '$exporter/type'
 import { useStyles } from './stylePostCard'
+import { LinkIcon } from '$exporter/asset'
 
 export default React.memo(function LinkPreview({ card }: { card: MPreviewCardType }) {
     //
@@ -15,6 +16,7 @@ export default React.memo(function LinkPreview({ card }: { card: MPreviewCardTyp
 
     return (
         <TouchableOpacity activeOpacity={0.8} style={styles.cardContainer} onPress={handleClick}>
+            <LinkIcon style={styles.linkIcon} />
             <Text numberOfLines={2} ellipsizeMode="tail" style={styles.cardDescription}>
                 {card.description}
             </Text>

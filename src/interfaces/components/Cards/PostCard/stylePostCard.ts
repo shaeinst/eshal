@@ -51,7 +51,8 @@ export function useStyles() {
             borderRadius: 12,
             borderColor: COLORS.cardBorder,
             borderWidth: 0.6,
-            padding: 4,
+            paddingHorizontal: 4,
+            paddingTop: 4,
             marginTop: 4,
             marginBottom: 6,
         },
@@ -257,8 +258,14 @@ export function useStyles() {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.link,
             fontStyle: 'italic',
-            textDecorationLine: 'underline',
-            marginBottom: 2,
+        },
+        linkIcon: {
+            backgroundColor: COLORS.background,
+            zIndex: 1,
+            position: 'absolute',
+            top: 4,
+            right: 4,
+            borderRadius: 50,
         },
         // end LinkPreview.tsx
 
