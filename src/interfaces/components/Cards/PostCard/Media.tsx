@@ -34,8 +34,9 @@ export default React.memo(function Media(props: PropsType) {
     }, [])
 
     const handleAlt = useCallback(() => {
+        console.log('clicked: handleAlt')
         setIsAlt(prev => !prev)
-    }, [])
+    }, [isAlt])
 
     const listRender = useCallback(
         ({ item }: { item: MMediaAttachmentType }) => (
@@ -63,7 +64,8 @@ export default React.memo(function Media(props: PropsType) {
                                     {item.description}
                                 </Text>
                             ) : null}
-                            <TouchableOpacity onPress={handleAlt}>
+                            <TouchableOpacity style={styles.mediaAltIconContainer} onPress={handleAlt}>
+                                <SwitchIcon isOn={isAlt ? true : false} />
                                 <Text style={styles.altText}>ALT</Text>
                             </TouchableOpacity>
                         </>

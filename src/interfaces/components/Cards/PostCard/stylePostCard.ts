@@ -213,15 +213,19 @@ export function useStyles() {
             borderRadius: 12,
             overflow: 'hidden',
         },
-        altText: {
-            ...FONTS.Inter['Md-10'],
+        mediaAltIconContainer: {
             position: 'absolute',
-            bottom: 6,
-            right: 6,
-            color: COLORS.text,
-            backgroundColor: COLORS.background,
+            gap: 4,
+            top: 2,
+            right: 2,
+            flexDirection: 'row',
             borderRadius: 12,
-            paddingHorizontal: 4,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        altText: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
         },
         altDescription: {
             ...FONTS.Inter['Lt-12'],
