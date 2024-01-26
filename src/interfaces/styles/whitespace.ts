@@ -3,7 +3,7 @@ export default {
     topMP: 22, // global top margin / padding
     bottom: 60, // bottom nav height
     borderRadius: 20,
+    borderRadiusTextInput: 12,
     borderWidthButton: 1,
     borderWidthInputForm: 2,
-
 }

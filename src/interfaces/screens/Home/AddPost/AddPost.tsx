@@ -1,3 +1,4 @@
+import { InputText } from '$exporter/component'
 import { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
 
@@ -19,7 +20,7 @@ export default function AddPost() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}> post screen</Text>
+            <InputText />
         </View>
     )
 }

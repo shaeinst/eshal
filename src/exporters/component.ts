@@ -4,6 +4,9 @@ export { default as PrimaryButton } from '../interfaces/components/Buttons/Prima
 // FORMS
 export { default as CredInput } from '../interfaces/components/Forms/CredInput/CredInput'
 
+// INPUTS
+export { default as InputText } from '../interfaces/components/Input/TextInput/TextInput'
+
 // NAVBAR
 export { default as BottomNav } from '../interfaces/components/Navigations/BottomNav/BottomNav'
 
