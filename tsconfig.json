@@ -2,6 +2,7 @@
   "extends": "@tsconfig/react-native/tsconfig.json",
 
   "compilerOptions": {
+    "jsx": "preserve", // https://stackoverflow.com/a/72332435
     "strict": true,
     "baseUrl": ".",
     "experimentalDecorators": true,
