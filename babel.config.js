@@ -11,16 +11,16 @@ module.exports = {
          */
         'react-native-reanimated/plugin',
 
-        /** react-native-linear-gradient requires to use skeleton by moti
-         *  https://moti.fyi/skeleton#option-2-react-native-linear-gradient
-         */
-        [
-            'module-resolver',
-            {
-                root: ['./'],
-                alias: { 'moti/skeleton': 'moti/skeleton/react-native-linear-gradient' },
-            },
-        ],
+        // /** react-native-linear-gradient requires to use skeleton by moti
+        //  *  https://moti.fyi/skeleton#option-2-react-native-linear-gradient
+        //  */
+        // [
+        //     'module-resolver',
+        //     {
+        //         root: ['./'],
+        //         alias: { 'moti/skeleton': 'moti/skeleton/react-native-linear-gradient' },
+        //     },
+        // ],
     ],
 
     env: {
@@ -29,3 +29,4 @@ module.exports = {
         },
     },
 }
+
