@@ -39,35 +39,12 @@ export function useStyles() {
         /* ------------------------------------ */
 
         container: {
-            backgroundColor: COLORS.background,
-            // flexDirection: 'row',
-            gap: 6,
-
-            borderBottomColor: COLORS.seperator,
-            paddingVertical: 32,
-            borderBottomWidth: 1,
-        },
-        inReplyContainer: {
-            borderRadius: 12,
-            borderColor: COLORS.cardBorder,
-            borderWidth: 0.6,
-            paddingHorizontal: 4,
-            paddingTop: 4,
-            marginTop: 4,
-            marginBottom: 6,
+            // backgroundColor: COLORS.error,
+            borderWidth: 0.5,
         },
 
-        secondContainer: {
-            gap: 2,
-            marginLeft: 48,
-        },
-        altSecondContainer: {
-            padding: 8,
-        },
-        skeleton: {
-            gap: 6,
-        },
-        /** *************************** **/
+        /* ------------------------------------ */
+
         boostContainer: {
             flexDirection: 'row',
             gap: 6,
@@ -88,63 +65,59 @@ export function useStyles() {
             ...FONTS.Inter['Md-14'],
             color: COLORS.success,
         },
-        /** *************************** **/
+        /* ------------------------------------ */
 
-        authorContainer: {
-            flexDirection: 'row',
-            gap: 8,
-        },
-        authorProfilePic: {
+        authorAvatar: {
             borderRadius: 50,
             borderWidth: 0.5,
-            width: 40,
             height: 40,
+            width: 40,
+            marginBottom: -40,
         },
-        postDate: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-            marginLeft: 'auto',
-        },
-        more: {
-            paddingHorizontal: 18,
-        },
-
         authorId: {
+            paddingLeft: WHITESPACE.postCardIndent,
             ...FONTS.Inter['Lt-12'],
             color: COLORS.weakText,
         },
-        /** *************************** **/
         contentContainer: {
+            paddingLeft: WHITESPACE.postCardIndent,
             maxHeight: 220,
             overflow: 'hidden',
         },
-        /** *************************** **/
-
-        expandButton: {
-            flexDirection: 'row',
-            padding: 2,
-            gap: 4,
-            // backgroundColor: 'red',
-        },
-        accessibilityClick: {
+        authorNameContainer: {
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 6,
-            marginLeft: 'auto',
         },
-        accessibilityText: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
+        authorName: {
+            ...FONTS.Inter['SB-14'],
+            color: COLORS.text,
         },
-        /** *************************** **/
+        emoji: {
+            width: 12,
+            height: 12,
+        },
+        indent: {
+            paddingLeft: WHITESPACE.postCardIndent,
+        },
 
-        textIndicator: {
-            ...FONTS.Inter['Bd-12'],
-            color: COLORS.placeholder,
+        inReplySkeleton: {
+            minHeight: 160,
+            borderWidth: 1,
+            borderRadius: 12,
+            borderColor: COLORS.seperator,
+            // borderColor: COLORS.seperator,
+        },
+        isViewModeText: {
+            ...FONTS.Inter['Md-14'],
+            color: COLORS.weakText,
+            flexDirection: 'row',
             textAlign: 'center',
         },
+
+        /** *************************** **/
         /** *************************** **/
         actionContainer: {
+            paddingLeft: WHITESPACE.postCardIndent,
             flexDirection: 'row',
             alignItems: 'center',
         },
@@ -171,122 +144,15 @@ export function useStyles() {
             ...FONTS.Inter['Lt-12'],
             color: COLORS.success,
         },
+        postDate: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+            marginLeft: 'auto',
+        },
+        more: {
+            paddingHorizontal: 18,
+        },
         /** *************************** **/
-        inReplySkeleton: {
-            minHeight: 160,
-            borderWidth: 1,
-            borderRadius: 12,
-            borderColor: COLORS.seperator,
-            // borderColor: COLORS.seperator,
-        },
-        isViewModeText: {
-            ...FONTS.Inter['Md-14'],
-            color: COLORS.weakText,
-            flexDirection: 'row',
-            textAlign: 'center',
-        },
-
-        // Media.tsx
-        mediaContainer: {
-            width: width * 0.7,
-            height: width * 0.5,
-            marginHorizontal: 4,
-            borderWidth: 0.4,
-            borderRadius: 12,
-            borderColor: COLORS.seperator,
-        },
-        ifSingleContainer: {
-            width: width * 0.8,
-            height: width * 0.6,
-        },
-        mediaInReplyContainer: {
-            marginHorizontal: 4,
-            width: width * 0.7,
-            height: width * 0.5,
-        },
-        inReplyIfSingleContainer: {
-            width: width * 0.74,
-            height: width * 0.5,
-        },
-        media: {
-            flex: 1,
-            borderRadius: 12,
-            overflow: 'hidden',
-        },
-        mediaAltIconContainer: {
-            position: 'absolute',
-            gap: 4,
-            top: 2,
-            right: 2,
-            flexDirection: 'row',
-            borderRadius: 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        altText: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-        },
-        altDescription: {
-            ...FONTS.Inter['Lt-12'],
-            backgroundColor: COLORS.background,
-            color: COLORS.text,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            padding: 2,
-            borderRadius: 12,
-            margin: 2,
-        },
-        // end Media
-
-        // LinkPreview.tsx
-        cardContainer: {
-            borderRadius: 12,
-            borderWidth: 1,
-            borderColor: COLORS.seperator,
-            overflow: 'hidden',
-            padding: 4,
-        },
-        postPreview: {
-            height: 140,
-            width: '100%',
-            borderBottomLeftRadius: 8,
-            borderBottomRightRadius: 8,
-        },
-        cardDescription: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-        },
-        cardLink: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.link,
-            fontStyle: 'italic',
-        },
-        linkIcon: {
-            backgroundColor: COLORS.background,
-            zIndex: 1,
-            position: 'absolute',
-            top: 4,
-            right: 4,
-            borderRadius: 50,
-        },
-        // end LinkPreview.tsx
-
-        // AuthorName.tsx
-        authorNameContainer: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        authorName: {
-            ...FONTS.Inter['SB-14'],
-            color: COLORS.text,
-        },
-        emoji: {
-            wiidth: 12,
-            height: 12,
-        },
-        // end AuthorName.tsx
     })
 
     return useMemo(() => ({ styles, COLORS }), [COLORS])

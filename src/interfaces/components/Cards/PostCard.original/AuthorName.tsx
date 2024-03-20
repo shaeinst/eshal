@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { MCustomEmojiType } from '$exporter/type'
@@ -10,23 +10,26 @@ import { useStyles } from './stylePostCard'
 type PropsType = {
     displayName: string
     emojis: MCustomEmojiType[]
-    reblog?: boolean
 }
 
-export default function AuthorName({ displayName, emojis, reblog }: PropsType) {
+export default function AuthorName({ displayName, emojis }: PropsType) {
     //
     const { styles } = useStyles()
     const parsedName = parseName(displayName, emojis)
 
     return (
-        <View style={[styles.authorNameContainer, reblog ? null : styles.indent]}>
+        <View style={styles.authorNameContainer}>
             {parsedName.map((type, index) =>
                 type.name ? (
                     <Text key={`${type.url} + ${Math.random()}0`} style={styles.authorName}>
                         {type.name}
                     </Text>
                 ) : (
-                    <Image key={`${type.url} + ${Math.random()}1`} source={{ uri: type.url }} style={styles.emoji} />
+                    <FastImage
+                        key={`${type.url} + ${Math.random()}1`}
+                        source={{ uri: type.url }}
+                        style={styles.emoji}
+                    />
                 ),
             )}
         </View>

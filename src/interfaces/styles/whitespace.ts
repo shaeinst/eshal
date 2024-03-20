@@ -6,4 +6,5 @@ export default {
     borderRadiusTextInput: 12,
     borderWidthButton: 1,
     borderWidthInputForm: 2,
+    postCardIndent: 50, // eg: used in PostCard component
 }

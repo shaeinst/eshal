@@ -21,16 +21,13 @@ export default React.memo(function Timeline() {
     const { data, error, isError, isLoading, isFetching, handleRefresh, handleOnScroll, handleEndReached, latest3 } =
         queryPublicTimeline()
 
-    const listRender = useCallback(({ item }: { item: MStatusType }) => <PostCard data={item} />, [data])
+    const listRender = ({ item }: { item: MStatusType }) => <PostCard data={item} />
 
-    const Skeleton = useCallback(
-        () => (
-            <View style={styles.skeleton}>
-                {isLoading || isFetching ? <PostSkeleton /> : null}
-                {isError ? <Text style={styles.skeletonText}>{error.message}</Text> : null}
-            </View>
-        ),
-        [styles],
+    const Skeleton = (
+        <View style={styles.skeleton}>
+            {isLoading || isFetching ? <PostSkeleton /> : null}
+            {isError ? <Text style={styles.skeletonText}>{error.message}</Text> : null}
+        </View>
     )
 
     useFocusEffect(

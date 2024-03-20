@@ -18,15 +18,15 @@ export function useStateCustom(props: PropsType) {
     const [isLongContent, setIsLongContent] = useState({ isLong: contentLen, toggle: contentLen })
     const [activePreview, setActivePreview] = useState({ ...preview })
 
-    const handleContent = useCallback(() => {
+    const handleContent = () => {
         setIsLongContent(prev => ({ ...prev, toggle: !prev.toggle }))
-    }, [])
-    const handleAlt = useCallback(() => {
+    }
+    const handleAlt = () => {
         setIsAlt(prev => !prev)
-    }, [])
-    const handleLazyLoad = useCallback(() => {
+    }
+    const handleLazyLoad = () => {
         setLazyLoad(true)
-    }, [])
+    }
 
     return {
         lazyLoad,

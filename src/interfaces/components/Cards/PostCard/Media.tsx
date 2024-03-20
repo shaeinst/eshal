@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { StyleSheet, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, FlatList } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import { SwitchIcon } from '$exporter/asset'
@@ -7,9 +7,9 @@ import { BlurImage } from '$exporter/component'
 import { MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FlashList } from '@shopify/flash-list'
 import Video, { VideoRef } from 'react-native-video'
-import { useStyles } from './stylePostCard'
+import { FONTS, WHITESPACE, useColors } from '$exporter'
 
-const { width } = Dimensions.get('window')
+const width = Dimensions.get('window').width - WHITESPACE.postCardIndent - 22
 
 type PropsType = {
     data: MMediaAttachmentType[]
@@ -17,7 +17,7 @@ type PropsType = {
     inReply?: boolean
 }
 
-export default React.memo(function Media(props: PropsType) {
+export default function Media(props: PropsType) {
     //
     const { data, inReply, isSensitive } = props
 
@@ -26,64 +26,95 @@ export default React.memo(function Media(props: PropsType) {
 
     const videoRef = useRef<VideoRef>(null)
 
-    const { styles } = useStyles()
+    const { styles, setImageHeight, imageWidth } = useStyles(data.length)
 
     // HANDLES
-    const handleLazyLoad = useCallback(() => {
+    const handleLazyLoad = () => {
         setLazyLoad(true)
-    }, [])
+    }
 
-    const handleAlt = useCallback(() => {
+    const handleAlt = () => {
         console.log('clicked: handleAlt')
         setIsAlt(prev => !prev)
-    }, [isAlt])
+    }
 
-    const listRender = useCallback(
-        ({ item }: { item: MMediaAttachmentType }) => (
-            <TouchableWithoutFeedback>
-                <View
-                    style={
-                        data.length === 1
-                            ? inReply
-                                ? styles.inReplyIfSingleContainer
-                                : styles.ifSingleContainer
-                            : inReply
-                            ? styles.mediaInReplyContainer
-                            : styles.mediaContainer
-                    }>
-                    {isSensitive ? (
-                        <BlurImage nsfw={isSensitive} imageUrl={item.url} />
-                    ) : (
-                        <FastImage source={{ uri: item.url }} style={styles.media} />
-                    )}
-
-                    {item.description ? (
-                        <>
-                            {isAlt ? (
-                                <Text numberOfLines={12} style={styles.altDescription}>
-                                    {item.description}
-                                </Text>
-                            ) : null}
-                            <TouchableOpacity style={styles.mediaAltIconContainer} onPress={handleAlt}>
-                                <SwitchIcon isOn={isAlt ? true : false} />
-                                <Text style={styles.altText}>ALT</Text>
-                            </TouchableOpacity>
-                        </>
-                    ) : null}
-                </View>
-            </TouchableWithoutFeedback>
-        ),
-        [data],
+    const listRender = ({ item }: { item: MMediaAttachmentType }) => (
+        <TouchableWithoutFeedback>
+            <View style={styles.container}>
+                {item.description ? (
+                    <Text numberOfLines={12} style={styles.altDescription}>
+                        {item.description}
+                    </Text>
+                ) : null}
+                {/* <FastImage source={{ uri: item.url }} style={styles.media} /> */}
+                <FastImage
+                    source={{ uri: item.url }}
+                    style={styles.media}
+                    onLoad={({ nativeEvent }) => {
+                        const aspectRatio = nativeEvent.width / nativeEvent.height
+                        setImageHeight(imageWidth / aspectRatio)
+                    }}
+                    resizeMode="contain"
+                />
+            </View>
+        </TouchableWithoutFeedback>
     )
 
     return (
-        <FlashList
+        <FlatList
             data={data}
             keyExtractor={item => item.id + inReply}
-            estimatedItemSize={100}
+            // estimatedItemSize={100}
             horizontal
             showsHorizontalScrollIndicator={false}
             renderItem={listRender}
+            ListHeaderComponent={() => <View style={styles.indent}></View>}
+            // ListFooterComponent={() => <View style={styles.indent}></View>}
+            ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
         />
     )
-})
+}
+
+export function useStyles(totalImage: number) {
+    //
+    const { COLORS } = useColors()
+
+    const [imageWidth, _] = useState(totalImage == 1 ? width : width - 32)
+    const [imageHeight, setImageHeight] = useState(imageWidth)
+
+    const styles = StyleSheet.create({
+        container: {
+            borderColor: COLORS.seperator,
+            marginTop: 12,
+        },
+        media: {
+            borderRadius: 12,
+            backgroundColor: 'red',
+            width: imageWidth,
+            height: imageHeight,
+        },
+
+        altDescription: {
+            ...FONTS.Inter['Lt-12'],
+            backgroundColor: COLORS.background,
+            color: COLORS.text,
+            padding: 6,
+            margin: 4,
+            borderRadius: 12,
+            position: 'absolute',
+            zIndex: 1000,
+
+            top: 1,
+            left: 0,
+            right: 0,
+        },
+        indent: {
+            width: WHITESPACE.postCardIndent,
+        },
+        seperator: {
+            width: 10,
+        },
+    })
+
+    return { styles, COLORS, setImageHeight, imageWidth }
+}
