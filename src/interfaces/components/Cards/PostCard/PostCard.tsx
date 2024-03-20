@@ -27,6 +27,7 @@ export default function PostCard(props: PropsType) {
     //
     const { data, inReply } = props
     const { styles, COLORS } = useStyles()
+
     const [isLongContent, setIsLongContent] = useState({
         isLong: data.content.length > 500 ? true : false,
         toggle: data.content.length > 500 ? true : false,
@@ -56,6 +57,7 @@ export default function PostCard(props: PropsType) {
 
             {/********** Post Content ***********/}
             <HTMLView value={data.content} stylesheet={styles} style={[styles.contentContainer]} />
+
             {/********** POST Media ***********/}
             {data.media_attachments.length > 0 ? (
                 <Media data={data.media_attachments} inReply={inReply} isSensitive={data.sensitive} />

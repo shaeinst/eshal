@@ -29,36 +29,38 @@ export default function Media(props: PropsType) {
     const { styles, setImageHeight, imageWidth } = useStyles(data.length)
 
     // HANDLES
-    const handleLazyLoad = () => {
-        setLazyLoad(true)
-    }
-
     const handleAlt = () => {
         console.log('clicked: handleAlt')
         setIsAlt(prev => !prev)
     }
 
-    const listRender = ({ item }: { item: MMediaAttachmentType }) => (
-        <TouchableWithoutFeedback>
-            <View style={styles.container}>
-                {item.description ? (
-                    <Text numberOfLines={12} style={styles.altDescription}>
-                        {item.description}
-                    </Text>
-                ) : null}
-                {/* <FastImage source={{ uri: item.url }} style={styles.media} /> */}
-                <FastImage
-                    source={{ uri: item.url }}
-                    style={styles.media}
-                    onLoad={({ nativeEvent }) => {
-                        const aspectRatio = nativeEvent.width / nativeEvent.height
-                        setImageHeight(imageWidth / aspectRatio)
-                    }}
-                    resizeMode="contain"
-                />
-            </View>
-        </TouchableWithoutFeedback>
-    )
+    const listRender = ({ item }: { item: MMediaAttachmentType }) => {
+        return (
+            <TouchableWithoutFeedback>
+                <View style={styles.container}>
+                    {isAlt ? (
+                        <Text numberOfLines={12} style={styles.altDescription}>
+                            {item.description}
+                        </Text>
+                    ) : null}
+                    <FastImage
+                        source={{ uri: item.url }}
+                        style={styles.media}
+                        onLoad={({ nativeEvent }) => {
+                            const aspectRatio = nativeEvent.width / nativeEvent.height
+                            setImageHeight(imageWidth / aspectRatio)
+                        }}
+                        resizeMode="contain"
+                    />
+                    {item.description ? (
+                        <TouchableOpacity style={styles.mediaAltIconContainerParent} onPress={handleAlt}>
+                            {isAlt ? <Text style={styles.altText}>X</Text> : <Text style={styles.altText}>ALT</Text>}
+                        </TouchableOpacity>
+                    ) : null}
+                </View>
+            </TouchableWithoutFeedback>
+        )
+    }
 
     return (
         <FlatList
@@ -69,7 +71,6 @@ export default function Media(props: PropsType) {
             showsHorizontalScrollIndicator={false}
             renderItem={listRender}
             ListHeaderComponent={() => <View style={styles.indent}></View>}
-            // ListFooterComponent={() => <View style={styles.indent}></View>}
             ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
         />
     )
@@ -93,7 +94,6 @@ export function useStyles(totalImage: number) {
             width: imageWidth,
             height: imageHeight,
         },
-
         altDescription: {
             ...FONTS.Inter['Lt-12'],
             backgroundColor: COLORS.background,
@@ -108,6 +108,20 @@ export function useStyles(totalImage: number) {
             left: 0,
             right: 0,
         },
+        mediaAltIconContainerParent: {
+            alignItems: 'flex-end',
+        },
+        altText: {
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+            flexDirection: 'row',
+            borderRadius: 12,
+            backgroundColor: COLORS.text,
+            paddingHorizontal: 6,
+            marginTop: -20,
+            marginRight: 6,
+        },
+
         indent: {
             width: WHITESPACE.postCardIndent,
         },
