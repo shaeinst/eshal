@@ -1,6 +1,9 @@
 // Auth
 export type { AuthStateType as AuthStateType } from '../types/AuthType'
 
+// Colors
+export type { ColorType as ColorType } from '../interfaces/styles/colors'
+
 // Storage
 export type { TokenType as TokenType, FreshAppType as FreshAppType } from '../types/StorageType'
 

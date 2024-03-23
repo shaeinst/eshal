@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
@@ -26,13 +26,16 @@ type PropsType = {
 export default function PostCard(props: PropsType) {
     //
     const { data, inReply } = props
-    const { styles, COLORS } = useStyles()
+    const { styles, COLORS } = useStyles(inReply)
 
-    const [isLongContent, setIsLongContent] = useState({
-        isLong: data.content.length > 500 ? true : false,
-        toggle: data.content.length > 500 ? true : false,
-    })
     const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
+
+    // useEffect(() => {
+    //     // console.log("\n\n\n\n\n")
+    //     console.log("=====================")
+    //     console.log(data)
+    //     console.log("=====================")
+    // }, [])
 
     return (
         <View style={styles.container}>
@@ -56,22 +59,24 @@ export default function PostCard(props: PropsType) {
             <Text style={styles.authorId}>@{data.account.acct}</Text>
 
             {/********** Post Content ***********/}
-            <HTMLView value={data.content} stylesheet={styles} style={[styles.contentContainer]} />
+            <HTMLView value={data.content} stylesheet={styles} style={styles.contentContainer} />
 
             {/********** POST Media ***********/}
             {data.media_attachments.length > 0 ? (
-                <Media data={data.media_attachments} inReply={inReply} isSensitive={data.sensitive} />
+                <Media id={data.id} data={data.media_attachments} inReply={inReply} isSensitive={data.sensitive} />
             ) : null}
+
             {/* ********* Link | Article ********** */}
-            {/* {data.card && data.media_attachments.length < 1 ? <LinkPreview card={data.card} /> : null} */}
+            {data.card && data.media_attachments.length < 1 ? <LinkPreview inReply={inReply} card={data.card} /> : null}
+
             {/********** in Reply ***********/}
-            {/* {data.in_reply_to_id && !inReply ? ( */}
-            {/*     query?.data ? ( */}
-            {/*         <PostCard inReply={true} data={query.data} /> */}
-            {/*     ) : ( */}
-            {/*         <PostSkeleton /> */}
-            {/*     ) */}
-            {/* ) : null} */}
+            {data.in_reply_to_id && !inReply ? (
+                query?.data ? (
+                    <PostCard inReply={true} data={query.data} />
+                ) : (
+                    <PostSkeleton />
+                )
+            ) : null}
 
             {/********** POST ACTIONS ***********/}
             <View style={styles.actionContainer}>

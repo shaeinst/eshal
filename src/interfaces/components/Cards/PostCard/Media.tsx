@@ -1,134 +1,158 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { StyleSheet, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, FlatList } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, FlatList } from 'react-native'
+import FastImage, { OnLoadEvent } from 'react-native-fast-image'
+import { FlashList } from '@shopify/flash-list'
+import Video, { OnLoadData } from 'react-native-video'
+import WaveForm from 'react-native-audiowaveform'
 
 import { SwitchIcon } from '$exporter/asset'
 import { BlurImage } from '$exporter/component'
-import { MMediaAttachmentType, MStatusType } from '$exporter/type'
-import { FlashList } from '@shopify/flash-list'
-import Video, { VideoRef } from 'react-native-video'
+import { ColorType, MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FONTS, WHITESPACE, useColors } from '$exporter'
+import { mediaStyles, listRenderStyles } from './styleMedia'
 
-const width = Dimensions.get('window').width - WHITESPACE.postCardIndent - 22
+const baseWidth = Dimensions.get('window').width - WHITESPACE.postCardIndent - 22
+
+// Import the react-native-sound module
+var Sound = require('react-native-sound')
+// Enable playback in silence mode
+// Sound.setCategory('Playback')
+// var whoosh = new Sound(
+//     'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+//     Sound.MAIN_BUNDLE,
+//     (error: any) => {
+//         if (error) {
+//             console.log('failed to load the sound', error)
+//             return
+//         }
+//         // loaded successfully
+//         console.log(
+//             'duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels(),
+//         )
+
+//         // Play the sound with an onEnd callback
+//         whoosh.play((success: any) => {
+//             if (success) {
+//                 console.log('successfully finished playing')
+//             } else {
+//                 console.log('playback failed due to audio decoding errors')
+//             }
+//         })
+//     },
+// )
 
 type PropsType = {
+    id: string
     data: MMediaAttachmentType[]
     isSensitive: boolean
     inReply?: boolean
 }
+type PropsListRenderType = {
+    item: MMediaAttachmentType
+    isAlt: boolean
+    mediaWidth: number
+    COLORS: ColorType
+}
 
-export default function Media(props: PropsType) {
-    //
-    const { data, inReply, isSensitive } = props
+const ListRender = ({ item, isAlt, mediaWidth, COLORS }: PropsListRenderType) => {
+    const videoRef = useRef<Video>(null)
+    const [mediaHeight, setMediaHeight] = useState(mediaWidth)
+    const styles = listRenderStyles(COLORS, mediaWidth, mediaHeight)
 
-    const [lazyLoad, setLazyLoad] = useState(true)
-    const [isAlt, setIsAlt] = useState(false)
-
-    const videoRef = useRef<VideoRef>(null)
-
-    const { styles, setImageHeight, imageWidth } = useStyles(data.length)
-
-    // HANDLES
-    const handleAlt = () => {
-        console.log('clicked: handleAlt')
-        setIsAlt(prev => !prev)
+    const onImageLoad = (event: OnLoadEvent) => {
+        // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
+        const { width, height } = event.nativeEvent
+        setMediaHeight((mediaWidth * height) / width)
     }
-
-    const listRender = ({ item }: { item: MMediaAttachmentType }) => {
-        return (
-            <TouchableWithoutFeedback>
-                <View style={styles.container}>
-                    {isAlt ? (
-                        <Text numberOfLines={12} style={styles.altDescription}>
-                            {item.description}
-                        </Text>
-                    ) : null}
-                    <FastImage
-                        source={{ uri: item.url }}
-                        style={styles.media}
-                        onLoad={({ nativeEvent }) => {
-                            const aspectRatio = nativeEvent.width / nativeEvent.height
-                            setImageHeight(imageWidth / aspectRatio)
-                        }}
-                        resizeMode="contain"
-                    />
-                    {item.description ? (
-                        <TouchableOpacity style={styles.mediaAltIconContainerParent} onPress={handleAlt}>
-                            {isAlt ? <Text style={styles.altText}>X</Text> : <Text style={styles.altText}>ALT</Text>}
-                        </TouchableOpacity>
-                    ) : null}
-                </View>
-            </TouchableWithoutFeedback>
-        )
+    const onVideoLoad = (event: OnLoadData) => {
+        // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
+        const { width, height } = event.naturalSize
+        setMediaHeight((mediaWidth * height) / width)
     }
 
     return (
-        <FlatList
-            data={data}
-            keyExtractor={item => item.id + inReply}
-            // estimatedItemSize={100}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={listRender}
-            ListHeaderComponent={() => <View style={styles.indent}></View>}
-            ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
-        />
+        <TouchableWithoutFeedback>
+            <View>
+                {isAlt ? <Text style={styles.altDescription}>{item.description}</Text> : null}
+                {item.type === 'video' ? (
+                    <Video
+                        source={{ uri: item.url }}
+                        ref={videoRef}
+                        onLoad={onVideoLoad}
+                        resizeMode="contain"
+                        style={styles.media}
+                    />
+                ) : item.type === 'image' || item.type === 'gifv' ? (
+                    <FastImage
+                        // source={{ uri: 'https://clipart-library.com/images/5iRrxkaRT.gif' }}
+                        source={{ uri: item.url }}
+                        onLoad={onImageLoad}
+                        resizeMode="contain"
+                        style={styles.media}
+                    />
+                ) : item.type === 'audio' ? (
+                    <View>
+                        <Text>Audio file</Text>
+                    </View>
+                ) : (
+                    <Text>Unknow</Text>
+                )}
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
-export function useStyles(totalImage: number) {
+export default function Media(props: PropsType) {
     //
-    const { COLORS } = useColors()
+    const { data, id, inReply, isSensitive } = props
+    const { styles, COLORS } = mediaStyles(inReply)
 
-    const [imageWidth, _] = useState(totalImage == 1 ? width : width - 32)
-    const [imageHeight, setImageHeight] = useState(imageWidth)
+    const showAlt = data.some(item => item.description)
+    // const mediaWidth = data.length == 1 ? baseWidth : baseWidth - 32
+    const mediaWidth = inReply
+        ? data.length == 1
+            ? baseWidth - 10
+            : baseWidth - 42
+        : data.length == 1
+        ? baseWidth
+        : baseWidth - 32
 
-    const styles = StyleSheet.create({
-        container: {
-            borderColor: COLORS.seperator,
-            marginTop: 12,
-        },
-        media: {
-            borderRadius: 12,
-            backgroundColor: 'red',
-            width: imageWidth,
-            height: imageHeight,
-        },
-        altDescription: {
-            ...FONTS.Inter['Lt-12'],
-            backgroundColor: COLORS.background,
-            color: COLORS.text,
-            padding: 6,
-            margin: 4,
-            borderRadius: 12,
-            position: 'absolute',
-            zIndex: 1000,
+    const [isAlt, setIsAlt] = useState(false)
 
-            top: 1,
-            left: 0,
-            right: 0,
-        },
-        mediaAltIconContainerParent: {
-            alignItems: 'flex-end',
-        },
-        altText: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-            flexDirection: 'row',
-            borderRadius: 12,
-            backgroundColor: COLORS.text,
-            paddingHorizontal: 6,
-            marginTop: -20,
-            marginRight: 6,
-        },
+    // HANDLES
+    const handleAlt = () => {
+        console.log('clicked: handleAlt: ', isAlt)
+        setIsAlt(prev => !prev)
+    }
 
-        indent: {
-            width: WHITESPACE.postCardIndent,
-        },
-        seperator: {
-            width: 10,
-        },
-    })
+    return (
+        <View style={styles.container}>
+            {showAlt ? (
+                <TouchableOpacity style={styles.mediaAltIconContainer} onPress={handleAlt}>
+                    <SwitchIcon isOn={isAlt ? true : false} />
+                    <Text style={styles.altText}>ALT</Text>
+                </TouchableOpacity>
+            ) : null}
 
-    return { styles, COLORS, setImageHeight, imageWidth }
+            {/* <WaveForm */}
+            {/*     source={{ uri: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3' }} */}
+            {/*     waveFormStyle={{ waveColor: 'red', scrubColor: 'white' }} */}
+            {/*     play={false} */}
+            {/* /> */}
+
+            <FlatList
+                data={data}
+                keyExtractor={item => id + item.url}
+                // estimatedItemSize={300}
+                horizontal
+                contentContainerStyle={styles.contentContainer}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                    <ListRender COLORS={COLORS} mediaWidth={mediaWidth} item={item} isAlt={isAlt} />
+                )}
+                ListHeaderComponent={() => <View style={styles.indent}></View>}
+                ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
+            />
+        </View>
+    )
 }

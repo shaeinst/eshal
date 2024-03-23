@@ -22,8 +22,9 @@ module.exports = {
                  *  new architecture for react-native-video (android) yet to be merged
                  *  https://github.com/react-native-video/react-native-video/pull/3122
                  *  https://github.com/react-native-video/react-native-video/issues/2650
+                 *  https://github.com/react-native-video/react-native-video/issues/2650#issuecomment-1936034853
                  */
-                'RCTVideo'
+                'Video'
             ],
         },
         ios: {

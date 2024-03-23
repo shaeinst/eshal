@@ -1,11 +1,9 @@
-import { Dimensions, StyleSheet } from 'react-native'
+import { useMemo } from 'react'
+import { StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
-import { useMemo } from 'react'
 
-const { width } = Dimensions.get('window')
-
-export function useStyles() {
+export function useStyles(inReply?: boolean) {
     //
     const { COLORS } = useColors()
 
@@ -40,9 +38,8 @@ export function useStyles() {
 
         container: {
             // backgroundColor: COLORS.error,
-            borderWidth: 0.5,
+            // borderWidth: 0.5,
         },
-
         /* ------------------------------------ */
 
         boostContainer: {
@@ -57,48 +54,11 @@ export function useStyles() {
             borderRadius: 20,
             borderWidth: 0.5,
         },
-        boostUserName: {
-            ...FONTS.Inter['Md-14'],
-            color: COLORS.strongText,
-        },
         boostText: {
             ...FONTS.Inter['Md-14'],
             color: COLORS.success,
         },
         /* ------------------------------------ */
-
-        authorAvatar: {
-            borderRadius: 50,
-            borderWidth: 0.5,
-            height: 40,
-            width: 40,
-            marginBottom: -40,
-        },
-        authorId: {
-            paddingLeft: WHITESPACE.postCardIndent,
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-        },
-        contentContainer: {
-            paddingLeft: WHITESPACE.postCardIndent,
-            maxHeight: 220,
-            overflow: 'hidden',
-        },
-        authorNameContainer: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        authorName: {
-            ...FONTS.Inter['SB-14'],
-            color: COLORS.text,
-        },
-        emoji: {
-            width: 12,
-            height: 12,
-        },
-        indent: {
-            paddingLeft: WHITESPACE.postCardIndent,
-        },
 
         inReplySkeleton: {
             minHeight: 160,
@@ -107,19 +67,29 @@ export function useStyles() {
             borderColor: COLORS.seperator,
             // borderColor: COLORS.seperator,
         },
-        isViewModeText: {
-            ...FONTS.Inter['Md-14'],
-            color: COLORS.weakText,
-            flexDirection: 'row',
-            textAlign: 'center',
+        // ------------------------------------
+        authorAvatar: {
+            borderRadius: 50,
+            borderWidth: 0.5,
+            width: 40,
+            height: 40,
+            marginBottom: -40,
         },
-
-        /** *************************** **/
-        /** *************************** **/
+        authorId: {
+            marginLeft: WHITESPACE.postCardIndent,
+            ...FONTS.Inter['Lt-12'],
+            color: COLORS.weakText,
+        },
+        contentContainer: {
+            marginLeft: WHITESPACE.postCardIndent,
+            marginBottom: 18,
+        },
+        // ------------------------------------
         actionContainer: {
-            paddingLeft: WHITESPACE.postCardIndent,
+            marginLeft: WHITESPACE.postCardIndent,
             flexDirection: 'row',
             alignItems: 'center',
+            marginTop: 4,
         },
         actionButton: {
             flexDirection: 'row',
@@ -132,16 +102,9 @@ export function useStyles() {
             ...FONTS.Inter['Md-14'],
             color: COLORS.actionIcon,
         },
-        inReplyActionText: {
-            ...FONTS.Inter['Lt-12'],
-            color: COLORS.weakText,
-        },
+
         activeActionText: {
             ...FONTS.Inter['Md-14'],
-            color: COLORS.success,
-        },
-        activeInReplyActionText: {
-            ...FONTS.Inter['Lt-12'],
             color: COLORS.success,
         },
         postDate: {
@@ -152,8 +115,33 @@ export function useStyles() {
         more: {
             paddingHorizontal: 18,
         },
+
+        indent: {
+            marginLeft: WHITESPACE.postCardIndent,
+        },
         /** *************************** **/
     })
 
-    return useMemo(() => ({ styles, COLORS }), [COLORS])
+    const inReplyStyle = StyleSheet.create({
+        container: {
+            // backgroundColor: COLORS.success,
+            borderRadius: 12,
+            borderColor: COLORS.cardBorder,
+            borderWidth: 0.6,
+            marginLeft: WHITESPACE.postCardIndent,
+            padding: 8,
+            marginTop: 10,
+        },
+        contentContainer: {
+            marginTop: 4,
+        },
+        actionContainer: {
+            marginLeft: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 4,
+        },
+    })
+
+    return useMemo(() => ({ styles: inReply ? { ...styles, ...inReplyStyle } : styles, COLORS }), [COLORS])
 }
