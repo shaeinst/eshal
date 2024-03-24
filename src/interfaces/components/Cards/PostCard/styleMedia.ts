@@ -41,26 +41,40 @@ export function listRenderStyles(COLORS: ColorType, mediaWidth: number, mediaHei
     //
     return StyleSheet.create({
         container: {},
+        blurhash: {
+            borderRadius: 12,
+            width: mediaWidth,
+            height: mediaHeight,
+        },
         media: {
-            backgroundColor: 'red',
             borderRadius: 12,
             width: mediaWidth,
             height: mediaHeight,
         },
         altDescription: {
+            backgroundColor: COLORS.background,
             position: 'absolute',
             zIndex: 1000,
             top: 1,
             left: 0,
             right: 0,
             ...FONTS.Inter['Lt-12'],
-            backgroundColor: COLORS.background,
             color: COLORS.text,
             padding: 6,
             margin: 4,
             borderRadius: 12,
             borderWidth: 0.5,
             borderColor: COLORS.seperator,
+        },
+        unknown: {
+            backgroundColor: COLORS.error,
+            ...FONTS.Inter['Rg-16'],
+            color: COLORS.strongText,
+            width: mediaWidth,
+            height: 150,
+            borderRadius: WHITESPACE.borderRadius,
+            textAlign: 'center',
+            textAlignVertical: 'center',
         },
     })
 }

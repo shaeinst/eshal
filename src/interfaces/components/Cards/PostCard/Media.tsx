@@ -1,5 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View, FlatList } from 'react-native'
+import {
+    Dimensions,
+    Text,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
+    FlatList,
+    ListRenderItemInfo,
+} from 'react-native'
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 import { FlashList } from '@shopify/flash-list'
 import Video, { OnLoadData } from 'react-native-video'
@@ -10,6 +18,7 @@ import { BlurImage } from '$exporter/component'
 import { ColorType, MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FONTS, WHITESPACE, useColors } from '$exporter'
 import { mediaStyles, listRenderStyles } from './styleMedia'
+import { Blurhash } from 'react-native-blurhash'
 
 const baseWidth = Dimensions.get('window').width - WHITESPACE.postCardIndent - 22
 
@@ -55,6 +64,8 @@ type PropsListRenderType = {
 }
 
 const ListRender = ({ item, isAlt, mediaWidth, COLORS }: PropsListRenderType) => {
+    //
+    const [isImageLoading, setIsImageLoading] = useState(false)
     const videoRef = useRef<Video>(null)
     const [mediaHeight, setMediaHeight] = useState(mediaWidth)
     const styles = listRenderStyles(COLORS, mediaWidth, mediaHeight)
@@ -63,6 +74,7 @@ const ListRender = ({ item, isAlt, mediaWidth, COLORS }: PropsListRenderType) =>
         // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
         const { width, height } = event.nativeEvent
         setMediaHeight((mediaWidth * height) / width)
+        setIsImageLoading(true)
     }
     const onVideoLoad = (event: OnLoadData) => {
         // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
@@ -83,19 +95,22 @@ const ListRender = ({ item, isAlt, mediaWidth, COLORS }: PropsListRenderType) =>
                         style={styles.media}
                     />
                 ) : item.type === 'image' || item.type === 'gifv' ? (
-                    <FastImage
-                        // source={{ uri: 'https://clipart-library.com/images/5iRrxkaRT.gif' }}
-                        source={{ uri: item.url }}
-                        onLoad={onImageLoad}
-                        resizeMode="contain"
-                        style={styles.media}
-                    />
+                    <>
+                        {isImageLoading ? <Blurhash blurhash={item.blurhash} style={styles.blurhash} /> : null}
+                        <FastImage
+                            // source={{ uri: 'https://clipart-library.com/images/5iRrxkaRT.gif' }}
+                            source={{ uri: item.url }}
+                            onLoad={onImageLoad}
+                            resizeMode={FastImage.resizeMode.contain}
+                            style={isImageLoading? null: styles.media}
+                        />
+                    </>
                 ) : item.type === 'audio' ? (
                     <View>
                         <Text>Audio file</Text>
                     </View>
                 ) : (
-                    <Text>Unknow</Text>
+                    <Text style={styles.unknown}>Media format not supported</Text>
                 )}
             </View>
         </TouchableWithoutFeedback>
@@ -124,6 +139,12 @@ export default function Media(props: PropsType) {
         console.log('clicked: handleAlt: ', isAlt)
         setIsAlt(prev => !prev)
     }
+
+    // const RenderItem = ({ item }: ListRenderItemInfo<MMediaAttachmentType>) => (
+    //     <ListRender COLORS={COLORS} mediaWidth={mediaWidth} item={item} isAlt={isAlt} />
+    // )
+    // const ItemSeparatorComponent = () => <View style={styles.indent}></View>
+    // const ListHeaderComponent = () => <View style={styles.seperator}></View>
 
     return (
         <View style={styles.container}>

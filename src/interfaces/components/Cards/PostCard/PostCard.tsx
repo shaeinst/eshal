@@ -25,28 +25,29 @@ type PropsType = {
 
 export default function PostCard(props: PropsType) {
     //
-    const { data, inReply } = props
+    const { data: _data, inReply } = props
     const { styles, COLORS } = useStyles(inReply)
+    const data = _data.reblog || _data
 
     const query = queryStatus(data?.in_reply_to_id ? data.in_reply_to_id : undefined)
 
     // useEffect(() => {
-    //     // console.log("\n\n\n\n\n")
-    //     console.log("=====================")
+    //     console.log('\n\n\n\n\n\n\n\n')
+    //     console.log('=====================')
     //     console.log(data)
-    //     console.log("=====================")
+    //     console.log('=====================')
     // }, [])
 
     return (
         <View style={styles.container}>
             {/********** Replied | BOOST ***********/}
-            {data.reblog?.account ? (
+            {_data.reblog?.account ? (
                 <View style={styles.boostContainer}>
-                    <FastImage style={styles.boostUserPic} source={{ uri: data.reblog.account.avatar }} />
+                    <FastImage style={styles.boostUserPic} source={{ uri: _data.reblog.account.avatar }} />
                     <AuthorName
                         reblog
-                        displayName={data.reblog.account.display_name}
-                        emojis={data.reblog.account.emojis}
+                        displayName={_data.reblog.account.display_name}
+                        emojis={_data.reblog.account.emojis}
                     />
                     <BoostIcon width={16} height={17} fill="#038B8B" />
                     <Text style={styles.boostText}>boosted</Text>

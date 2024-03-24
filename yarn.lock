@@ -6157,6 +6157,11 @@ react-native-audio-visualizer@^0.0.1:
   resolved "https://registry.yarnpkg.com/react-native-audio-visualizer/-/react-native-audio-visualizer-0.0.1.tgz#135e05b5371e8ccdb725258bbdc8f94c5c95bc47"
   integrity sha512-QQyaU3UdRpUjagKw8qK6rmjS+cXHtQEQHTQeNW1OaK6zmikJLplAKSNxaGpj1vfj4BkFmE4XOMWclurwFOhbKA==
 
+react-native-blurhash@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-blurhash/-/react-native-blurhash-2.0.2.tgz#a58ea86a5a67bd4b433fe7237b00cebe1abcba63"
+  integrity sha512-qUakbrKgvHynV/clCWh/Zj3p/s+/ED3eyoLFPgSlyrYmnZTtKC/9925l/NvF8ydIhOQpe7zgdEzFwbhpXlvQiQ==
+
 react-native-fast-image@^8.6.3:
   version "8.6.3"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
