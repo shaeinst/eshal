@@ -8,32 +8,29 @@ export function useStyles() {
 
     const styles = StyleSheet.create({
         container: {
-            width: '100%',
             gap: 8,
+            flex: 1,
+            // backgroundColor: 'green',
         },
         headerContainer: {
             flexDirection: 'row',
             justifyContent: 'space-between',
         },
         header: {
+            ...FONTS.Inter['Md-14'],
             color: COLORS.text,
         },
 
-        inputContainer: {
-            borderColor: COLORS.border,
-            borderWidth: WHITESPACE.borderWidthInputForm,
-            borderRadius: WHITESPACE.borderRadiusTextInput,
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
-        inputStyle: {
+        input: {
             // backgroundColor: 'red',
-            ...FONTS.Inter['Rg-18'],
+            ...FONTS.Inter['Rg-16'],
+            flex: 1,
+            borderColor: COLORS.border,
+            borderWidth: WHITESPACE.borderWidthFormInputText,
+            borderRadius: WHITESPACE.borderRadiusFormInputText,
             color: COLORS.text,
-            borderRadius: WHITESPACE.borderRadiusTextInput,
             paddingHorizontal: 8,
-            minHeight: 100,
-            textAlignVertical: 'top'
+            textAlignVertical: 'top',
         },
     })
     return { styles, COLORS }

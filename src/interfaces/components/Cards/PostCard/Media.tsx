@@ -58,11 +58,14 @@ const ListRender = ({ item, isAlt, mediaWidth, COLORS, isSensitive }: PropsListR
         const { width, height } = event.naturalSize
         setMediaHeight((mediaWidth * height) / width)
     }
+    const handleAltDescription = () => {
+        // setMediaHeight(prev=> prev + 30)
+    }
 
     return (
         <TouchableWithoutFeedback>
             <View>
-                {isAlt ? <Text style={styles.altDescription}>{item.description}</Text> : null}
+                {isAlt ? <Text onPress={handleAltDescription} style={styles.altDescription}>{item.description}</Text> : null}
                 {item.type === 'video' ? (
                     // TODO: for now just display not supported
                     // <Video
@@ -120,8 +123,8 @@ export default function Media(props: PropsType) {
     const showAlt = data.some(item => item.description)
     const mediaWidth = inReply
         ? data.length == 1
-            ? baseWidth - 10
-            : baseWidth - 42
+            ? baseWidth - 16
+            : baseWidth - 48
         : data.length == 1
         ? baseWidth
         : baseWidth - 32

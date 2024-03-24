@@ -25,6 +25,8 @@ export { default as VoteIcon } from '../assets/icons/SvgIcons/Vote'
 export { default as PlusMinuxCircleIcon } from '../assets/icons/SvgIcons/PlusMinuxCircle'
 export { default as ArrowUpIcon } from '../assets/icons/SvgIcons/ArrowUp'
 export { default as LinkIcon } from '../assets/icons/SvgIcons/Link'
+export { default as PencilIcon } from '../assets/icons/SvgIcons/Pencil'
+export { default as TrashIcon } from '../assets/icons/SvgIcons/Trash'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';

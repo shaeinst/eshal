@@ -1,7 +1,7 @@
 /**
  *  BUG
  *  Temperorly setting false to "detachInactiveScreens".
- *  there is an bug with react navigation with new Architecture
+ *  there is a bug with react navigation with new Architecture
  *  https://github.com/react-navigation/react-navigation/issues/11384
  *  https://github.com/software-mansion/react-native-screens/issues/1762
  */
@@ -41,7 +41,7 @@ export default function RouteHome() {
             /**
              *  BUG
              *  Temperorly setting false to "detachInactiveScreens".
-             *  there is an bug with react navigation with new Architecture
+             *  there is a bug with react navigation with new Architecture
              *  https://github.com/react-navigation/react-navigation/issues/11384
              *  https://github.com/software-mansion/react-native-screens/issues/1762
              */

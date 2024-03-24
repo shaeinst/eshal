@@ -2,20 +2,63 @@ import { StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
 
-export function useStyles() {
+export const useMediaStyles = (mediaHeight: number, mediaWidth: number) => {
     //
     const { COLORS } = useColors()
 
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
+            width: mediaWidth,
+            height: mediaHeight,
+            backgroundColor: 'pink',
+            borderRadius: 10,
+            overflow: 'hidden',
         },
-        text: {
-            ...FONTS.Inter['SB-32'],
-            color: COLORS.error
-        }
+        media: {
+            flex: 1,
+        },
+        action: {
+            flexDirection: 'row',
+            backgroundColor: COLORS.text,
+            justifyContent: 'center',
+            position: 'absolute',
+            bottom: 10,
+            alignSelf: 'center',
+            gap: 10,
+            borderRadius: WHITESPACE.borderRadius,
+            paddingVertical: 2,
+            paddingHorizontal: 6,
+        },
+    })
+
+    return { styles, COLORS }
+}
+
+export function useStyles() {
+    //
+    const { COLORS } = useColors()
+
+    const styles = StyleSheet.create({
+        scrollView: {
+            flex: 1,
+            // backgroundColor: 'red',
+        },
+        container: {
+            // backgroundColor: 'green',
+            // alignItems: 'center',
+            gap: 20,
+        },
+        warnText: {
+            width: '100%',
+            height: 100,
+        },
+        content: {
+            width: '100%',
+            height: 200,
+        },
+        mediaSeparator: {
+            width: 10,
+        },
     })
 
     return { styles, COLORS }
