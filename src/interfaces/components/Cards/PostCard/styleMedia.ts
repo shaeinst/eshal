@@ -41,13 +41,17 @@ export function listRenderStyles(COLORS: ColorType, mediaWidth: number, mediaHei
     //
     return StyleSheet.create({
         container: {},
-        blurhash: {
-            borderRadius: 12,
+        containerBlurhash: {
+            borderRadius: WHITESPACE.borderRadius,
             width: mediaWidth,
             height: mediaHeight,
+            overflow: 'hidden',
+        },
+        blurhash: {
+            flex: 1,
         },
         media: {
-            borderRadius: 12,
+            borderRadius: WHITESPACE.borderRadius,
             width: mediaWidth,
             height: mediaHeight,
         },
@@ -75,6 +79,30 @@ export function listRenderStyles(COLORS: ColorType, mediaWidth: number, mediaHei
             borderRadius: WHITESPACE.borderRadius,
             textAlign: 'center',
             textAlignVertical: 'center',
+        },
+        containerNSFW: {
+            borderRadius: WHITESPACE.borderRadius,
+            width: mediaWidth,
+            height: mediaHeight,
+            overflow: 'hidden',
+        },
+        NSFWBlurhash: {
+            flex: 1,
+        },
+        nsfwButton: {
+            gap: 4,
+            borderRadius: WHITESPACE.borderRadius,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: COLORS.error,
+            alignSelf: 'center',
+            paddingHorizontal: 6,
+            paddingVertical: 2,
+            marginTop: 2,
+        },
+        nsfwButtonText: {
+            // color: COLORS.error
         },
     })
 }

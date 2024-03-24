@@ -11,44 +11,15 @@ import {
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 import { FlashList } from '@shopify/flash-list'
 import Video, { OnLoadData } from 'react-native-video'
-import WaveForm from 'react-native-audiowaveform'
+import { Blurhash } from 'react-native-blurhash'
 
-import { SwitchIcon } from '$exporter/asset'
-import { BlurImage } from '$exporter/component'
+import { EyeIcon, SwitchIcon } from '$exporter/asset'
+import { BlurImage, PrimaryButton } from '$exporter/component'
 import { ColorType, MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FONTS, WHITESPACE, useColors } from '$exporter'
 import { mediaStyles, listRenderStyles } from './styleMedia'
-import { Blurhash } from 'react-native-blurhash'
 
 const baseWidth = Dimensions.get('window').width - WHITESPACE.postCardIndent - 22
-
-// Import the react-native-sound module
-var Sound = require('react-native-sound')
-// Enable playback in silence mode
-// Sound.setCategory('Playback')
-// var whoosh = new Sound(
-//     'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
-//     Sound.MAIN_BUNDLE,
-//     (error: any) => {
-//         if (error) {
-//             console.log('failed to load the sound', error)
-//             return
-//         }
-//         // loaded successfully
-//         console.log(
-//             'duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels(),
-//         )
-
-//         // Play the sound with an onEnd callback
-//         whoosh.play((success: any) => {
-//             if (success) {
-//                 console.log('successfully finished playing')
-//             } else {
-//                 console.log('playback failed due to audio decoding errors')
-//             }
-//         })
-//     },
-// )
 
 type PropsType = {
     id: string
@@ -61,20 +32,26 @@ type PropsListRenderType = {
     isAlt: boolean
     mediaWidth: number
     COLORS: ColorType
+    isSensitive: boolean
 }
 
-const ListRender = ({ item, isAlt, mediaWidth, COLORS }: PropsListRenderType) => {
+const ListRender = ({ item, isAlt, mediaWidth, COLORS, isSensitive }: PropsListRenderType) => {
     //
-    const [isImageLoading, setIsImageLoading] = useState(false)
     const videoRef = useRef<Video>(null)
     const [mediaHeight, setMediaHeight] = useState(mediaWidth)
+    const [isImageLoading, setIsImageLoading] = useState(true)
+    const [hideNSFW, setHideSNFW] = useState(isSensitive)
+
     const styles = listRenderStyles(COLORS, mediaWidth, mediaHeight)
 
+    const handleNSFW = () => {
+        setHideSNFW(prev => !prev)
+    }
     const onImageLoad = (event: OnLoadEvent) => {
         // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
         const { width, height } = event.nativeEvent
         setMediaHeight((mediaWidth * height) / width)
-        setIsImageLoading(true)
+        setIsImageLoading(false)
     }
     const onVideoLoad = (event: OnLoadData) => {
         // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
@@ -87,28 +64,46 @@ const ListRender = ({ item, isAlt, mediaWidth, COLORS }: PropsListRenderType) =>
             <View>
                 {isAlt ? <Text style={styles.altDescription}>{item.description}</Text> : null}
                 {item.type === 'video' ? (
-                    <Video
-                        source={{ uri: item.url }}
-                        ref={videoRef}
-                        onLoad={onVideoLoad}
-                        resizeMode="contain"
-                        style={styles.media}
-                    />
+                    // TODO: for now just display not supported
+                    // <Video
+                    //     source={{ uri: item.url }}
+                    //     ref={videoRef}
+                    //     onLoad={onVideoLoad}
+                    //     resizeMode="contain"
+                    //     style={styles.media}
+                    // />
+                    <Text style={styles.unknown}>Media format not supported</Text>
                 ) : item.type === 'image' || item.type === 'gifv' ? (
                     <>
-                        {isImageLoading ? <Blurhash blurhash={item.blurhash} style={styles.blurhash} /> : null}
+                        {isImageLoading ? (
+                            <View style={styles.containerBlurhash}>
+                                <Blurhash blurhash={item.blurhash} style={styles.blurhash} />
+                            </View>
+                        ) : null}
                         <FastImage
                             // source={{ uri: 'https://clipart-library.com/images/5iRrxkaRT.gif' }}
                             source={{ uri: item.url }}
                             onLoad={onImageLoad}
                             resizeMode={FastImage.resizeMode.contain}
-                            style={isImageLoading? null: styles.media}
+                            style={isImageLoading || hideNSFW ? null : styles.media}
                         />
+                        {isSensitive && !isImageLoading ? (
+                            <>
+                                {hideNSFW ? (
+                                    <View style={styles.containerNSFW}>
+                                        <Blurhash blurhash={item.blurhash} style={styles.NSFWBlurhash} />
+                                    </View>
+                                ) : null}
+                                <TouchableOpacity onPress={handleNSFW} style={styles.nsfwButton}>
+                                    <EyeIcon hidden={!hideNSFW} />
+                                    <Text style={styles.nsfwButtonText}>NSFW</Text>
+                                </TouchableOpacity>
+                            </>
+                        ) : null}
                     </>
                 ) : item.type === 'audio' ? (
-                    <View>
-                        <Text>Audio file</Text>
-                    </View>
+                    // TODO: for now just display not supported
+                    <Text style={styles.unknown}>Media format not supported</Text>
                 ) : (
                     <Text style={styles.unknown}>Media format not supported</Text>
                 )}
@@ -123,7 +118,6 @@ export default function Media(props: PropsType) {
     const { styles, COLORS } = mediaStyles(inReply)
 
     const showAlt = data.some(item => item.description)
-    // const mediaWidth = data.length == 1 ? baseWidth : baseWidth - 32
     const mediaWidth = inReply
         ? data.length == 1
             ? baseWidth - 10
@@ -134,9 +128,7 @@ export default function Media(props: PropsType) {
 
     const [isAlt, setIsAlt] = useState(false)
 
-    // HANDLES
     const handleAlt = () => {
-        console.log('clicked: handleAlt: ', isAlt)
         setIsAlt(prev => !prev)
     }
 
@@ -155,12 +147,6 @@ export default function Media(props: PropsType) {
                 </TouchableOpacity>
             ) : null}
 
-            {/* <WaveForm */}
-            {/*     source={{ uri: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3' }} */}
-            {/*     waveFormStyle={{ waveColor: 'red', scrubColor: 'white' }} */}
-            {/*     play={false} */}
-            {/* /> */}
-
             <FlatList
                 data={data}
                 keyExtractor={item => id + item.url}
@@ -169,7 +155,13 @@ export default function Media(props: PropsType) {
                 contentContainerStyle={styles.contentContainer}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <ListRender COLORS={COLORS} mediaWidth={mediaWidth} item={item} isAlt={isAlt} />
+                    <ListRender
+                        COLORS={COLORS}
+                        mediaWidth={mediaWidth}
+                        item={item}
+                        isAlt={isAlt}
+                        isSensitive={isSensitive}
+                    />
                 )}
                 ListHeaderComponent={() => <View style={styles.indent}></View>}
                 ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
