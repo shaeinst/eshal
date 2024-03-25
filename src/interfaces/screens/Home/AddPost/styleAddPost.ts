@@ -1,6 +1,8 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
+
+const { height } = Dimensions.get('screen')
 
 export const useMediaStyles = (mediaHeight: number, mediaWidth: number) => {
     //
@@ -58,6 +60,18 @@ export function useStyles() {
         },
         mediaSeparator: {
             width: 10,
+        },
+        pollContainer: {
+            gap: 6,
+        },
+        pollInput: {
+            height: 46,
+        },
+        pollActionContainer: {
+            // backgroundColor: 'red',
+            gap: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
         },
     })
 

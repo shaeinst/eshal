@@ -6,29 +6,28 @@ import { useStyles } from './styleTextInput'
 type PropsType = {
     header: string
     limit: number
-    numberOfLines?: number
     showCount?: boolean
     border?: 'light' | 'medium' | 'heavy'
 }
 
 export default function ContentInput(props: PropsType) {
     //
-    const { header, numberOfLines, limit, showCount, border } = props
+    const { header, limit, showCount, border } = props
     const { styles } = useStyles()
 
     const [text, setText] = useState('')
     const [textLength, setTextLength] = useState(0)
+    const [isLimitExceed, setIsLimitExceed] = useState(false)
 
     const handleOnChangeText = (inputText: string) => {
         //
         const inputTextLength = inputText.length
 
-        if (inputTextLength > limit) {
-            const stripedText = inputText.substring(0, limit)
-            setText(stripedText)
-            setTextLength(stripedText.length)
-            return
+        if (inputTextLength > limit) setIsLimitExceed(true)
+        else {
+            if (isLimitExceed) setIsLimitExceed(false)
         }
+
         setText(inputText)
         setTextLength(inputTextLength)
     }
@@ -39,16 +38,15 @@ export default function ContentInput(props: PropsType) {
                 <Text style={styles.header}>{header}</Text>
                 {showCount ? (
                     <Text style={styles.header}>
-                        {textLength} / {limit}
+                        <Text style={isLimitExceed ? styles.limitExceed : null}>{textLength}</Text> / {limit}
                     </Text>
                 ) : null}
             </View>
             <TextInput
                 value={text}
                 onChangeText={handleOnChangeText}
-                style={styles.input}
+                style={[styles.input, isLimitExceed ? styles.limitExceedInput : null]}
                 multiline
-                numberOfLines={numberOfLines}
             />
         </View>
     )

@@ -20,7 +20,9 @@ export function useStyles() {
             ...FONTS.Inter['Md-14'],
             color: COLORS.text,
         },
-
+        limitExceed: {
+            color: COLORS.error,
+        },
         input: {
             // backgroundColor: 'red',
             ...FONTS.Inter['Rg-16'],
@@ -31,6 +33,9 @@ export function useStyles() {
             color: COLORS.text,
             paddingHorizontal: 8,
             textAlignVertical: 'top',
+        },
+        limitExceedInput: {
+            borderColor: COLORS.error,
         },
     })
     return { styles, COLORS }

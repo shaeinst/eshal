@@ -6,6 +6,7 @@ export { default as CredInput } from '../interfaces/components/Forms/CredInput/C
 
 // INPUTS
 export { default as InputText } from '../interfaces/components/Forms/TextInput/TextInput'
+export { default as InputInline } from '../interfaces/components/Forms/InlineInput/InlineInput'
 
 // NAVBAR
 export { default as BottomNav } from '../interfaces/components/Navigations/BottomNav/BottomNav'

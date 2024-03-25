@@ -4,8 +4,8 @@ import { FlatList } from 'react-native-gesture-handler'
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 import { ListRenderItemInfo } from '@shopify/flash-list'
 
-import { InputText } from '$exporter/component'
-import { PencilIcon, TrashIcon } from '$exporter/asset'
+import { InputInline, InputText, PrimaryButton } from '$exporter/component'
+import { PencilIcon, PlusIcon, SettingIcon, TrashIcon } from '$exporter/asset'
 import { useStyles, useMediaStyles } from './styleAddPost'
 
 const ToUploadMedia = ({ url, mediaHeight }: { url: string; mediaHeight: number }) => {
@@ -46,6 +46,8 @@ const ToUploadMedia = ({ url, mediaHeight }: { url: string; mediaHeight: number 
 
 export default function AddPost() {
     //
+    const [poll, setPoll] = useState(['', ''])
+
     const { styles } = useStyles()
     const mediaHeight = Dimensions.get('window').width / 2.4
     const images = [
@@ -59,7 +61,7 @@ export default function AddPost() {
     ]
 
     return (
-        <ScrollView style={styles.scrollView}>
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <View style={styles.warnText}>
                     <InputText header="Content Warning" limit={500} />
@@ -73,6 +75,21 @@ export default function AddPost() {
                     renderItem={({ item }) => <ToUploadMedia url={item} mediaHeight={mediaHeight} />}
                     ItemSeparatorComponent={() => <View style={styles.mediaSeparator}></View>}
                 />
+                <View style={styles.pollContainer}>
+                    {poll.map((opt, index) => (
+                        <View key={`KEY-ADDPOST-POLL${opt + index}`} style={styles.pollInput}>
+                            <InputInline placeholder={`Option ${index + 1}`} />
+                        </View>
+                    ))}
+                    <View style={styles.pollActionContainer}>
+                        <TouchableOpacity>
+                            <PlusIcon />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <SettingIcon />
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
         </ScrollView>
     )
