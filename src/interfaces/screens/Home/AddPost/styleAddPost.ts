@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
 
-const { height } = Dimensions.get('screen')
+const { height } = Dimensions.get('window')
 
 export const useMediaStyles = (mediaHeight: number, mediaWidth: number) => {
     //
@@ -41,13 +41,17 @@ export function useStyles() {
     const { COLORS } = useColors()
 
     const styles = StyleSheet.create({
-        scrollView: {
-            flex: 1,
-            // backgroundColor: 'red',
-        },
         container: {
-            // backgroundColor: 'green',
-            // alignItems: 'center',
+            // backgroundColor: 'skyblue',
+            flex: 1,
+        },
+        back: {
+            // backgroundColor: 'skyblue',
+            padding: 5,
+            alignSelf: 'flex-start',
+        },
+        scrollView: {
+            // backgroundColor: 'yellow',
             gap: 20,
         },
         warnText: {
@@ -56,7 +60,7 @@ export function useStyles() {
         },
         content: {
             width: '100%',
-            height: 200,
+            height: height/3,
         },
         mediaSeparator: {
             width: 10,
@@ -72,6 +76,28 @@ export function useStyles() {
             gap: 10,
             flexDirection: 'row',
             alignItems: 'center',
+        },
+        actionsContainer: {
+            backgroundColor: COLORS.border,
+            // borderColor: COLORS.border,
+            borderRadius: WHITESPACE.borderRadiusMedia,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 16,
+            padding: 6,
+            marginBottom: 1,
+        },
+        sendButton: {
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+        active: {
+            backgroundColor: COLORS.background,
+            padding: 4,
+            borderRadius: 50,
+        },
+        indent: {
+            height: height / 2,
         },
     })
 
