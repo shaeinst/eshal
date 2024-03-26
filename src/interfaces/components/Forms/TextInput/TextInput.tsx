@@ -4,18 +4,21 @@ import { Text, TextInput, View } from 'react-native'
 import { useStyles } from './styleTextInput'
 
 type PropsType = {
-    header: string
+    text: string
+    setText: React.Dispatch<React.SetStateAction<string>>
+    placeholder: string
     limit: number
+    minHeight: number
+    maxHeight: number
     showCount?: boolean
-    border?: 'light' | 'medium' | 'heavy'
+    warn?: boolean
 }
 
 export default function ContentInput(props: PropsType) {
     //
-    const { header, limit, showCount, border } = props
-    const { styles } = useStyles()
+    const { text, setText, placeholder, limit, showCount, minHeight, maxHeight, warn } = props
+    const { styles, COLORS } = useStyles(minHeight, maxHeight)
 
-    const [text, setText] = useState('')
     const [textLength, setTextLength] = useState(0)
     const [isLimitExceed, setIsLimitExceed] = useState(false)
 
@@ -34,20 +37,19 @@ export default function ContentInput(props: PropsType) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.header}>{header}</Text>
-                {showCount ? (
-                    <Text style={styles.header}>
-                        <Text style={isLimitExceed ? styles.limitExceed : null}>{textLength}</Text> / {limit}
-                    </Text>
-                ) : null}
-            </View>
             <TextInput
+                placeholder={placeholder}
+                placeholderTextColor={COLORS.placeholder}
                 value={text}
                 onChangeText={handleOnChangeText}
-                style={[styles.input, isLimitExceed ? styles.limitExceedInput : null]}
+                style={[styles.input, warn ? styles.warn : null, isLimitExceed ? styles.limitExceed : null]}
                 multiline
             />
+            {showCount ? (
+                <Text style={styles.count}>
+                    <Text style={isLimitExceed ? styles.limitExceed : null}>{textLength}</Text> / {limit}
+                </Text>
+            ) : null}
         </View>
     )
 }

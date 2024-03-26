@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native'
 import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native'
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
+import ImagePicker from 'react-native-image-crop-picker'
 import { ListRenderItemInfo } from '@shopify/flash-list'
 
 import { InputInline, InputText, PrimaryButton } from '$exporter/component'
@@ -18,10 +19,11 @@ import {
     TrashIcon,
     WarnIcon,
 } from '$exporter/asset'
-import { useStyles, useMediaStyles } from './styleAddPost'
 import { useZustandStore } from '$exporter'
+import { useStyles, useMediaStyles } from './styleAddPost'
 
-const mediaHeight = Dimensions.get('window').width / 2.4
+const { height, width } = Dimensions.get('window')
+const mediaHeight = width / 2.4
 
 const ToUploadMedia = ({ url, mediaHeight }: { url: string; mediaHeight: number }) => {
     //
@@ -61,6 +63,8 @@ const ToUploadMedia = ({ url, mediaHeight }: { url: string; mediaHeight: number 
 
 export default function AddPost() {
     //
+    const [warnText, setWarnText] = useState('')
+    const [contentText, setContentText] = useState('')
     const [poll, setPoll] = useState(['', ''])
     const [actives, setActives] = useState({
         warn: {
@@ -72,7 +76,7 @@ export default function AddPost() {
             disabled: false,
         },
         media: {
-            selected: false,
+            selected: true,
             disabled: false,
         },
         poll: {
@@ -111,6 +115,18 @@ export default function AddPost() {
         navigate('timeline')
     }
 
+    const handleAddMedia = () => {
+        ImagePicker.openPicker({
+            mediaType: 'any',
+        })
+            .then(media => {
+                console.log(media)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     useFocusEffect(
         useCallback(() => {
             setHideBottomTab(true)
@@ -126,14 +142,26 @@ export default function AddPost() {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.scrollView}>
                     {actives.warn.selected ? (
-                        <View style={styles.warnText}>
-                            <InputText header="Content Warning" limit={500} />
-                        </View>
+                        <InputText
+                            text={warnText}
+                            setText={setWarnText}
+                            minHeight={50}
+                            maxHeight={120}
+                            placeholder="Content Warning"
+                            limit={500}
+                            warn
+                        />
                     ) : null}
                     {actives.content.selected ? (
-                        <View style={styles.content}>
-                            <InputText header="Type or paste what’s on your mind" limit={500} showCount />
-                        </View>
+                        <InputText
+                            text={contentText}
+                            setText={setContentText}
+                            minHeight={height / 3}
+                            maxHeight={height / 2}
+                            placeholder="Type or paste what’s on your mind"
+                            limit={500}
+                            showCount
+                        />
                     ) : null}
                     {actives.media.selected ? (
                         <FlatList
@@ -166,27 +194,26 @@ export default function AddPost() {
 
             <View style={styles.actionsContainer}>
                 <TouchableOpacity
+                    onPress={handleAddMedia}
                     disabled={actives.media.disabled}
                     style={actives.media.selected ? styles.active : null}>
-                    <GalleryIcon fill={actives.media ? COLORS.text : undefined} />
+                    <GalleryIcon fill={actives.media ? COLORS.background : undefined} />
                 </TouchableOpacity>
-                <TouchableOpacity
-                    disabled={actives.poll.disabled}
-                    style={actives.poll.selected ? styles.active : null}>
-                    <PollIcon fill={actives.poll ? COLORS.text : undefined} />
+                <TouchableOpacity disabled={actives.poll.disabled} style={actives.poll.selected ? styles.active : null}>
+                    <PollIcon fill={actives.poll ? COLORS.background : undefined} />
                 </TouchableOpacity>
                 <TouchableOpacity disabled={actives.warn.disabled} style={actives.warn.selected ? styles.active : null}>
-                    <WarnIcon fill={actives.warn ? COLORS.text : undefined} />
+                    <WarnIcon fill={actives.warn ? COLORS.background : undefined} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     disabled={actives.emoji.disabled}
                     style={actives.emoji.selected ? styles.active : null}>
-                    <EmojiIcon fill={actives.emoji ? COLORS.text : undefined} />
+                    <EmojiIcon fill={actives.emoji ? COLORS.background : undefined} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     disabled={actives.language.disabled}
                     style={actives.language.selected ? styles.active : null}>
-                    <EarthIcon fill={actives.language ? COLORS.text : undefined} />
+                    <EarthIcon fill={actives.language ? COLORS.background : undefined} />
                 </TouchableOpacity>
                 <TouchableOpacity disabled={actives.send.disabled} style={styles.sendButton}>
                     <TelegramIcon fill={actives.send ? COLORS.text : undefined} />

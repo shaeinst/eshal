@@ -10,9 +10,9 @@ export function useStyles() {
         container: {
             // backgroundColor: 'green',
             flex: 1,
-            borderColor: COLORS.border,
-            borderWidth: WHITESPACE.borderWidthFormInputText,
-            borderRadius: WHITESPACE.borderRadiusFormInputText,
+            // borderColor: COLORS.border,
+            // borderWidth: WHITESPACE.borderWidthFormInputText,
+            // borderRadius: WHITESPACE.borderRadiusFormInputText,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',

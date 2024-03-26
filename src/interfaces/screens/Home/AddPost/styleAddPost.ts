@@ -54,20 +54,10 @@ export function useStyles() {
             // backgroundColor: 'yellow',
             gap: 20,
         },
-        warnText: {
-            width: '100%',
-            height: 100,
-        },
-        content: {
-            width: '100%',
-            height: height/3,
-        },
         mediaSeparator: {
             width: 10,
         },
-        pollContainer: {
-            gap: 6,
-        },
+        pollContainer: {},
         pollInput: {
             height: 46,
         },
@@ -76,23 +66,20 @@ export function useStyles() {
             gap: 10,
             flexDirection: 'row',
             alignItems: 'center',
+            alignSelf: 'flex-end',
         },
         actionsContainer: {
-            backgroundColor: COLORS.border,
-            // borderColor: COLORS.border,
-            borderRadius: WHITESPACE.borderRadiusMedia,
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 16,
+            gap: 4,
             padding: 6,
-            marginBottom: 1,
         },
         sendButton: {
             marginLeft: 'auto',
-            marginRight: 'auto',
+            marginRight: 8,
         },
         active: {
-            backgroundColor: COLORS.background,
+            backgroundColor: COLORS.text,
             padding: 4,
             borderRadius: 50,
         },

@@ -19,6 +19,7 @@ export type ColorType = {
     cardBorder: string
     link: string
     tabShadow: string
+    warn: string
 }
 
 const colors = {
@@ -40,6 +41,7 @@ const colors = {
     cardBorder: { light: '#000000', dark: '#ffffff' },
     link: { light: '#0095F6', dark: '#0095F6' },
     tabShadow: { light: '#000000', dark: '#ffffff' },
+    warn: { light: '#c8aa51', dark: '#c8aa51' },
 
     // theme mode independent colors
     common: {
@@ -72,6 +74,7 @@ export default function useColors() {
                   cardBorder: colors.cardBorder.dark,
                   link: colors.link.dark,
                   tabShadow: colors.tabShadow.dark,
+                  warn: colors.warn.dark,
               }
             : {
                   ...colors.common,
@@ -92,6 +95,7 @@ export default function useColors() {
                   cardBorder: colors.cardBorder.light,
                   link: colors.link.light,
                   tabShadow: colors.tabShadow.light,
+                  warn: colors.warn.light,
               }
 
     return useMemo(() => ({ COLORS, themeMode }), [themeMode])

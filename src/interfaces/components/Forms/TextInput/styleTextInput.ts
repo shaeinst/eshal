@@ -2,40 +2,37 @@ import { StyleSheet } from 'react-native'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
 
-export function useStyles() {
+export function useStyles(minHeight: number, maxHeight: number) {
     //
     const { COLORS } = useColors()
 
     const styles = StyleSheet.create({
         container: {
-            gap: 8,
-            flex: 1,
             // backgroundColor: 'green',
-        },
-        headerContainer: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-        },
-        header: {
-            ...FONTS.Inter['Md-14'],
-            color: COLORS.text,
-        },
-        limitExceed: {
-            color: COLORS.error,
         },
         input: {
             // backgroundColor: 'red',
             ...FONTS.Inter['Rg-16'],
-            flex: 1,
-            borderColor: COLORS.border,
-            borderWidth: WHITESPACE.borderWidthFormInputText,
-            borderRadius: WHITESPACE.borderRadiusFormInputText,
             color: COLORS.text,
-            paddingHorizontal: 8,
             textAlignVertical: 'top',
+            borderColor: COLORS.border,
+            borderBottomWidth: WHITESPACE.borderWidthFormInputText,
+            minHeight: minHeight,
+            maxHeight: maxHeight,
         },
-        limitExceedInput: {
-            borderColor: COLORS.error,
+        warn: {
+            backgroundColor: COLORS.warn,
+            color: COLORS.background,
+            borderRadius: WHITESPACE.borderRadiusFormInputText,
+        },
+        count: {
+            ...FONTS.Inter['Md-14'],
+            color: COLORS.placeholder,
+            alignSelf: 'flex-end',
+            marginTop: -25,
+        },
+        limitExceed: {
+            color: COLORS.error,
         },
     })
     return { styles, COLORS }
