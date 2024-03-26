@@ -81,6 +81,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        // Custom Added: https://github.com/ivpusic/react-native-image-crop-picker?tab=readme-ov-file#android
+        vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
         debug {
