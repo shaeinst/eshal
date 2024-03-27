@@ -21,6 +21,7 @@ export function useStyles(minHeight: number, maxHeight: number) {
             maxHeight: maxHeight,
         },
         warn: {
+            ...FONTS.Inter['Md-16'],
             backgroundColor: COLORS.warn,
             color: COLORS.background,
             borderRadius: WHITESPACE.borderRadiusFormInputText,

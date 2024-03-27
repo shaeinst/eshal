@@ -35,6 +35,7 @@ export { default as TrashIcon } from '../assets/icons/SvgIcons/Trash'
 export { default as TwoDotIcon } from '../assets/icons/SvgIcons/TwoDot'
 export { default as VoteIcon } from '../assets/icons/SvgIcons/Vote'
 export { default as WarnIcon } from '../assets/icons/SvgIcons/Warn'
+export { default as CheckListIcon } from '../assets/icons/SvgIcons/CheckList'
 
 // illustrations
 // export {default as WelcomeArtIllus} from '../assets/illustrations/WelcomeArt';

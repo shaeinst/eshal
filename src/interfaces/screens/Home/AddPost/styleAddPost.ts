@@ -4,37 +4,6 @@ import { FONTS, useColors, WHITESPACE } from '$exporter'
 
 const { height } = Dimensions.get('window')
 
-export const useMediaStyles = (mediaHeight: number, mediaWidth: number) => {
-    //
-    const { COLORS } = useColors()
-
-    const styles = StyleSheet.create({
-        container: {
-            width: mediaWidth,
-            height: mediaHeight,
-            backgroundColor: 'pink',
-            borderRadius: 10,
-            overflow: 'hidden',
-        },
-        media: {
-            flex: 1,
-        },
-        action: {
-            flexDirection: 'row',
-            backgroundColor: COLORS.text,
-            justifyContent: 'center',
-            position: 'absolute',
-            bottom: 10,
-            alignSelf: 'center',
-            gap: 10,
-            borderRadius: WHITESPACE.borderRadius,
-            paddingVertical: 2,
-            paddingHorizontal: 6,
-        },
-    })
-
-    return { styles, COLORS }
-}
 
 export function useStyles() {
     //
@@ -54,6 +23,9 @@ export function useStyles() {
             // backgroundColor: 'yellow',
             gap: 20,
         },
+        mediaContainer: {
+            alignSelf: 'flex-start',
+        },
         mediaSeparator: {
             width: 10,
         },
@@ -62,16 +34,49 @@ export function useStyles() {
             height: 46,
         },
         pollActionContainer: {
-            // backgroundColor: 'red',
-            gap: 10,
+            gap: 8,
+            alignSelf: 'flex-end',
+            marginTop: 10,
+        },
+        pollActionSettingContainer: {
+            gap: 6,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+        },
+        pollActionButton: {
             flexDirection: 'row',
             alignItems: 'center',
-            alignSelf: 'flex-end',
+            justifyContent: 'flex-end',
+        },
+        pollTextContainer: {
+            flexDirection: 'row',
+            gap: 4,
+            alignItems: 'center',
+        },
+        pollText: {
+            ...FONTS.Inter['Md-16'],
+            color: COLORS.placeholder,
+        },
+        pollTextLength: {
+            ...FONTS.Inter['Md-16'],
+            borderBottomWidth: 2,
+            color: COLORS.placeholder,
+            borderColor: COLORS.error,
+        },
+        pollLenghtContainer: {
+            backgroundColor: COLORS.text,
+            borderRadius: WHITESPACE.borderRadiusTextInput,
+            padding: 10,
+        },
+        pollLenghtText: {
+            ...FONTS.Inter['Md-16'],
+            color: COLORS.background,
         },
         actionsContainer: {
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 4,
+            gap: 8,
             padding: 6,
         },
         sendButton: {

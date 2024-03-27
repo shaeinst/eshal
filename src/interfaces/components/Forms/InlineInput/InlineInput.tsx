@@ -6,34 +6,48 @@ import { useStyles } from './styleInputInline'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type PropsType = {
-    placeholder: string
+    pollData: { placeholder: string; value: string }[]
+    setPollData: React.Dispatch<React.SetStateAction<{ placeholder: string; value: string }[]>>
+    index: number
 }
 
 export default function InlineInput(props: PropsType) {
     //
-    const { placeholder } = props
-    const [inputText, setInputText] = useState('')
+    const { pollData, setPollData, index } = props
 
     const { styles, COLORS } = useStyles()
 
     const handleChangeText = (eventText: string) => {
-        setInputText(eventText)
+        setPollData(prevData => {
+            const updatedPollData = [...prevData]
+            updatedPollData[index] = { ...updatedPollData[index], value: eventText }
+            return updatedPollData
+        })
+    }
+
+    const handleRemove = () => {
+        console.log('handled remove: ', pollData[index].placeholder)
+        if (pollData.length <= 2) return
+        setPollData(prevData => {
+            const updatedPollData = prevData.filter((_, i) => i !== index)
+            return updatedPollData
+        })
     }
 
     return (
         <View style={styles.container}>
             <TextInput
-                placeholder={placeholder}
+                placeholder={pollData[index].placeholder}
                 placeholderTextColor={COLORS.placeholder}
                 style={styles.input}
-                value={inputText}
+                value={pollData[index].value}
                 onChangeText={handleChangeText}
                 //
             />
-            <TouchableOpacity>
-                <CloseIcon width={12} height={12} />
+            <TouchableOpacity onPress={handleRemove} style={styles.close}>
+                <CloseIcon width={16} height={16} />
             </TouchableOpacity>
-            <DragDotIcon />
+            {/* <DragDotIcon /> */}
         </View>
     )
 }

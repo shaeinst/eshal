@@ -24,6 +24,12 @@ export function useStyles() {
             color: COLORS.text,
             paddingHorizontal: 8,
         },
+        close: {
+            height: '100%',
+            width: 26,
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
     })
     return { styles, COLORS }
 }
