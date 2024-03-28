@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
-import ImagePicker from 'react-native-image-crop-picker'
 
 import { WHITESPACE, useColors } from '$exporter'
 import { PencilIcon, TrashIcon } from '$exporter/asset'
+import { useHandler } from './useHandler'
 
 const { width } = Dimensions.get('window')
 const mediaHeight = width / 2.4
@@ -49,40 +49,15 @@ const RenderItem = ({ url, mediaHeight, handleRemove }: PropsRenderItemType) => 
 
 export function UploadMedia() {
     //
-    const [media, setMedia] = useState<string[]>([])
+    const { media, removeMedia } = useHandler()
 
-    const handleAddMedia = () => {
-        ImagePicker.openPicker({
-            mediaType: 'any',
-            multiple: true,
-            cropping: false,
-        })
-            .then(res => {
-                res.map(item => {
-                    setMedia(prev => [item.path, ...prev])
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
-    const handleRemoveMedia = (path: string) => {
-        //
-        ImagePicker.cleanSingle(path)
-            .then(() => {
-                setMedia(prev => prev.filter(item => item !== path))
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
     return (
         <FlatList
             data={media}
             style={{ flex: 1 }}
             horizontal
             renderItem={({ item }) => (
-                <RenderItem handleRemove={() => handleRemoveMedia(item)} url={item} mediaHeight={mediaHeight} />
+                <RenderItem handleRemove={() => removeMedia(item)} url={item} mediaHeight={mediaHeight} />
             )}
             ItemSeparatorComponent={() => <View style={{ width: 10 }}></View>}
         />

@@ -9,22 +9,15 @@ import { UploadMedia } from './UploadMedia'
 import { Poll } from './Poll'
 import { ContentText, WarnText } from './Content'
 import { Options } from './Options'
+import { useHandler } from './useHandler'
 
 export default function AddPost() {
     //
-    const [actives, setActives] = useState({
-        warn: false,
-        content: true,
-        media: true,
-        poll: true,
-        emoji: true,
-        language: true,
-        send: false,
-    })
 
+    const { setHideBottomTab } = useZustandStore()
     const { navigate } = useNavigation<NavigationProp<any>>()
     const { styles, COLORS } = useStyles()
-    const { setHideBottomTab } = useZustandStore()
+    const { actives } = useHandler()
 
     useFocusEffect(
         useCallback(() => {
@@ -45,7 +38,7 @@ export default function AddPost() {
                 {actives.poll ? <Poll /> : null}
                 <View style={styles.indent}></View>
             </ScrollView>
-            <Options actives={actives} />
+            <Options />
         </View>
     )
 }
