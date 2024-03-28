@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, Text, View } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -25,8 +25,9 @@ export default React.memo(function Timeline() {
 
     const Skeleton = (
         <View style={styles.skeleton}>
-            {isLoading || isFetching ? <PostSkeleton /> : null}
-            {isError ? <Text style={styles.skeletonText}>{error.message}</Text> : null}
+            {/* {isLoading || isFetching ? <PostSkeleton /> : null} */}
+            {isLoading || isFetching ? <ActivityIndicator size="large" /> : null}
+            {!isLoading && !isFetching && isError ? <Text style={styles.skeletonText}>{error.message}</Text> : null}
         </View>
     )
 
@@ -55,7 +56,7 @@ export default React.memo(function Timeline() {
                 onEndReached={handleEndReached}
                 onEndReachedThreshold={0.4}
                 onScroll={handleOnScroll}
-                ItemSeparatorComponent={()=><View style={styles.separator}></View>}
+                ItemSeparatorComponent={() => <View style={styles.separator}></View>}
             />
             {latest3.length > 0 ? <LatestPostIndicator urls={latest3} /> : null}
         </View>

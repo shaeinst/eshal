@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-import { useColors } from '$exporter'
+import { WHITESPACE, useColors } from '$exporter'
 
 export function useStyles() {
     //
@@ -9,8 +9,10 @@ export function useStyles() {
     const styles = StyleSheet.create({
         container: {
             height: 200,
-            padding: 8,
             gap: 8,
+            paddingTop: 6,
+            marginTop: 6,
+            marginLeft: WHITESPACE.postCardIndent,
         },
         authorContainer: {
             flexDirection: 'row',
