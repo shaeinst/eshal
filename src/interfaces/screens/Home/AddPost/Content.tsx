@@ -1,18 +1,19 @@
 import { Dimensions } from 'react-native'
 
 import { InputText } from '$exporter/component'
-import { useZustandStore } from '$exporter'
+import { MStatusCreateType } from '$exporter/type'
 
 const { height } = Dimensions.get('window')
 
 type PropsType = {
     inputType: 'content' | 'warn'
     limit?: number
+    createPost: MStatusCreateType
+    setCreatePost: (prop: MStatusCreateType) => void
 }
 
-export function InputTextField({ inputType, limit }: PropsType) {
+export function InputTextField({ inputType, limit, createPost, setCreatePost }: PropsType) {
     //
-    const { setCreatePost, createPost } = useZustandStore()
 
     const text = inputType === 'content' ? createPost.status || '' : createPost.spoiler_text || ''
     const placeholder = inputType === 'content' ? 'Type or paste what’s on your mind' : ' Content Warning'

@@ -2,7 +2,7 @@ import { useZustandStore } from '$exporter'
 import { useState } from 'react'
 import ImagePicker from 'react-native-image-crop-picker'
 
-type ActivesType = {
+export type ActivesType = {
     warn: boolean
     content: boolean
     media: boolean
@@ -39,6 +39,7 @@ export function useHandler() {
     }
 
     const options = (type: keyof ActivesType) => {
+        console.log(actives)
         if (type === 'media') {
             ImagePicker.openPicker({ mediaType: 'any', multiple: true, cropping: false })
                 .then(res => {
@@ -66,9 +67,10 @@ export function useHandler() {
                 })
         }
         if (type === 'poll') {
-            setActives(prev => ({ ...prev, media: false, poll: true }))
+            setActives(prev => ({ ...prev, media: prev.poll?true: false, poll: !prev.poll }))
             console.log('Clicked: poll')
         }
+        console.log(actives)
     }
 
     return { actives, setActives, removeMedia, options }

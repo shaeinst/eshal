@@ -14,10 +14,10 @@ import { useHandler } from './useHandler'
 export default function AddPost() {
     //
 
-    const { setHideBottomTab } = useZustandStore()
-    const { navigate } = useNavigation<NavigationProp<any>>()
     const { styles, COLORS } = useStyles()
-    const { actives } = useHandler()
+    const { actives, removeMedia, options } = useHandler()
+    const { setHideBottomTab, createPost, setCreatePost } = useZustandStore()
+    const { navigate } = useNavigation<NavigationProp<any>>()
 
     useFocusEffect(
         useCallback(() => {
@@ -32,13 +32,17 @@ export default function AddPost() {
                 <BackIcon stroke={COLORS.text} />
             </TouchableOpacity>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
-                {actives.warn ? <InputTextField inputType="warn" /> : null}
-                {actives.content ? <InputTextField inputType="content" /> : null}
-                {actives.media ? <UploadMedia /> : null}
+                {actives.warn ? (
+                    <InputTextField createPost={createPost} setCreatePost={setCreatePost} inputType="warn" />
+                ) : null}
+                {actives.content ? (
+                    <InputTextField createPost={createPost} setCreatePost={setCreatePost} inputType="content" />
+                ) : null}
+                {actives.media ? <UploadMedia createPost={createPost} removeMedia={removeMedia} /> : null}
                 {actives.poll ? <Poll /> : null}
                 <View style={styles.indent}></View>
             </ScrollView>
-            <Options />
+            <Options options={options} actives={actives} />
         </View>
     )
 }

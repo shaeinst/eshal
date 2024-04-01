@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 
-import { WHITESPACE, useColors, useZustandStore } from '$exporter'
+import { WHITESPACE, useColors } from '$exporter'
 import { PencilIcon, TrashIcon } from '$exporter/asset'
-import { useHandler } from './useHandler'
+import { MStatusCreateType } from '$exporter/type'
 
 const { width } = Dimensions.get('window')
 const mediaHeight = width / 2.4
@@ -47,11 +47,12 @@ const RenderItem = ({ url, mediaHeight, handleRemove }: PropsRenderItemType) => 
     )
 }
 
-export function UploadMedia() {
+type PropsType = {
+    removeMedia: (path: string) => void
+    createPost: MStatusCreateType
+}
+export function UploadMedia({ removeMedia, createPost }: PropsType) {
     //
-    const { createPost } = useZustandStore()
-    const { removeMedia } = useHandler()
-
     return (
         <FlatList
             data={createPost.media_ids}

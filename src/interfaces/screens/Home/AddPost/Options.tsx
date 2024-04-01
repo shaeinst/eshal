@@ -2,12 +2,16 @@ import { TouchableOpacity, View, StyleSheet } from 'react-native'
 
 import { useColors } from '$exporter'
 import { EarthIcon, EmojiIcon, GalleryIcon, PollIcon, TelegramIcon, WarnIcon } from '$exporter/asset'
-import { useHandler } from './useHandler'
+import { ActivesType } from './useHandler'
 
-export function Options() {
+type PropsType = {
+    actives: ActivesType
+    options: (type: keyof ActivesType) => void
+}
+
+export function Options({ actives, options }: PropsType) {
     //
     const { styles, COLORS } = useStyles()
-    const { options, actives } = useHandler()
 
     return (
         <View style={styles.container}>
