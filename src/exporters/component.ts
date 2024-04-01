@@ -17,6 +17,7 @@ export { default as PostDetailsCard } from '../interfaces/components/Cards/PostD
 
 // MODALS
 export { default as ProfileModal } from '../interfaces/components/Modals/Profile/ProfileModal'
+export { default as InfoModal } from '../interfaces/components/Modals/Info/InfoModal'
 
 // SKELETONS
 export { default as PostSkeleton } from '../interfaces/components/Skeletons/PostSkeleton/PostSkeleton'
