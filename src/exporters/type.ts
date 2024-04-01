@@ -14,3 +14,5 @@ export type { MediaAttachmentType as MMediaAttachmentType } from '../types/masto
 export type { NotificationType as MNotificationType } from '../types/mastodon/api/Entities/Notification'
 export type { PreviewCardType as MPreviewCardType } from '../types/mastodon/api/Entities/PreviewCard'
 export type { StatusType as MStatusType } from '../types/mastodon/api/Entities/StatusType'
+
+export type { StatusCreateType as MStatusCreateType } from '../types/mastodon/api/Methods/StatusCreateType'

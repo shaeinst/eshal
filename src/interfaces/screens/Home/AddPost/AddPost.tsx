@@ -7,7 +7,7 @@ import { BackIcon } from '$exporter/asset'
 import { useStyles } from './styleAddPost'
 import { UploadMedia } from './UploadMedia'
 import { Poll } from './Poll'
-import { ContentText, WarnText } from './Content'
+import { InputTextField } from './Content'
 import { Options } from './Options'
 import { useHandler } from './useHandler'
 
@@ -32,8 +32,8 @@ export default function AddPost() {
                 <BackIcon stroke={COLORS.text} />
             </TouchableOpacity>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
-                {actives.warn ? <WarnText /> : null}
-                {actives.content ? <ContentText /> : null}
+                {actives.warn ? <InputTextField inputType="warn" /> : null}
+                {actives.content ? <InputTextField inputType="content" /> : null}
                 {actives.media ? <UploadMedia /> : null}
                 {actives.poll ? <Poll /> : null}
                 <View style={styles.indent}></View>

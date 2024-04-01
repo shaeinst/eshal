@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { AuthStateType } from '$exporter/type'
+import { AuthStateType, MStatusCreateType } from '$exporter/type'
 
 interface StoreInterface {
     init: {
@@ -12,6 +12,7 @@ interface StoreInterface {
         name: string
         pressedTime: number
     }
+    createPost: MStatusCreateType
     //
     setIsFreshApp: (prop: boolean) => void
     setAuth: (prop: AuthStateType) => void
@@ -19,6 +20,7 @@ interface StoreInterface {
     setNav: (prop: string) => void
     setHideBottomTab: (prop: boolean) => void
     setActiveBottomTab: (prop: { name: string }) => void
+    setCreatePost: (prop: MStatusCreateType) => void
 }
 
 export const useStore = create<StoreInterface>(set => ({
@@ -37,6 +39,17 @@ export const useStore = create<StoreInterface>(set => ({
     activeBottomTab: {
         name: '',
         pressedTime: 0,
+    },
+    createPost: {
+        status: undefined,
+        media_ids: undefined,
+        poll: undefined,
+        in_reply_to_id: undefined,
+        sensitive: undefined,
+        spoiler_text: undefined,
+        visibility: undefined,
+        language: undefined,
+        scheduled_at: undefined,
     },
     /**
      * Actions
@@ -61,6 +74,14 @@ export const useStore = create<StoreInterface>(set => ({
             activeBottomTab: {
                 name: prop.name,
                 pressedTime: prop.name === state.activeBottomTab.name ? state.activeBottomTab.pressedTime + 1 : 0,
+            },
+        }))
+    },
+    setCreatePost: (prop: MStatusCreateType) => {
+        set(state => ({
+            createPost: {
+                ...state.createPost,
+                ...prop,
             },
         }))
     },

@@ -1,3 +1,4 @@
+import { useZustandStore } from '$exporter'
 import { useState } from 'react'
 import ImagePicker from 'react-native-image-crop-picker'
 
@@ -13,7 +14,6 @@ type ActivesType = {
 
 export function useHandler() {
     //
-    const [media, setMedia] = useState<string[]>([])
     const [actives, setActives] = useState<ActivesType>({
         warn: false,
         content: true,
@@ -24,21 +24,14 @@ export function useHandler() {
         send: false,
     })
 
-    const addMedia = () => {
-        ImagePicker.openPicker({ mediaType: 'any', multiple: true, cropping: false })
-            .then(res => {
-                res.map(item => {
-                    setMedia(prev => [item.path, ...prev])
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
+    const { createPost, setCreatePost } = useZustandStore()
+
     const removeMedia = (path: string) => {
         ImagePicker.cleanSingle(path)
             .then(() => {
-                setMedia(prev => prev.filter(item => item !== path))
+                setCreatePost({
+                    media_ids: createPost.media_ids?.filter(item => item !== path),
+                })
             })
             .catch(error => {
                 console.log(error)
@@ -47,15 +40,30 @@ export function useHandler() {
 
     const options = (type: keyof ActivesType) => {
         if (type === 'media') {
-            setActives(prev => ({ ...prev, media: true }))
-            addMedia()
-            if (media.length > 0) {
-                setActives(prev => ({ ...prev, media: true, poll: false }))
-            } else {
-                setActives(prev => ({ ...prev, media: false }))
-            }
-            console.log(media)
-            console.log('Clicked: media')
+            ImagePicker.openPicker({ mediaType: 'any', multiple: true, cropping: false })
+                .then(res => {
+                    const toUploadMedia: string[] = []
+                    res.map(item => {
+                        toUploadMedia.push(item.path)
+                    })
+                    setCreatePost({
+                        media_ids: createPost.media_ids ? [...toUploadMedia, ...createPost.media_ids] : toUploadMedia,
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => {
+                    const hasMedia = createPost.media_ids?.length && createPost.media_ids.length > 0 ? true : false
+                    if (hasMedia) {
+                        setActives(prev => ({ ...prev, media: true, poll: false }))
+                    } else {
+                        setActives(prev => ({ ...prev, media: false }))
+                    }
+                    console.log('Clicked: media')
+
+                    console.log(createPost.media_ids)
+                })
         }
         if (type === 'poll') {
             setActives(prev => ({ ...prev, media: false, poll: true }))
@@ -63,5 +71,5 @@ export function useHandler() {
         }
     }
 
-    return { actives, setActives, media, addMedia, removeMedia, options }
+    return { actives, setActives, removeMedia, options }
 }

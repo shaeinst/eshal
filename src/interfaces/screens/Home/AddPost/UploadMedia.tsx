@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 
-import { WHITESPACE, useColors } from '$exporter'
+import { WHITESPACE, useColors, useZustandStore } from '$exporter'
 import { PencilIcon, TrashIcon } from '$exporter/asset'
 import { useHandler } from './useHandler'
 
@@ -49,11 +49,12 @@ const RenderItem = ({ url, mediaHeight, handleRemove }: PropsRenderItemType) => 
 
 export function UploadMedia() {
     //
-    const { media, removeMedia } = useHandler()
+    const { createPost } = useZustandStore()
+    const { removeMedia } = useHandler()
 
     return (
         <FlatList
-            data={media}
+            data={createPost.media_ids}
             style={{ flex: 1 }}
             horizontal
             renderItem={({ item }) => (
