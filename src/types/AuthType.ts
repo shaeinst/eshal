@@ -1,6 +1,6 @@
 import { TokenType } from './StorageType'
 
 export type AuthStateType = {
-    token: TokenType | null
+    token: TokenType
     isSignedIn: boolean
 }

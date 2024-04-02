@@ -8,8 +8,17 @@ export function useStyles() {
 
     const styles = StyleSheet.create({
         container: {
-            // flex: 1,
-            // backgroundColor: 'pink'
+            flex: 1,
+            gap: 10,
+        },
+        item: {
+            flex: 1,
+        },
+        rednerItemContainer: {
+            //
+            backgroundColor: 'red',
+            borderBottomWidth: 0.5,
+            paddingVertical: 12,
         },
     })
 

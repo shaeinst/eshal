@@ -8,6 +8,13 @@ const HOME = {
     TIMELINES: {
         home: '/api/v1/timelines/home',
     },
+
+    NOTIFICATIONS: {
+        all: '/api/v1/notifications',
+        single: (id: string) => `/api/v1/notifications/${id}`,
+        clear: '/api/v1/notifications/clear',
+        dismiss: (id: string) => `/api/v1/notifications/${id}/dismiss`,
+    },
 }
 
 export const ENDPOINTS = {

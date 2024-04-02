@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Text, View, TouchableOpacity, FlatList } from 'react-native'
 
 import { useStyles } from './styleMultiSelector'
@@ -16,12 +15,9 @@ type PropsType = {
 export default function MultiSelector({ opts, setOpts, callback }: PropsType) {
     //
 
-    const [totalActive, setTotalActive] = useState(1)
     const { styles } = useStyles()
 
     const handlePress = (key: string) => {
-        //
-
         if (opts[key].name.toLowerCase() === 'all') {
             const updatedOpts = Object.keys(opts).reduce((acc, optionKey) => {
                 acc[key] = { ...opts[key], selected: true }
@@ -30,27 +26,17 @@ export default function MultiSelector({ opts, setOpts, callback }: PropsType) {
             }, {} as OptsType)
             setOpts(updatedOpts)
         } else {
+            let count = 0
+            Object.keys(opts).map(key => {
+                if (key.toLowerCase() !== 'all' && opts[key].selected) {
+                    count++
+                }
+            })
             setOpts(prev => ({
                 ...prev,
                 ['all']: { ...prev['all'], selected: false },
-                [key]: { ...prev[key], selected: !prev[key].selected },
+                [key]: { ...prev[key], selected: count === 1 ? true : !prev[key].selected },
             }))
-
-            Object.keys(opts).map(_key => {
-                // if (_key !== 'all') {
-                //     if (opts[_key].selected) {
-                //         setTotalActive(prev => prev + 1)
-                //     }
-                // }
-                if (opts[_key].selected) {
-                    setTotalActive(prev => prev + 1)
-                }
-            })
-            if (totalActive === 1)
-                setOpts(prev => ({
-                    ...prev,
-                    [key]: { ...prev[key], selected: true },
-                }))
         }
         callback()
     }

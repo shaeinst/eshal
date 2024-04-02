@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Text, View } from 'react-native'
+import { ActivityIndicator, Text, View } from 'react-native'
+import { FlashList, ListRenderItemInfo } from '@shopify/flash-list'
 
 import { MultiSelector } from '$exporter/component'
+import { queryAllNotification } from '$exporter/backend'
 import { useStyles } from './styleAlert'
 
 type OptsType = {
@@ -25,11 +27,35 @@ export default function Alert() {
     })
     const { styles } = useStyles()
 
-    const handlerFilter = () => {}
+    const handlerFilter = () => {
+        //
+    }
 
+    // const data = [0, 1, 2, 3, 4, 5]
+    const { data, error, isLoading, isFetching } = queryAllNotification()
+
+    console.log('===================')
+    console.log('LOADING: ', isLoading)
+    console.log('Fetching: ', isFetching)
+    console.log('DATA: ', data)
+    console.log('ERROR: ', error)
+    console.log('===================')
     return (
         <View style={styles.container}>
             <MultiSelector opts={filter} setOpts={setFilter} callback={handlerFilter} />
+            {/* {isLoading || isFetching ? <ActivityIndicator size="large" /> : null} */}
+            <View style={styles.item}>
+                <FlashList
+                    refreshing={true}
+                    estimatedItemSize={150}
+                    data={data}
+                    renderItem={({ item }) => (
+                        <View style={styles.rednerItemContainer}>
+                            <Text> {item.type}</Text>
+                        </View>
+                    )}
+                />
+            </View>
         </View>
     )
 }
