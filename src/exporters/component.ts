@@ -22,6 +22,9 @@ export { default as InfoModal } from '../interfaces/components/Modals/Info/InfoM
 // SKELETONS
 export { default as PostSkeleton } from '../interfaces/components/Skeletons/PostSkeleton/PostSkeleton'
 
+// Selector
+export { default as MultiSelector } from '../interfaces/components/Filters/MultiSelector/MultiSelector'
+
 // OTHERS
 export { default as BlurImage } from '../interfaces/components/Blurs/BlurImage/BlurImage'
 export { default as Comment } from '../interfaces/components/Comment/Comment'

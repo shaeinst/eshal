@@ -21,6 +21,8 @@ export type ColorType = {
     tabShadow: string
     warn: string
     disabled: string
+    black: string
+    white: string
 }
 
 const colors = {
@@ -44,6 +46,8 @@ const colors = {
     tabShadow: { light: '#000000', dark: '#ffffff' },
     warn: { light: '#c8aa51', dark: '#c8aa51' },
     disabled: { light: '#e4e4e4', dark: '#444444' },
+    black: { light: '#000000', dark: '#000000' },
+    white: { light: '#ffffff', dark: '#ffffff' },
 
     // theme mode independent colors
     common: {
@@ -78,6 +82,8 @@ export default function useColors() {
                   tabShadow: colors.tabShadow.dark,
                   warn: colors.warn.dark,
                   disabled: colors.disabled.dark,
+                  black: colors.black.dark,
+                  white: colors.white.dark,
               }
             : {
                   ...colors.common,
@@ -100,6 +106,8 @@ export default function useColors() {
                   tabShadow: colors.tabShadow.light,
                   warn: colors.warn.light,
                   disabled: colors.disabled.light,
+                  black: colors.black.light,
+                  white: colors.white.light,
               }
 
     return useMemo(() => ({ COLORS, themeMode }), [themeMode])
