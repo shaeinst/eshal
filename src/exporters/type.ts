@@ -8,6 +8,8 @@ export type { ColorType as ColorType } from '../interfaces/styles/colors'
 export type { TokenType as TokenType, FreshAppType as FreshAppType } from '../types/StorageType'
 
 // Mastodon
+export type { InstancesType as MInstancesType } from '../types/mastodon/api/InstancesType'
+
 export type { AccountType as MAccountType } from '../types/mastodon/api/Entities/AccountType'
 export type { CustomEmojiType as MCustomEmojiType } from '../types/mastodon/api/Entities/CustomEmojiType'
 export type { MediaAttachmentType as MMediaAttachmentType } from '../types/mastodon/api/Entities/MediaAttachmentType'

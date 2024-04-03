@@ -21,7 +21,6 @@ const useStyles = () => {
         container: {
             flex: 1,
             backgroundColor: COLORS.background,
-            paddingHorizontal: 36,
         },
     })
     return { styles }

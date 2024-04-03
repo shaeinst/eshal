@@ -19,18 +19,15 @@ export default function App() {
                     <SplashScreen />
                 ) : (
                     <QueryClientProvider client={queryClient}>
-                        {
-                            // TODO:
-                            !isSignedIn ? (
-                                <HomeInitialScreen />
-                            ) : isFreshApp ? (
-                                // TODO: implement Onboarding screen(s); for now just goto initial Authentication process
-                                //<Onboarding />
-                                <AuthInitialScreen />
-                            ) : (
-                                <AuthInitialScreen />
-                            )
-                        }
+                        {isSignedIn ? (
+                            <HomeInitialScreen />
+                        ) : isFreshApp ? (
+                            // TODO: implement Onboarding screen(s); for now just goto initial Authentication process
+                            //<Onboarding />
+                            <AuthInitialScreen />
+                        ) : (
+                            <AuthInitialScreen />
+                        )}
                     </QueryClientProvider>
                 )}
             </NavigationContainer>

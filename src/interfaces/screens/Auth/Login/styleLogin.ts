@@ -10,6 +10,7 @@ export function useStyles() {
         container: {
             flex: 1,
             alignItems: 'center',
+            paddingHorizontal: WHITESPACE.horizontalMP,
         },
         logo: {
             ...FONTS.Inter['SB-32'],
@@ -19,6 +20,19 @@ export function useStyles() {
         login: {
             paddingTop: '25%',
             gap: 10,
+        },
+        serversContainer: {
+            flex: 1,
+            backgroundColor: COLORS.text,
+            borderRadius: WHITESPACE.borderRadius,
+            // padding: 10,
+        },
+        serverName: {
+            ...FONTS.Inter['Rg-16'],
+            color: COLORS.text,
+            backgroundColor: COLORS.background,
+            // borderRadius: WHITESPACE.borderRadius,
+            padding: 10,
         },
         loginAction: {
             height: '30%',
@@ -31,6 +45,9 @@ export function useStyles() {
         },
         bottom: {
             paddingTop: '60%',
+        },
+        indent: {
+            height: 10,
         },
     })
 

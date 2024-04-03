@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
+import { FlashList } from '@shopify/flash-list'
 
 import { CredInput, PrimaryButton } from '$exporter/component'
-import { useAuthManager } from '$exporter/backend'
+import { queryAllInstances, useAuthManager } from '$exporter/backend'
 import { useStyles } from './styleLogin'
 
 export default function Login() {
     //
-    const [instanceUrl, setInstanceUrl] = useState('mastodon.social')
+    const [instanceUrl, setInstanceUrl] = useState('')
     const { styles, COLORS } = useStyles()
     const { login, loading, error, isError, create } = useAuthManager()
+    const { data: mastodonServers, isLoading: isLoadingServer, isFetching: isServerFetching } = queryAllInstances()
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
             <Text style={styles.logo}>Eshal</Text>
             <View style={styles.login}>
                 <CredInput
@@ -20,6 +22,15 @@ export default function Login() {
                     eg="mastodon.social"
                     state={{ input: instanceUrl, setInput: setInstanceUrl }}
                 />
+                <View style={styles.serversContainer}>
+                    <FlashList
+                        refreshing={isLoadingServer || isServerFetching}
+                        estimatedItemSize={100}
+                        data={mastodonServers?.instances}
+                        renderItem={({ item }) => <Text style={styles.serverName}>{item.name}</Text>}
+                        ItemSeparatorComponent={() => <View style={styles.indent} />}
+                    />
+                </View>
 
                 <View style={styles.loginAction}>
                     <PrimaryButton
@@ -37,6 +48,6 @@ export default function Login() {
             <View style={styles.bottom}>
                 <PrimaryButton title="Create Account" onClick={create} headless />
             </View>
-        </View>
+        </ScrollView>
     )
 }

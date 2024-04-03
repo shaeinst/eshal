@@ -17,7 +17,10 @@ const HOME = {
     },
 }
 
+const INSTANCES = 'https://instances.social/api/1.0/instances/list'
+
 export const ENDPOINTS = {
     AUTH,
     HOME,
+    INSTANCES,
 }
