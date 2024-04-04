@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import { FlashList } from '@shopify/flash-list'
 
 import { CredInput, PrimaryButton } from '$exporter/component'
@@ -12,6 +12,11 @@ export default function Login() {
     const { styles, COLORS } = useStyles()
     const { login, loading, error, isError, create } = useAuthManager()
     const { data: mastodonServers, isLoading: isLoadingServer, isFetching: isServerFetching } = queryAllInstances()
+
+    const handleSeletInstance = (instance: string) => {
+        //
+        setInstanceUrl(instance)
+    }
 
     return (
         <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
@@ -27,8 +32,11 @@ export default function Login() {
                         refreshing={isLoadingServer || isServerFetching}
                         estimatedItemSize={100}
                         data={mastodonServers?.instances}
-                        renderItem={({ item }) => <Text style={styles.serverName}>{item.name}</Text>}
-                        ItemSeparatorComponent={() => <View style={styles.indent} />}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity onPress={() => handleSeletInstance(item.name)}>
+                                <Text style={styles.serverName}>{item.name}</Text>
+                            </TouchableOpacity>
+                        )}
                     />
                 </View>
 

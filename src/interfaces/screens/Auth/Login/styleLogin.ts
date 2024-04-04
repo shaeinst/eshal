@@ -29,9 +29,7 @@ export function useStyles() {
         },
         serverName: {
             ...FONTS.Inter['Rg-16'],
-            color: COLORS.text,
-            backgroundColor: COLORS.background,
-            // borderRadius: WHITESPACE.borderRadius,
+            color: COLORS.background,
             padding: 10,
         },
         loginAction: {
@@ -45,9 +43,6 @@ export function useStyles() {
         },
         bottom: {
             paddingTop: '60%',
-        },
-        indent: {
-            height: 10,
         },
     })
 
