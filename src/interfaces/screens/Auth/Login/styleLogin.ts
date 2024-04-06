@@ -44,6 +44,9 @@ export function useStyles() {
         bottom: {
             paddingTop: '60%',
         },
+        ListFooterComponentContainer: {
+            paddingVertical: 4,
+        },
     })
 
     return { styles, COLORS }

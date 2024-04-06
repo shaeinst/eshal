@@ -1,7 +1,16 @@
+type AuthorizeType = {
+    instanceURL: string
+    clientId: string
+    scope: string
+    redirectUri: string
+}
+
+// https://docs.joinmastodon.org/methods/oauth/
 const AUTH = {
-    authorize: '/oauth/authorize',
     token: '/oauth/token',
     revoke: '/oauth/revoke',
+    authorize: ({ instanceURL, clientId, scope, redirectUri }: AuthorizeType) =>
+        `${instanceURL}/oauth/authorize?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`,
 }
 
 const HOME = {
@@ -17,7 +26,10 @@ const HOME = {
     },
 }
 
-const INSTANCES = 'https://instances.social/api/1.0/instances/list'
+const INSTANCES = {
+    list: 'https://instances.social/api/1.0/instances/list',
+    search: 'https://instances.social/api/1.0/instances/search',
+}
 
 export const ENDPOINTS = {
     AUTH,

@@ -8,6 +8,7 @@ export type { ColorType as ColorType } from '../interfaces/styles/colors'
 export type { TokenType as TokenType, FreshAppType as FreshAppType } from '../types/StorageType'
 
 // Mastodon
+export type { MastodonInstance as MInstanceType } from '../types/mastodon/api/InstancesType'
 export type { InstancesType as MInstancesType } from '../types/mastodon/api/InstancesType'
 
 export type { AccountType as MAccountType } from '../types/mastodon/api/Entities/AccountType'

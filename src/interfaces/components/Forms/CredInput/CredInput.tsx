@@ -9,11 +9,12 @@ type PropsType = {
         input: string
         setInput: React.Dispatch<React.SetStateAction<string>>
     }
+    onFocus?: () => void
 }
 
 export default function CredInput(props: PropsType) {
     //
-    const { header, eg, state } = props
+    const { header, eg, state, onFocus } = props
     const { styles, COLORS } = useStyles()
 
     return (
@@ -27,6 +28,7 @@ export default function CredInput(props: PropsType) {
                     onChangeText={text => state.setInput(text)}
                     placeholder={eg}
                     placeholderTextColor={COLORS.placeholder}
+                    onFocus={onFocus}
                 />
             </View>
         </View>

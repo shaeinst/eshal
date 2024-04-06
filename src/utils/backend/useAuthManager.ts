@@ -70,7 +70,7 @@ export default function useAuthManager() {
             })
         })
         const scope = 'read write follow push'
-        const authUrl = `${instanceURL}${AUTH.authorize}?response_type=code&client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}`
+        const authUrl = AUTH.authorize({ instanceURL, clientId, scope, redirectUri })
         await Linking.openURL(authUrl)
     }
 

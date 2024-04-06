@@ -1,4 +1,4 @@
-interface MastodonInstance {
+export type MastodonInstance = {
     active_users: number | null
     added_at: string | null
     admin: string
