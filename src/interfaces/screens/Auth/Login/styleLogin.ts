@@ -23,13 +23,12 @@ export function useStyles() {
         },
         serversContainer: {
             flex: 1,
-            backgroundColor: COLORS.text,
             borderRadius: WHITESPACE.borderRadius,
-            // padding: 10,
+            borderWidth: 2,
         },
         serverName: {
             ...FONTS.Inter['Rg-16'],
-            color: COLORS.background,
+            color: COLORS.text,
             padding: 10,
         },
         loginAction: {

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native/types'
 import { useQuery } from '@tanstack/react-query'
 
 import { useZustandStore } from '$exporter'
+import { MStatusType } from '$exporter/type'
 import { MPOST_STATUS_DATA } from '$exporter/fakedata'
 import publicTimelineApi from '../../api/home/timelines/publicTimelineApi'
-import { MStatusType } from '$exporter/type'
 
 const mergeArrays = (previous: MStatusType[], fetched: MStatusType[]): MStatusType[] => {
     const map = new Map()
@@ -99,7 +100,7 @@ export default function queryHomeTimeline() {
         handleDataSlider('down')
     }
 
-    const handleOnScroll = ({ nativeEvent }) => {
+    const handleOnScroll = ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
         const { contentOffset } = nativeEvent
         // Check if the user is close to the top of the list
         // console.log("POSITION: ", contentOffset)
@@ -135,7 +136,7 @@ export default function queryHomeTimeline() {
         handleEndReached,
         handleOnScroll,
         loadingIndicator: loadingIndicator && (query.isLoading || query.isFetching),
-        latest3
+        latest3,
     }
     // const response = useInfiniteQuery({
     //     queryKey: ['PublicTimelineApi'],
