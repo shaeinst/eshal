@@ -14,12 +14,12 @@ export default function Register() {
 
         Linking.openURL(authUrl)
             .then(data => {
-                console.log('-------------REGISTER: data ------------------')
+                console.log('------REGISTER: data ----------')
                 console.log(data)
                 console.log('-------------------------------')
             })
             .catch((error: any) => {
-                console.log('---------------REGISTER: error ----------------')
+                console.log('------REGISTER: error ---------')
                 console.log(error)
                 console.log('-------------------------------')
             })

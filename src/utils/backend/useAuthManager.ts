@@ -26,7 +26,7 @@ export default function useAuthManager() {
     const { setAuth, resetAuth, auth } = useZustandStore()
 
     const redirectUri = ROUTERS.PREFIX
-    const { AUTH } = ENDPOINTS
+    const { AUTH, ESHAL } = ENDPOINTS
 
     const {
         mutateAsync: mutateAsyncLogin,
@@ -70,7 +70,8 @@ export default function useAuthManager() {
             })
         })
         const scope = 'read write follow push'
-        const authUrl = AUTH.authorize({ instanceURL, clientId, scope, redirectUri })
+        // const authUrl = AUTH.authorize({ instanceURL, clientId, scope, redirectUri })
+        const authUrl = ESHAL.MASTODON.AUTH.login(instanceURL)
         await Linking.openURL(authUrl)
     }
 

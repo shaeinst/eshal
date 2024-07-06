@@ -1,8 +1,6 @@
-export type TokenType = {
-    access_token: string
-    created_at: number
-    scope: string
-    token_type: string
+import { TokenType as MTokenType } from './mastodon/api/Entities/TokenType'
+
+export type TokenType = MTokenType & {
     server_url: string
 }
 

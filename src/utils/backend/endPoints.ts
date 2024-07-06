@@ -5,6 +5,14 @@ type AuthorizeType = {
     redirectUri: string
 }
 
+const ESHAL = {
+    MASTODON: {
+        AUTH: {
+            login: (instanceURL: string) => `http://[::1]:3004/auth/login?instance=${instanceURL}`,
+        },
+    },
+}
+
 // https://docs.joinmastodon.org/methods/oauth/
 const AUTH = {
     token: '/oauth/token',
@@ -35,4 +43,5 @@ export const ENDPOINTS = {
     AUTH,
     HOME,
     INSTANCES,
+    ESHAL,
 }

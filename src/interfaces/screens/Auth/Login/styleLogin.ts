@@ -23,6 +23,7 @@ export function useStyles() {
         },
         serversContainer: {
             flex: 1,
+            borderColor: COLORS.text,
             borderRadius: WHITESPACE.borderRadius,
             borderWidth: 2,
         },

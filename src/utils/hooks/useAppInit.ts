@@ -26,7 +26,7 @@ export default function useInit() {
         getToken<TokenType>(KEYS.TOKEN)
             .then(token => {
                 const hasToken = token ? true : false
-                setAuth({ token, isSignedIn: hasToken })
+                if (token) setAuth({ token, isSignedIn: hasToken })
                 setIsFreshApp(!hasToken)
             })
             .catch(e => {
