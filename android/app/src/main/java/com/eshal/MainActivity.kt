@@ -23,10 +23,11 @@ class MainActivity : ReactActivity() {
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 
+
   /**
-   * Custom ADDED
-   * https://reactnavigation.org/docs/getting-started#installing-dependencies-into-a-bare-react-native-project
-   */
+  * Custom ADDED
+  * https://reactnavigation.org/docs/getting-started#installing-dependencies-into-a-bare-react-native-project
+  */
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
   }
