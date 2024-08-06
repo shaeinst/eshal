@@ -48,6 +48,7 @@
     "@react-native/typescript-config": "0.74.85",
     "@tanstack/eslint-plugin-query": "^5.50.1",
     "@types/react": "^18.2.6",
+    "@types/react-native-htmlview": "^0.16.5",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
     "eslint": "^8.19.0",
