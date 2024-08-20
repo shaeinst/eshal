@@ -8,3 +8,8 @@
 
 ### Android
 -- setup JSI for WatermelonDB
+
+
+### Errors
+react-native-skia is not 0.75 compatibile:
+src: https://github.com/Shopify/react-native-skia/issues/2576
