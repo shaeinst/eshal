@@ -1,16 +1,16 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
-
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "esModuleInterop": true, // https://stackoverflow.com/a/59080927
     "jsx": "preserve", // https://stackoverflow.com/a/72332435
     "strict": true,
     "baseUrl": ".",
     "experimentalDecorators": true,
-
     "paths": {
+      "@/*": ["./*"],
       "$exporter": ["./src/exporters/index"],
       "$exporter/*": ["./src/exporters/*"]
     }
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

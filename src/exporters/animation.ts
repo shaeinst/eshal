@@ -1,2 +1,2 @@
-export { default as useSplashAnimation } from '../interfaces/animations/useSplashAnimation'
-export { default as useOpacityAnimation } from '../interfaces/animations/useOpacityAnimation'
+export { default as useSplashAnimation } from '../uix/animations/useSplashAnimation'
+export { default as useOpacityAnimation } from '../uix/animations/useOpacityAnimation'

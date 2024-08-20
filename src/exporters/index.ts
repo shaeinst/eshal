@@ -6,6 +6,6 @@ export { default as RouteHome } from '../utils/routers/RouteHome'
 export { useStore as useZustandStore } from '../utils/persist/zustand/store'
 
 // THEME
-export { default as WHITESPACE } from '../interfaces/styles/whitespace'
-export { default as FONTS } from '../interfaces/styles/fonts'
-export { default as useColors } from '../interfaces/styles/colors'
+export { default as WHITESPACE } from '../uix/styles/whitespace'
+export { default as FONTS } from '../uix/styles/fonts'
+export { default as useColors } from '../uix/styles/colors'
