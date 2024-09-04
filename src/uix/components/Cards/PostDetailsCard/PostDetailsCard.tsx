@@ -4,7 +4,8 @@ import Animated from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import HTMLView from 'react-native-htmlview'
-import FastImage from 'react-native-fast-image'
+// import FastImage from 'react-native-fast-image'
+import { Image } from 'expo-image';
 
 import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, StarIcon, SwitchIcon } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
@@ -64,11 +65,11 @@ export default React.memo(function PostCard(props: PropsType) {
             onPress={handleNavigate}
             disabled
             style={inReply ? styles.inReplyContainer : styles.container}
-            //
+        //
         >
             {/********** AUTHOR INFO ***********/}
             <View style={styles.authorContainer}>
-                <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
+                <Image source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
                 <View>
                     <View style={styles.authorNameContainer}>
                         {displayName.map(type => {
@@ -77,7 +78,7 @@ export default React.memo(function PostCard(props: PropsType) {
                                     {type.name}
                                 </Text>
                             ) : (
-                                <FastImage
+                                <Image
                                     key={`${type.url} + ${Math.random()}`}
                                     source={{ uri: type.url }}
                                     style={styles.emoji}

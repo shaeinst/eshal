@@ -8,9 +8,9 @@ import {
     FlatList,
     ListRenderItemInfo,
 } from 'react-native'
-import FastImage, { OnLoadEvent } from 'react-native-fast-image'
+// import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 import { FlashList } from '@shopify/flash-list'
-import Video, { OnLoadData } from 'react-native-video'
+// import Video, { OnLoadData } from 'react-native-video'
 import { Blurhash } from 'react-native-blurhash'
 
 import { EyeIcon, SwitchIcon } from '$exporter/asset'
@@ -37,7 +37,7 @@ type PropsListRenderType = {
 
 const ListRender = ({ item, isAlt, mediaWidth, COLORS, isSensitive }: PropsListRenderType) => {
     //
-    const videoRef = useRef<Video>(null)
+    // const videoRef = useRef<Video>(null)
     const [mediaHeight, setMediaHeight] = useState(mediaWidth)
     const [isImageLoading, setIsImageLoading] = useState(true)
     const [hideNSFW, setHideSNFW] = useState(isSensitive)
@@ -47,17 +47,17 @@ const ListRender = ({ item, isAlt, mediaWidth, COLORS, isSensitive }: PropsListR
     const handleNSFW = () => {
         setHideSNFW(prev => !prev)
     }
-    const onImageLoad = (event: OnLoadEvent) => {
-        // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
-        const { width, height } = event.nativeEvent
-        setMediaHeight((mediaWidth * height) / width)
-        setIsImageLoading(false)
-    }
-    const onVideoLoad = (event: OnLoadData) => {
-        // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
-        const { width, height } = event.naturalSize
-        setMediaHeight((mediaWidth * height) / width)
-    }
+    // const onImageLoad = (event: OnLoadEvent) => {
+    //     // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
+    //     const { width, height } = event.nativeEvent
+    //     setMediaHeight((mediaWidth * height) / width)
+    //     setIsImageLoading(false)
+    // }
+    // const onVideoLoad = (event: OnLoadData) => {
+    //     // height = imageWidth / aspectRatio  = imageWidth / (width / height) = imageWidth * height / width
+    //     const { width, height } = event.naturalSize
+    //     setMediaHeight((mediaWidth * height) / width)
+    // }
     const handleAltDescription = () => {
         // setMediaHeight(prev=> prev + 30)
     }
@@ -83,13 +83,13 @@ const ListRender = ({ item, isAlt, mediaWidth, COLORS, isSensitive }: PropsListR
                                 <Blurhash blurhash={item.blurhash} style={styles.blurhash} />
                             </View>
                         ) : null}
-                        <FastImage
-                            // source={{ uri: 'https://clipart-library.com/images/5iRrxkaRT.gif' }}
-                            source={{ uri: item.url }}
-                            onLoad={onImageLoad}
-                            resizeMode={FastImage.resizeMode.contain}
-                            style={isImageLoading || hideNSFW ? null : styles.media}
-                        />
+                        {/* <FastImage */}
+                        {/*     // source={{ uri: 'https://clipart-library.com/images/5iRrxkaRT.gif' }} */}
+                        {/*     source={{ uri: item.url }} */}
+                        {/*     onLoad={onImageLoad} */}
+                        {/*     resizeMode={FastImage.resizeMode.contain} */}
+                        {/*     style={isImageLoading || hideNSFW ? null : styles.media} */}
+                        {/* /> */}
                         {isSensitive && !isImageLoading ? (
                             <>
                                 {hideNSFW ? (

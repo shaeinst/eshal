@@ -1,13 +1,13 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import {Image} from 'expo-image'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
 import { SwitchIcon } from '$exporter/asset'
 import { BlurImage } from '$exporter/component'
 import { MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FlashList } from '@shopify/flash-list'
-import Video, { VideoRef } from 'react-native-video'
+// import Video, { VideoRef } from 'react-native-video'
 
 const { width } = Dimensions.get('window')
 
@@ -24,7 +24,7 @@ export function Media(props: PropsType) {
     const [lazyLoad, setLazyLoad] = useState(true)
     const [isAlt, setIsAlt] = useState(false)
 
-    const videoRef = useRef<VideoRef>(null)
+    // const videoRef = useRef<VideoRef>(null)
 
     const { styles } = useStyles()
 
@@ -52,7 +52,7 @@ export function Media(props: PropsType) {
                             {isSensitive ? (
                                 <BlurImage nsfw={isSensitive} imageUrl={item.url} />
                             ) : (
-                                <FastImage source={{ uri: item.url }} style={styles.media} />
+                                <Image source={{ uri: item.url }} style={styles.media} />
                             )}
 
                             {item.description ? (

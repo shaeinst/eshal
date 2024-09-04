@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
-import FastImage from 'react-native-fast-image'
+// import FastImage from 'react-native-fast-image'
+import { Image } from 'expo-image'
 import HTMLView from 'react-native-htmlview'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
 
 import {
     BoostIcon,
@@ -33,10 +35,10 @@ export default function Comment({ data }: { data: MStatusType }) {
     const [activePreview, setActivePreview] = useState<{ url?: string; description?: string; preview?: string }>(
         data?.media_attachments?.length
             ? {
-                  url: data.media_attachments[0].preview_url,
-                  description: data.media_attachments[0].description,
-                  preview: data.media_attachments[0].preview_url,
-              }
+                url: data.media_attachments[0].preview_url,
+                description: data.media_attachments[0].description,
+                preview: data.media_attachments[0].preview_url,
+            }
             : { url: undefined, description: undefined, preview: undefined },
     )
 
@@ -62,7 +64,7 @@ export default function Comment({ data }: { data: MStatusType }) {
     return (
         <View style={styles.container}>
             <View style={styles.authorContainer}>
-                <FastImage source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
+                <Image source={{ uri: data.account.avatar }} style={styles.authorProfilePic} />
                 <View>
                     <View style={styles.authorNameContainer}>
                         {displayName.map(type => {
@@ -71,7 +73,7 @@ export default function Comment({ data }: { data: MStatusType }) {
                                     {type.name}
                                 </Text>
                             ) : (
-                                <FastImage
+                                <Image
                                     key={`${type.url} + ${Math.random()}`}
                                     source={{ uri: type.url }}
                                     style={styles.emoji}
@@ -113,9 +115,9 @@ export default function Comment({ data }: { data: MStatusType }) {
                     <View style={styles.mediaContainer}>
                         <Animated.View sharedTransitionTag="sharedPostPreview" style={styles.postPreviewContainer}>
                             {data.sensitive ? (
-                                <BlurImage imageUrl={activePreview.url} />
+                                <BlurImage imageUrl={activePreview.url} nsfw />
                             ) : (
-                                <FastImage style={styles.postPreview} source={{ uri: activePreview.url }} />
+                                <Image style={styles.postPreview} source={{ uri: activePreview.url }} />
                             )}
                             {isAlt ? <Text style={styles.altText}>{activePreview.description}</Text> : null}
                         </Animated.View>

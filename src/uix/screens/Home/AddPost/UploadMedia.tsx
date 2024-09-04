@@ -1,39 +1,46 @@
-import { useState } from 'react'
-import { Dimensions, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
-import FastImage, { OnLoadEvent } from 'react-native-fast-image'
+import {useState} from 'react';
+import {
+    Dimensions,
+    FlatList,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from 'react-native';
+import {Image} from 'expo-image';
+// import FastImage, { OnLoadEvent } from 'react-native-fast-image'
 
-import { WHITESPACE, useColors } from '$exporter'
-import { PencilIcon, TrashIcon } from '$exporter/asset'
-import { MStatusCreateType } from '$exporter/type'
+import {WHITESPACE, useColors} from '$exporter';
+import {PencilIcon, TrashIcon} from '$exporter/asset';
+import {MStatusCreateType} from '$exporter/type';
 
-const { width } = Dimensions.get('window')
-const mediaHeight = width / 2.4
+const {width} = Dimensions.get('window');
+const mediaHeight = width / 2.4;
 
 type PropsRenderItemType = {
-    url: string
-    mediaHeight: number
-    handleRemove: () => void
-}
-const RenderItem = ({ url, mediaHeight, handleRemove }: PropsRenderItemType) => {
+    url: string;
+    mediaHeight: number;
+    handleRemove: () => void;
+};
+const RenderItem = ({url, mediaHeight, handleRemove}: PropsRenderItemType) => {
     //
-    const [mediaWidth, setMediaWidth] = useState(mediaHeight)
-    const { styles } = useStyles(mediaHeight, mediaWidth)
+    const [mediaWidth, setMediaWidth] = useState(mediaHeight);
+    const {styles} = useStyles(mediaHeight, mediaWidth);
 
-    const onMediaLoad = (event: OnLoadEvent) => {
-        const { width, height } = event.nativeEvent
-        setMediaWidth((width * mediaHeight) / height)
-    }
+    // const onMediaLoad = (event: OnLoadEvent) => {
+    //     const {width, height} = event.nativeEvent;
+    //     setMediaWidth((width * mediaHeight) / height);
+    // };
     const handleEdit = () => {
         //
-    }
+    };
 
     return (
         <View style={styles.container}>
-            <FastImage
+            <Image
                 style={styles.media}
-                source={{ uri: url }}
-                resizeMode={FastImage.resizeMode.contain}
-                onLoad={onMediaLoad}
+                source={{uri: url}}
+                // resizeMode={FastImage.resizeMode.contain}
+                // onLoad={onMediaLoad}
             />
             <View style={styles.action}>
                 <TouchableOpacity onPress={handleEdit}>
@@ -44,31 +51,35 @@ const RenderItem = ({ url, mediaHeight, handleRemove }: PropsRenderItemType) => 
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};
 
 type PropsType = {
-    removeMedia: (path: string) => void
-    createPost: MStatusCreateType
-}
-export function UploadMedia({ removeMedia, createPost }: PropsType) {
+    removeMedia: (path: string) => void;
+    createPost: MStatusCreateType;
+};
+export function UploadMedia({removeMedia, createPost}: PropsType) {
     //
     return (
         <FlatList
             data={createPost.media_ids}
-            style={{ flex: 1 }}
+            style={{flex: 1}}
             horizontal
-            renderItem={({ item }) => (
-                <RenderItem handleRemove={() => removeMedia(item)} url={item} mediaHeight={mediaHeight} />
+            renderItem={({item}) => (
+                <RenderItem
+                    handleRemove={() => removeMedia(item)}
+                    url={item}
+                    mediaHeight={mediaHeight}
+                />
             )}
-            ItemSeparatorComponent={() => <View style={{ width: 10 }}></View>}
+            ItemSeparatorComponent={() => <View style={{width: 10}}></View>}
         />
-    )
+    );
 }
 
 const useStyles = (mediaHeight: number, mediaWidth: number) => {
     //
-    const { COLORS } = useColors()
+    const {COLORS} = useColors();
 
     const styles = StyleSheet.create({
         container: {
@@ -93,7 +104,7 @@ const useStyles = (mediaHeight: number, mediaWidth: number) => {
             paddingVertical: 2,
             paddingHorizontal: 6,
         },
-    })
+    });
 
-    return { styles, COLORS }
-}
+    return {styles, COLORS};
+};

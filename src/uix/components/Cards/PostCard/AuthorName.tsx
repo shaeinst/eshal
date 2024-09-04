@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { StyleSheet, Image, Text, View } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { StyleSheet, Text, View } from 'react-native'
+import { Image } from 'expo-image'
 
 import { FONTS, WHITESPACE, useColors } from '$exporter'
 import { MCustomEmojiType } from '$exporter/type'
@@ -25,7 +25,7 @@ export default function AuthorName({ displayName, emojis, reblog }: PropsType) {
                         {type.name}
                     </Text>
                 ) : (
-                    <FastImage
+                    <Image
                         key={`${type.url} + ${Math.random()}1`}
                         source={{ uri: type.url }}
                         style={styles.emoji}

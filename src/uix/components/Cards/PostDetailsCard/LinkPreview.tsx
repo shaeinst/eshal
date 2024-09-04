@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import {Image} from 'expo-image'
 
 import { FONTS, useColors } from '$exporter'
 import { MPreviewCardType } from '$exporter/type'
@@ -17,7 +17,7 @@ export default React.memo(function LinkPreview({ card }: { card: MPreviewCardTyp
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.cardLink}>
                 {card.url}
             </Text>
-            {card.image ? <FastImage style={styles.postPreview} source={{ uri: card.image }} /> : null}
+            {card.image ? <Image style={styles.postPreview} source={{ uri: card.image }} /> : null}
         </TouchableOpacity>
     )
 })

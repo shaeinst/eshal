@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { StyleSheet, Linking, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { Image } from 'expo-image'
 
 import { MPreviewCardType } from '$exporter/type'
 import { LinkIcon } from '$exporter/asset'
@@ -22,7 +22,7 @@ export default function LinkPreview({ card, inReply }: { card: MPreviewCardType;
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.cardLink}>
                 {card.url}
             </Text>
-            {card.image ? <FastImage style={styles.postPreview} source={{ uri: card.image }} /> : null}
+            {card.image ? <Image style={styles.postPreview} source={{ uri: card.image }} /> : null}
         </TouchableOpacity>
     )
 }

@@ -1,16 +1,16 @@
-import { useZustandStore } from '$exporter'
-import { useState } from 'react'
-import ImagePicker from 'react-native-image-crop-picker'
+import {useZustandStore} from '$exporter';
+import {useState} from 'react';
+// import ImagePicker from 'react-native-image-crop-picker'
 
 export type ActivesType = {
-    warn: boolean
-    content: boolean
-    media: boolean
-    poll: boolean
-    emoji: boolean
-    language: boolean
-    send: boolean
-}
+    warn: boolean;
+    content: boolean;
+    media: boolean;
+    poll: boolean;
+    emoji: boolean;
+    language: boolean;
+    send: boolean;
+};
 
 export function useHandler() {
     //
@@ -22,56 +22,59 @@ export function useHandler() {
         emoji: false,
         language: false,
         send: false,
-    })
+    });
 
-    const { createPost, setCreatePost } = useZustandStore()
+    const {createPost, setCreatePost} = useZustandStore();
 
     const removeMedia = (path: string) => {
-        ImagePicker.cleanSingle(path)
-            .then(() => {
-                setCreatePost({
-                    media_ids: createPost.media_ids?.filter(item => item !== path),
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
+        // ImagePicker.cleanSingle(path)
+        //     .then(() => {
+        //         setCreatePost({
+        //             media_ids: createPost.media_ids?.filter(item => item !== path),
+        //         })
+        //     })
+        //     .catch(error => {
+        //         console.log(error)
+        //     })
+    };
 
     const options = (type: keyof ActivesType) => {
-        console.log(actives)
+        console.log(actives);
         if (type === 'media') {
-            ImagePicker.openPicker({ mediaType: 'any', multiple: true, cropping: false })
-                .then(res => {
-                    const toUploadMedia: string[] = []
-                    res.map(item => {
-                        toUploadMedia.push(item.path)
-                    })
-                    setCreatePost({
-                        media_ids: createPost.media_ids ? [...toUploadMedia, ...createPost.media_ids] : toUploadMedia,
-                    })
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-                .finally(() => {
-                    const hasMedia = createPost.media_ids?.length && createPost.media_ids.length > 0 ? true : false
-                    if (hasMedia) {
-                        setActives(prev => ({ ...prev, media: true, poll: false }))
-                    } else {
-                        setActives(prev => ({ ...prev, media: false }))
-                    }
-                    console.log('Clicked: media')
-
-                    console.log(createPost.media_ids)
-                })
+            // ImagePicker.openPicker({ mediaType: 'any', multiple: true, cropping: false })
+            //     .then(res => {
+            //         const toUploadMedia: string[] = []
+            //         res.map(item => {
+            //             toUploadMedia.push(item.path)
+            //         })
+            //         setCreatePost({
+            //             media_ids: createPost.media_ids ? [...toUploadMedia, ...createPost.media_ids] : toUploadMedia,
+            //         })
+            //     })
+            //     .catch(error => {
+            //         console.log(error)
+            //     })
+            //     .finally(() => {
+            //         const hasMedia = createPost.media_ids?.length && createPost.media_ids.length > 0 ? true : false
+            //         if (hasMedia) {
+            //             setActives(prev => ({ ...prev, media: true, poll: false }))
+            //         } else {
+            //             setActives(prev => ({ ...prev, media: false }))
+            //         }
+            //         console.log('Clicked: media')
+            //         console.log(createPost.media_ids)
+            //     })
         }
         if (type === 'poll') {
-            setActives(prev => ({ ...prev, media: prev.poll?true: false, poll: !prev.poll }))
-            console.log('Clicked: poll')
+            setActives(prev => ({
+                ...prev,
+                media: prev.poll ? true : false,
+                poll: !prev.poll,
+            }));
+            console.log('Clicked: poll');
         }
-        console.log(actives)
-    }
+        console.log(actives);
+    };
 
-    return { actives, setActives, removeMedia, options }
+    return {actives, setActives, removeMedia, options};
 }
