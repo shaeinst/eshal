@@ -5,5 +5,5 @@ example:
 instead of:
     import { useQuery } from 'react-query'
 we use:
-    import { useQuery } from '$exporters/pkg'
+    import { useQuery } from '$pkg'
 **/

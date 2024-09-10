@@ -8,6 +8,7 @@
     "experimentalDecorators": true,
     "paths": {
       "@/*": ["./*"],
+      "$pkg": ["./src/exporters/pkg"],
       "$exporter": ["./src/exporters/index"],
       "$exporter/*": ["./src/exporters/*"]
     }

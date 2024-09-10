@@ -1,3 +1,5 @@
+export { ROUTES as ROUTES} from "../utils/routes"
+
 // ROUTERS
 export { default as RouteAuth } from '../utils/routers/RouteAuth'
 export { default as RouteHome } from '../utils/routers/RouteHome'
