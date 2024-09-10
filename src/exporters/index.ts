@@ -1,8 +1,8 @@
-export { ROUTES as ROUTES} from "../utils/routes"
+export { ROUTES as ROUTES } from '../utils/routes'
 
 // ROUTERS
-export { default as RouteAuth } from '../utils/routers/RouteAuth'
-export { default as RouteHome } from '../utils/routers/RouteHome'
+// export { default as RouteAuth } from '../utils/routers/RouteAuth'
+// export { default as RouteHome } from '../utils/routers/RouteHome'
 
 // ZUSTAND
 export { useStore as useZustandStore } from '../utils/persist/zustand/store'

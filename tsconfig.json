@@ -1,17 +1,23 @@
 {
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "esModuleInterop": true, // https://stackoverflow.com/a/59080927
-    "jsx": "preserve", // https://stackoverflow.com/a/72332435
-    "strict": true,
-    "baseUrl": ".",
-    "experimentalDecorators": true,
-    "paths": {
-      "@/*": ["./*"],
-      "$pkg": ["./src/exporters/pkg"],
-      "$exporter": ["./src/exporters/index"],
-      "$exporter/*": ["./src/exporters/*"]
-    }
-  },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+    "extends": "expo/tsconfig.base",
+    "compilerOptions": {
+        "esModuleInterop": true, // https://stackoverflow.com/a/59080927
+        "jsx": "preserve", // https://stackoverflow.com/a/72332435
+        "strict": true,
+        "baseUrl": ".",
+        "experimentalDecorators": true,
+        "paths": {
+            "@/*": ["./*"],
+            "$pkg": ["./src/exporters/pkg"],
+            "$exporter": ["./src/exporters/index"],
+            "$exporter/*": ["./src/exporters/*"]
+        }
+    },
+    "include": [
+        //
+        "**/*.ts",
+        "**/*.tsx",
+        ".expo/types/**/*.ts",
+        "expo-env.d.ts"
+    ]
 }

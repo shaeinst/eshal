@@ -1,24 +1,14 @@
-import {StatusBar, StyleSheet, Text} from 'react-native';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {QueryClientProvider} from '@tanstack/react-query';
+import { Redirect } from 'expo-router'
+import { useAppInit } from '$exporter/hooks'
 
-import {
-    SplashScreen,
-    AuthInitialScreen,
-    HomeInitialScreen,
-    Onboarding,
-} from '$exporter/screen';
-import {useAppInit} from '$exporter/hooks';
-import {LINKING} from '$exporter/constant';
+import { ROUTES } from '$exporter'
 
-export default function App() {
-    //
-    return <Text>Top-level page</Text>;
+export default function Index() {
+    const { isSignedIn } = useAppInit()
+
+    if (!isSignedIn) {
+        return <Redirect href={ROUTES.HOME.name} />
+    } else {
+        return <Redirect href={ROUTES.AUTH.name} />
+    }
 }
-
-const styles = StyleSheet.create({
-    gestureHandler: {
-        flex: 1,
-    },
-});
