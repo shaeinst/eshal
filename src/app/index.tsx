@@ -1,14 +1,13 @@
 import { Redirect } from '@expo'
 
-import { ROUTES } from '$exporter'
-import { useAppInit } from '$exporter/hooks'
+import { ROUTES, useZustandStore } from '$exporter'
 
 export default function Index() {
-    const { isSignedIn } = useAppInit()
+    //
+    const { init, auth } = useZustandStore()
 
-    if (!isSignedIn) {
-        return <Redirect href={ROUTES.HOME.TIMELINE.path} />
-    } else {
-        return <Redirect href={ROUTES.AUTH.LOGIN.path} />
-    }
+    if (auth.isSignedIn) return <Redirect href={ROUTES.HOME.TIMELINE.path} />
+    // TODO: implement Onboarding screen(s)
+    // if (init.isFreshApp) return <Redirect href={ROUTES.INTRO.ONBOARDING.path} />
+    return <Redirect href={ROUTES.AUTH.LOGIN.path} />
 }

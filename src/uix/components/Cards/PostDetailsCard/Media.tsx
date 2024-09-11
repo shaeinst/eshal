@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import {Image} from 'expo-image'
+import { Image } from 'expo-image'
 
 import { FONTS, useColors, WHITESPACE } from '$exporter'
 import { SwitchIcon } from '$exporter/asset'
-import { BlurImage } from '$exporter/component'
 import { MMediaAttachmentType, MStatusType } from '$exporter/type'
 import { FlashList } from '@shopify/flash-list'
+import BlurImage from '../../Blurs/BlurImage/BlurImage'
 // import Video, { VideoRef } from 'react-native-video'
 
 const { width } = Dimensions.get('window')

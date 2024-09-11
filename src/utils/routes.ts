@@ -1,4 +1,12 @@
 export const ROUTES = {
+    INTRO: {
+        name: '(intro)',
+        path: '/(intro)',
+        ONBOARDING: {
+            name: 'onboarding',
+            path: '/(intro)/onboarding',
+        },
+    },
     AUTH: {
         name: '(auth)',
         path: '/(auth)',
@@ -23,5 +31,4 @@ export const ROUTES = {
             path: '/(home)/profile',
         },
     },
-    INTRO: {},
 } as const

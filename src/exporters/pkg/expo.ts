@@ -10,5 +10,6 @@ we use:
 **/
 
 export { Stack, Redirect, Tabs } from 'expo-router'
-export { StatusBar } from 'expo-status-bar'
+export { StatusBar, StatusBarStyle } from 'expo-status-bar'
+
 export * as SplashScreen from 'expo-splash-screen'

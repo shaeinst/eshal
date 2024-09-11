@@ -10,7 +10,6 @@ import { Image } from 'expo-image';
 import { BoostIcon, CommentIcon, ExpandIcon, MoreDotIcon, StarIcon, SwitchIcon } from '$exporter/asset'
 import { MStatusType } from '$exporter/type'
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
-import { PostSkeleton } from '$exporter/component'
 import { ROUTERS } from '$exporter/constant'
 import { queryStatus } from '$exporter/backend'
 import { useStyles } from './stylePostCard'

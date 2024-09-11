@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
-import { StatusBarStyle } from 'react-native'
-import { QueryClient } from '@tanstack/react-query'
-import { DefaultTheme, Theme } from '@react-navigation/native'
+import { useEffect } from '@native'
+import { StatusBarStyle } from '@expo'
+import { QueryClient } from '@3rd'
 
 import { useColors, useZustandStore } from '$exporter'
 import { wdbLocalStorage } from '$exporter/persist'
@@ -10,17 +9,12 @@ import { TokenType } from '$exporter/type'
 const { get: getToken, KEYS } = wdbLocalStorage
 const queryClient = new QueryClient()
 
-export default function useInit() {
+export default function useAppInit() {
     //
-    const [isAppLaunching, setIsAppLaunching] = useState(true)
 
-    const {
-        themeMode,
-        COLORS: { background },
-    } = useColors()
-    const { init, auth, setAuth, setIsFreshApp } = useZustandStore()
-    const barStyle: StatusBarStyle = themeMode === 'dark' ? 'light-content' : 'dark-content'
-    const navTheme: Theme = { ...DefaultTheme, colors: { ...DefaultTheme.colors, background } }
+    const { themeMode, COLORS } = useColors()
+    const { setAuth, setIsFreshApp } = useZustandStore()
+    const barStyle: StatusBarStyle = themeMode === 'dark' ? 'dark' : 'light'
 
     useEffect(() => {
         getToken<TokenType>(KEYS.TOKEN)
@@ -32,18 +26,10 @@ export default function useInit() {
             .catch(e => {
                 console.log('ERROR from useAppInit.ts: \n', e)
             })
-            .finally(() => {
-                setTimeout(() => {
-                    setIsAppLaunching(false)
-                }, 100)
-            })
     }, [])
 
     return {
-        isAppLaunching,
-        isSignedIn: auth.isSignedIn,
-        isFreshApp: init.isFreshApp,
-        theme: { background, navTheme, barStyle },
+        theme: { background: COLORS.background, barStyle },
         queryClient,
     }
 }

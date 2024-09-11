@@ -20,8 +20,8 @@ import {
 import { parseDisplayName as parseName, postDate } from '$exporter/func'
 import { MStatusType } from '$exporter/type'
 import { ROUTERS } from '$exporter/constant'
-import { BlurImage } from '$exporter/component'
 import { useStyles } from './styleComment'
+import BlurImage from '../Blurs/BlurImage/BlurImage'
 
 export default function Comment({ data }: { data: MStatusType }) {
     //
