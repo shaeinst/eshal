@@ -1,24 +1,26 @@
 export const ROUTES = {
     AUTH: {
         name: '(auth)',
+        path: '/(auth)',
         LOGIN: {
             name: 'login',
-            path: '/auth/login',
+            path: '/(auth)/login',
         },
         REGISTER: {
             name: 'register',
-            path: '/auth/register',
+            path: '/(auth)/register',
         },
     },
     HOME: {
         name: '(home)',
+        path: '/(home)',
         TIMELINE: {
             name: 'timeline',
-            path: '/home/timeline',
+            path: '/(home)/timeline',
         },
         PROFILE: {
-            name: 'timeline',
-            path: '/home/profile',
+            name: 'profile',
+            path: '/(home)/profile',
         },
     },
     INTRO: {},

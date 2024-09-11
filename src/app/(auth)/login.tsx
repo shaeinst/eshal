@@ -4,7 +4,8 @@ export default function Login() {
     return (
         <View
             style={{
-                height: 100,
+                flex: 1,
+                backgroundColor: 'pink',
             }}>
             <Text> Login screen </Text>
         </View>

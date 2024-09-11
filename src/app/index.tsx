@@ -1,14 +1,14 @@
-import { Redirect } from 'expo-router'
-import { useAppInit } from '$exporter/hooks'
+import { Redirect } from '@expo'
 
 import { ROUTES } from '$exporter'
+import { useAppInit } from '$exporter/hooks'
 
 export default function Index() {
     const { isSignedIn } = useAppInit()
 
     if (!isSignedIn) {
-        return <Redirect href={ROUTES.HOME.name} />
+        return <Redirect href={ROUTES.HOME.TIMELINE.path} />
     } else {
-        return <Redirect href={ROUTES.AUTH.name} />
+        return <Redirect href={ROUTES.AUTH.LOGIN.path} />
     }
 }

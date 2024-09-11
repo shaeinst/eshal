@@ -4,7 +4,8 @@ export default function Register() {
     return (
         <View
             style={{
-                height: 100,
+                flex: 1,
+                backgroundColor: "blue",
             }}>
             <Text> register screen </Text>
         </View>

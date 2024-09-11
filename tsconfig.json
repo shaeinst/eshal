@@ -7,10 +7,11 @@
         "baseUrl": ".",
         "experimentalDecorators": true,
         "paths": {
-            "@/*": ["./*"],
-            "$pkg": ["./src/exporters/pkg"],
-            "$exporter": ["./src/exporters/index"],
-            "$exporter/*": ["./src/exporters/*"]
+            "@native": [ "./src/exporters/pkg/native" ],
+            "@expo": [ "./src/exporters/pkg/expo" ],
+            "@3rd": [ "./src/exporters/pkg/3rd" ],
+            "$exporter": [ "./src/exporters/index" ],
+            "$exporter/*": [ "./src/exporters/*" ]
         }
     },
     "include": [

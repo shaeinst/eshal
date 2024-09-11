@@ -4,7 +4,8 @@ export default function Timeline() {
     return (
         <View
             style={{
-                height: 100,
+                flex: 1,
+                backgroundColor: 'blue',
             }}>
             <Text> Profile screen </Text>
         </View>
