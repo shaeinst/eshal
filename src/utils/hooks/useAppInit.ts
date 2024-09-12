@@ -1,10 +1,13 @@
 import { useEffect } from '@native'
-import { StatusBarStyle } from '@expo'
+import { SplashScreen, StatusBarStyle } from '@expo'
 import { QueryClient } from '@3rd'
 
 import { useColors, useZustandStore } from '$exporter'
 import { wdbLocalStorage } from '$exporter/persist'
 import { TokenType } from '$exporter/type'
+
+SplashScreen.preventAutoHideAsync()
+setTimeout(SplashScreen.hideAsync, 200)
 
 const { get: getToken, KEYS } = wdbLocalStorage
 const queryClient = new QueryClient()
@@ -12,7 +15,7 @@ const queryClient = new QueryClient()
 export default function useAppInit() {
     //
 
-    const { themeMode, COLORS } = useColors()
+    const { themeMode } = useColors()
     const { setAuth, setIsFreshApp } = useZustandStore()
 
     const statusBarStyle: StatusBarStyle = themeMode === 'dark' ? 'dark' : 'light'
@@ -31,7 +34,6 @@ export default function useAppInit() {
 
     return {
         statusBarStyle,
-        COLORS,
         queryClient,
     }
 }

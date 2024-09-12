@@ -1,3 +1,4 @@
+import { StyleSheet } from '@native'
 import { Stack } from '@expo'
 
 import { ROUTES } from '$exporter'
@@ -7,6 +8,7 @@ export default function Layout() {
         <Stack
             screenOptions={{
                 headerShown: false,
+                contentStyle: styles.container,
             }}
             //
         >
@@ -16,3 +18,9 @@ export default function Layout() {
         </Stack>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'transparent',
+    },
+})

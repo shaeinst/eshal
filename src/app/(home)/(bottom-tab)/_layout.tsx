@@ -1,6 +1,7 @@
+import { StyleSheet } from '@native'
 import { Stack, Tabs } from '@expo'
 
-import { ROUTES } from '$exporter'
+import { ROUTES, useColors } from '$exporter'
 
 const { BOTTOM_TAB } = ROUTES.HOME
 
@@ -10,6 +11,7 @@ export default function Layout() {
             screenOptions={{
                 headerShown: false,
             }}
+            sceneContainerStyle={styles.container}
             //
         >
             <Stack.Screen name={BOTTOM_TAB.INDEX.name} />
@@ -20,3 +22,10 @@ export default function Layout() {
         </Tabs>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 10,
+        backgroundColor: 'transparent',
+    },
+})

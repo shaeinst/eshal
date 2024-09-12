@@ -1,16 +1,14 @@
 import { StyleSheet } from '@native'
-import { SplashScreen, Stack, StatusBar } from '@expo'
+import { Stack, StatusBar } from '@expo'
 import { GestureHandlerRootView, QueryClientProvider, SafeAreaView } from '@3rd'
 
-import { ROUTES } from '$exporter'
+import { ROUTES, useColors } from '$exporter'
 import { useAppInit } from '$exporter/hooks'
-
-SplashScreen.preventAutoHideAsync()
-setTimeout(SplashScreen.hideAsync, 200)
 
 export default function Layout() {
     //
-    const { COLORS, queryClient, statusBarStyle } = useAppInit()
+    const { queryClient, statusBarStyle } = useAppInit()
+    const { styles } = useStyles()
 
     return (
         <GestureHandlerRootView style={styles.gestureHandler}>
@@ -24,7 +22,7 @@ export default function Layout() {
                     <Stack
                         screenOptions={{
                             headerShown: false,
-                            contentStyle: { backgroundColor: COLORS.background },
+                            contentStyle: styles.container,
                         }}>
                         <Stack.Screen name={ROUTES.INTRO.name} />
                         <Stack.Screen name={ROUTES.AUTH.name} />
@@ -36,11 +34,21 @@ export default function Layout() {
     )
 }
 
-const styles = StyleSheet.create({
-    gestureHandler: {
-        flex: 1,
-    },
-    safeAreaView: {
-        flex: 1,
-    },
-})
+const useStyles = () => {
+    const { COLORS } = useColors()
+
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: COLORS.background,
+        },
+
+        gestureHandler: {
+            flex: 1,
+        },
+        safeAreaView: {
+            flex: 1,
+        },
+    })
+
+    return { styles }
+}
