@@ -57,6 +57,34 @@
                     }
                 }
             ],
+            [
+                "expo-font",
+                {
+                    "fonts": [
+                        "./src/assets/fonts/Inter/static/Inter-Black.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-Bold.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-ExtraBold.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-ExtraLight.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-Light.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-Medium.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-Regular.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-SemiBold.ttf",
+                        "./src/assets/fonts/Inter/static/Inter-Thin.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-Bold.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-BoldItalic.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-ExtraLight.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-ExtraLightItalic.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-Italic.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-Light.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-LightItalic.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-Medium.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-MediumItalic.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-Regular.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-SemiBold.ttf",
+                        "./src/assets/fonts/Kodchasan/Kodchasan-SemiBoldItalic.ttf"
+                    ]
+                }
+            ],
             "expo-video"
         ],
         "experiments": {
