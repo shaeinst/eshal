@@ -5,7 +5,7 @@ export default function Timeline() {
         <View
             style={{
                 flex: 1,
-                backgroundColor: 'pink',
+                // backgroundColor: 'pink',
             }}>
             <Text> Timeline screen </Text>
         </View>

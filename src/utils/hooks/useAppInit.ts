@@ -14,7 +14,8 @@ export default function useAppInit() {
 
     const { themeMode, COLORS } = useColors()
     const { setAuth, setIsFreshApp } = useZustandStore()
-    const barStyle: StatusBarStyle = themeMode === 'dark' ? 'dark' : 'light'
+
+    const statusBarStyle: StatusBarStyle = themeMode === 'dark' ? 'dark' : 'light'
 
     useEffect(() => {
         getToken<TokenType>(KEYS.TOKEN)
@@ -29,7 +30,8 @@ export default function useAppInit() {
     }, [])
 
     return {
-        theme: { background: COLORS.background, barStyle },
+        statusBarStyle,
+        COLORS,
         queryClient,
     }
 }

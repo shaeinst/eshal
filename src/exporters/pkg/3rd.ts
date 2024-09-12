@@ -12,3 +12,4 @@ we use:
 export { GestureHandlerRootView } from 'react-native-gesture-handler'
 export { SafeAreaView } from 'react-native-safe-area-context'
 export { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+export { FlashList } from '@shopify/flash-list'
