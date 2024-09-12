@@ -22,13 +22,40 @@ export const ROUTES = {
     HOME: {
         name: '(home)',
         path: '/(home)',
-        TIMELINE: {
-            name: 'timeline',
-            path: '/(home)/timeline',
+
+        BOTTOM_TAB: {
+            name: '(bottom-tab)',
+            path: '/(home)/(bottom-tab)',
+
+            INDEX: {
+                name: 'index',
+                path: '/(home)/(bottom-tab)/index',
+            },
+            ADD_POST: {
+                name: 'add-post/index',
+                path: '/(home)/(bottom-tab)/add-post/index',
+            },
+            PROFILE: {
+                name: 'profile',
+                path: '/(home)/(bottom-tab)/profile',
+            },
+            ALERT: {
+                name: 'alert',
+                path: '/(home)/(bottom-tab)/alert',
+            },
+            SEARCH: {
+                name: 'search',
+                path: '/(home)/(bottom-tab)/search',
+            },
         },
-        PROFILE: {
-            name: 'profile',
-            path: '/(home)/profile',
+
+        POST_DETAILS: {
+            name: 'post-details',
+            path: '/(home)/post-details',
+        },
+        SETTING: {
+            name: 'setting',
+            path: '/(home)/setting',
         },
     },
 } as const

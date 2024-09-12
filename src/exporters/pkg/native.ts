@@ -9,6 +9,25 @@ we use:
     import { useQuery } from '$native'
 **/
 
-export { default as React, useEffect, useState, useRef, useLayoutEffect } from 'react'
+export {
+    default as React,
+    useCallback,
+    useMemo,
+    useEffect,
+    useState,
+    useRef,
+    useLayoutEffect,
+    useId,
+    useReducer,
+} from 'react'
 
-export { StyleSheet, View, Text, Linking, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
+export {
+    StyleSheet,
+    View,
+    Text,
+    Linking,
+    ScrollView,
+    TouchableOpacity,
+    ActivityIndicator,
+    FlatList,
+} from 'react-native'

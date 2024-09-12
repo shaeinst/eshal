@@ -10,7 +10,7 @@ import { ROUTERS } from '$exporter/constant'
 import React from 'react'
 import { View, Text, Linking } from 'react-native'
 
-import { useStyles } from './register.styles'
+import { useStyles } from './register.style'
 
 export default function Register() {
     //

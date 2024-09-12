@@ -9,7 +9,8 @@ we use:
     import { useQuery } from '$expo'
 **/
 
-export { Stack, Redirect, Tabs, useRouter } from 'expo-router'
+export { useFocusEffect, Stack, Redirect, Tabs, useRouter } from 'expo-router'
+
 export { StatusBar, StatusBarStyle } from 'expo-status-bar'
 
 export * as SplashScreen from 'expo-splash-screen'

@@ -3,7 +3,7 @@ import { FlashList } from '@3rd'
 
 import { CredInput, PrimaryButton } from '$exporter/component'
 import { queryAllInstances, useAuthManager } from '$exporter/backend'
-import { useStyles } from './login.styles'
+import { useStyles } from './login.style'
 
 export default function Login() {
     //
