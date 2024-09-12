@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { React, useEffect, TouchableOpacity } from '@native'
+import { BottomTabBarProps, Animated, useAnimatedStyle, useSharedValue, withTiming } from '@3rd'
 
 import { useZustandStore } from '$exporter'
 import Icons from './Icons'
@@ -9,7 +7,6 @@ import { useStyles } from './styleBottomNav'
 
 export default React.memo(function BottomNav({ state, descriptors, navigation }: BottomTabBarProps) {
     //
-
     const { styles, COLORS } = useStyles()
     const { hideBottomTab, setActiveBottomTab } = useZustandStore()
     const height = useSharedValue(50)
@@ -36,8 +33,8 @@ export default React.memo(function BottomNav({ state, descriptors, navigation }:
                     options.tabBarLabel !== undefined
                         ? options.tabBarLabel.toString()
                         : options.title !== undefined
-                        ? options.title
-                        : route.name
+                          ? options.title
+                          : route.name
 
                 const isFocused = state.index === index
 

@@ -28,9 +28,6 @@ export default function AddPost() {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigate('timeline')} style={styles.back}>
-                <BackIcon stroke={COLORS.text} />
-            </TouchableOpacity>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
                 {actives.warn ? (
                     <InputTextField createPost={createPost} setCreatePost={setCreatePost} inputType="warn" />
