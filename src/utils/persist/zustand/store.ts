@@ -49,7 +49,7 @@ export const useStore = create<StoreInterface>()(
                 isFreshApp: false,
             },
             auth: {
-                token: null,
+                token: undefined,
                 isSignedIn: false,
             },
             nav: 'Eshal',
@@ -79,7 +79,7 @@ export const useStore = create<StoreInterface>()(
                 set(state => ({ auth: prop }))
             },
             resetAuth: () => {
-                set(state => ({ auth: { token: null, isSignedIn: false } }))
+                set(state => ({ auth: { token: undefined, isSignedIn: false } }))
             },
             setNav: (prop: string) => {
                 set(state => ({ nav: prop }))
