@@ -9,7 +9,7 @@ export { default as InputText } from '../uix/components/Forms/TextInput/TextInpu
 export { default as InputInline } from '../uix/components/Forms/InlineInput/InlineInput'
 
 // NAVBAR
-export { default as BottomNav } from '../uix/components/Navigations/BottomNav/BottomNav'
+export { default as BottomNav } from '../uix/components/Navigations/bottom-nav/bottom-nav'
 
 // CARDS
 export { default as PostCard } from '../uix/components/Cards/PostCard/PostCard'

@@ -40,6 +40,7 @@
                 "expo-build-properties",
                 {
                     "ios": {
+                        "newArchEnabled": true,
                         "extraPods": [
                             {
                                 "name": "simdjson",
@@ -50,6 +51,7 @@
                         ]
                     },
                     "android": {
+                        "newArchEnabled": true,
                         "kotlinVersion": "1.6.10",
                         "packagingOptions": {
                             "pickFirst": ["**/libc++_shared.so"]

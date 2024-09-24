@@ -3,13 +3,11 @@ import { SplashScreen, StatusBarStyle } from '@expo'
 import { QueryClient } from '@3rd'
 
 import { useColors, useZustandStore } from '$exporter'
-// import { wdbLocalStorage } from '$exporter/persist'
-import { TokenType } from '$exporter/type'
+import { useLocalStorage } from '$exporter/persist'
 
 SplashScreen.preventAutoHideAsync()
 setTimeout(SplashScreen.hideAsync, 200)
 
-// const { get: getToken, KEYS } = wdbLocalStorage
 const queryClient = new QueryClient()
 
 export default function useAppInit() {
@@ -17,20 +15,16 @@ export default function useAppInit() {
 
     const { themeMode } = useColors()
     const { setAuth, setIsFreshApp } = useZustandStore()
+    const { authToken } = useLocalStorage()
 
     const statusBarStyle: StatusBarStyle = themeMode === 'dark' ? 'dark' : 'light'
 
-    // useEffect(() => {
-    //     getToken<TokenType>(KEYS.TOKEN)
-    //         .then(token => {
-    //             const hasToken = token ? true : false
-    //             if (token) setAuth({ token, isSignedIn: hasToken })
-    //             setIsFreshApp(!hasToken)
-    //         })
-    //         .catch(e => {
-    //             console.log('ERROR from useAppInit.ts: \n', e)
-    //         })
-    // }, [])
+    useEffect(() => {
+        const token = authToken.get
+        const hasToken = token ? true : false
+        if (hasToken) setAuth({ token, isSignedIn: true })
+        setIsFreshApp(!hasToken)
+    }, [])
 
     return {
         statusBarStyle,

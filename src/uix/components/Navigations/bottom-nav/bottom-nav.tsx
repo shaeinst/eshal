@@ -2,8 +2,8 @@ import { React, useEffect, TouchableOpacity } from '@native'
 import { BottomTabBarProps, Animated, useAnimatedStyle, useSharedValue, withTiming } from '@3rd'
 
 import { useZustandStore } from '$exporter'
-import Icons from './Icons'
-import { useStyles } from './styleBottomNav'
+import Icons from './icons'
+import { useStyles } from './bottom-nav.style'
 
 export default React.memo(function BottomNav({ state, descriptors, navigation }: BottomTabBarProps) {
     //
