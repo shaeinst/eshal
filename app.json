@@ -29,13 +29,7 @@
         },
         "plugins": [
             "expo-router",
-            "expo-build-properties",
-            [
-                "@morrowdigital/watermelondb-expo-plugin",
-                {
-                    "disableJsi": true
-                }
-            ],
+            "expo-video",
             [
                 "expo-build-properties",
                 {
@@ -86,8 +80,7 @@
                         "./src/assets/fonts/Kodchasan/Kodchasan-SemiBoldItalic.ttf"
                     ]
                 }
-            ],
-            "expo-video"
+            ]
         ],
         "experiments": {
             "typedRoutes": true
